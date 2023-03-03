@@ -1,7 +1,10 @@
-https://img.shields.io/badge/React-16.13.1-blue.svg
-https://img.shields.io/badge/React%20Router-5.2.0-blue.svg
-https://img.shields.io/badge/Style%20SCSS-1.26.10-blue.svg
+[![sass](https://img.shields.io/badge/Style%20SCSS-1.26.10-blue.svg)](https://sass-lang.com/)
+[![react](https://img.shields.io/badge/React-16.13.1-blue.svg)](https://reactjs.org/)
+[![react-router](https://img.shields.io/badge/React%20Router-5.2.0-blue.svg)](https://reacttraining.com/react-router/)
 
+
+## DB Diagram
+https://dbdiagram.io/d/637f85c2c9abfc6111750636
 # .env
 
 ```bash
