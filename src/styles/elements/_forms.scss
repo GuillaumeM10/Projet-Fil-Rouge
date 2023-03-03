@@ -1,0 +1,56 @@
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 15px;
+  background-color: $white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px 0 rgba($color: $black, $alpha: 0.1);
+  
+  @include cta($primary, 15px, 5px, $white, $black, 20px)
+}
+
+.formGroup{
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  position: relative;
+  width: fit-content;
+
+  label{
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba($color: $black, $alpha: 0.5);
+    background-color: $white;
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+
+    &.active{
+      visibility: visible;
+      pointer-events: auto;
+      opacity: 1;
+    }
+  }
+  input{
+    padding: 0.5rem;
+    border: 1px solid rgba($color: $black, $alpha: 0.5);
+    border-radius: 0.25rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    max-width: 400px;
+    &:focus{
+      outline: none;
+      border-color: $primary;
+    }
+  }
+
+}
