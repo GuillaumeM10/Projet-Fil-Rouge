@@ -10,16 +10,21 @@ import { UserContext } from "./setup/contexts/UserContext";
 import ProtectedRoute from "./app/routers/ProtectedRoute";
 import { useContext, useEffect } from "react";
 import TokenService from "./setup/services/token.service";
+import UserService from "./setup/services/user.service";
 
 function App() {
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const acccessToken = TokenService.getTokenFromLocalStorage()
-    if(acccessToken){
-      const user = TokenService.getUserInToken(acccessToken)
-      setUser(user)
-    } 
+    const userGlobal = async () => { 
+      const acccessToken = TokenService.getTokenFromLocalStorage()
+      if(acccessToken){
+        const userId = TokenService.getUserInToken(acccessToken)
+        const response = await UserService.getOneById(+userId.id)
+        setUser(response)
+      } 
+    }
+    userGlobal()
     // eslint-disable-next-line
   }, [])
 
@@ -30,13 +35,21 @@ function App() {
               <Route path="/" element={<HomePage />} />
 
               <Route path="/account" element={
-                <ProtectedRoute>
+                <ProtectedRoute to="/auth/signin" bool={false} >
                   <AccountPage />
                 </ProtectedRoute>
               } />
               
-              <Route path="/auth/signin" element={<SigninPage />} />
-              <Route path="/auth/signup" element={<SignupPage />} />
+              <Route path="/auth/signin" element={
+                <ProtectedRoute to="/account" bool={true} >
+                  <SigninPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/auth/signup" element={
+                <ProtectedRoute to="/account" bool={true} >
+                  <SignupPage />
+                </ProtectedRoute>
+              } />
             </Routes>
           </MainLayout>
     </BrowserRouter>

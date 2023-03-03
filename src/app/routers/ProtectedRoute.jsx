@@ -1,13 +1,15 @@
-import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../../setup/contexts/UserContext";
+import TokenService from "../../setup/services/token.service";
 
-const ProtectedRoute = ({children}) => {
-    const { user } = useContext(UserContext);
+const ProtectedRoute = ({ children, to, bool }) => {
+    let acccessToken = TokenService.getTokenFromLocalStorage();
 
-    if(!user.email) return <Navigate to="/auth/signin" />;
+    if (acccessToken) acccessToken = true 
+    else acccessToken = false
+
+    if(acccessToken === bool) return <Navigate to={to} />;
 
     return children;
 }
- 
+
 export default ProtectedRoute;

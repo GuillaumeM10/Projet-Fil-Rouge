@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../setup/contexts/AuthContext";
 import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
@@ -8,21 +8,40 @@ import AuthInputs from "./AuthInputs";
 const SignupForm = () => {
   const { credentials, handleChange } = useContext(AuthContext);
   const { labelDisplay } = useContext(ScriptsContext);
+  const [ displayedError, setDisplayedError ] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-        await AuthService.signup(credentials);
-        // navigate("/auth/signin")
-    } catch (error) {
-        console.log(error);
+  const checkConfirmPassword = () => {
+    if (credentials.password !== credentials.confirmPassword) {
+      setDisplayedError("Les mots de passe ne correspondent pas");
+      return false;
+    } else {
+      setDisplayedError(null);
+      return true;
     }
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    checkConfirmPassword()
+    if (checkConfirmPassword()) { 
+      try {
+        await AuthService.signup(credentials);
+        navigate("/auth/signin")
+      } catch (error) {
+        setDisplayedError(error.response.data.message);
+      }
+    }
+  }
+
+  // useEffect(() => {
+  //   console.log(displayedError);
+  // }, [displayedError])
+
   return ( 
     <form onSubmit={handleSubmit}>
+      <h1>Inscription</h1>
+
       <AuthInputs handleChange={handleChange} confirmPassword={true} />
 
       <div className="formGroup">
@@ -110,6 +129,7 @@ const SignupForm = () => {
           }}
         />
       </div>
+      { displayedError && <div className="error">{ displayedError }</div> }
 
       <button type="submit">INSCRIPTION</button>
     </form>

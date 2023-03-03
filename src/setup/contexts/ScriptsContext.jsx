@@ -4,7 +4,6 @@ const ScriptsContext = createContext();
 
 const ScriptsProvider = ({ children }) => {
   const labelDisplay = (e) => {
-    console.log("zzz");
     const label = e.target.previousElementSibling;
     if (e.target.value !== "") {
       label.classList.add("active");
@@ -13,13 +12,13 @@ const ScriptsProvider = ({ children }) => {
     }
   }
 
-    return (
-        <ScriptsContext.Provider value={{
-            labelDisplay
-        }}>
-            {children}
-        </ScriptsContext.Provider>
-    )
+  return (
+    <ScriptsContext.Provider value={{
+      labelDisplay
+    }}>
+      {children}
+    </ScriptsContext.Provider>
+  )
 }
 
 export { ScriptsContext, ScriptsProvider };

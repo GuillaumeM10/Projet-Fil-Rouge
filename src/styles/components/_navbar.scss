@@ -3,12 +3,14 @@ nav.mainNav{
   justify-content: space-between;
   align-items: center;
   width: calc(100% - 240px);
-  padding: 30px 120px;
+  padding-top: 15px;
+  padding-bottom: 15px; 
   box-shadow: inset 0px 0px 0px 1px rgba($color: $black, $alpha: 0.1);
-
+  background-color: $white;
+  gap: 20px;
 
   .logo{
-    width: 227px;
+    width: 246px;
     display: flex;
     align-items: center;
   }
@@ -64,5 +66,12 @@ nav.mainNav{
     &:hover{
       color: $primary;
     }
+  }
+
+  @media screen and (max-width: $tablette) {
+    width: calc(100% - 120px);
+  }
+  @media screen and (max-width: $mobile) {
+    width: calc(100% - 40px);
   }
 }

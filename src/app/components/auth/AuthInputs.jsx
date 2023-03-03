@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
+
 const AuthInputs = ({handleChange, confirmPassword}) => {
+  const { labelDisplay } = useContext(ScriptsContext);
   return ( 
     <>
 
@@ -9,7 +13,10 @@ const AuthInputs = ({handleChange, confirmPassword}) => {
             name="email"
             placeholder="Email"
             required
-            onChange={handleChange}
+            onChange={(e) => {
+            handleChange(e)
+            labelDisplay(e)
+          }}
           />
       </div>
 
@@ -20,7 +27,10 @@ const AuthInputs = ({handleChange, confirmPassword}) => {
             name="password"
             placeholder="Mot de passe"
             required
-            onChange={handleChange}
+            onChange={(e) => {
+            handleChange(e)
+            labelDisplay(e)
+          }}
         />
       </div>
 
@@ -32,7 +42,10 @@ const AuthInputs = ({handleChange, confirmPassword}) => {
             name="confirmPassword"
             placeholder="Confirmez le mot de passe"
             required
-            onChange={handleChange}
+            onChange={(e) => {
+            handleChange(e)
+            labelDisplay(e)
+          }}
           />
         </div>
       }

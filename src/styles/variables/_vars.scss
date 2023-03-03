@@ -1,3 +1,20 @@
+$desktop: 1440px;
+$tablette: 1024px;
+$mobile: 768px;
+
+.defaultPaddingX{padding-left:120px; padding-right:120px}
+.defaultPaddingY{padding-top:80px; padding-bottom:80px}
+
+@media screen and (max-width: $tablette){
+  .defaultPaddingX{padding-left:80px; padding-right:80px}
+  .defaultPaddingY{padding-top:40px; padding-bottom:40px}
+}
+
+@media screen and (max-width: $mobile){
+  .defaultPaddingX{padding-left:40px; padding-right:40px}
+  .defaultPaddingY{padding-top:20px; padding-bottom:20px}
+}
+
 $white: #fff;
 $black: #000;
 

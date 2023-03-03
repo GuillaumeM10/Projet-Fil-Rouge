@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import TokenService from "../services/token.service";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [credentials, setCredentials] = useState({})
+    const [token, setToken] = useState(null)
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -25,10 +27,15 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    useEffect(() => {
+        setToken(TokenService.getTokenFromLocalStorage())
+    }, [])
+
     return (
         <AuthContext.Provider value={{
             credentials,
-            handleChange
+            handleChange,
+            token
         }}>
             {children}
         </AuthContext.Provider>

@@ -6,20 +6,20 @@ const Navbar = () => {
     const { user } = useContext(UserContext);
 
     return ( 
-        <nav className="mainNav">
-            <div className="logo">
-                <img src="img/logo.svg" alt="" />
-            </div>
+        <nav className="mainNav defaultPaddingX">
+            <Link to="/" className="logo">
+                <img src="/img/logo.svg" alt="" />
+            </Link>
 
             <div className="searchBar">
                 <input type="search" placeholder="WORK IN PROGRESS" />
-                <button><img src="img/search.svg" alt="" /></button>
+                <button><img src="/img/search.svg" alt="" /></button>
             </div>
             
             <ul>
-                <li>
+                {/* <li>
                     <Link to="/">Home</Link>
-                </li>    
+                </li>     */}
                 {user.email && 
                     <li>
                         <Link to="/account">Account</Link>

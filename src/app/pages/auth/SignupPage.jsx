@@ -2,9 +2,7 @@ import SignupForm from "../../components/auth/SignupForm";
 
 const SignupPage = () => {
     return ( 
-        <div>
-            <h1>Signup page</h1>
-            
+        <div className="signUp height100">
             <SignupForm />
         </div>
     );

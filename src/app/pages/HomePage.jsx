@@ -1,7 +1,11 @@
+import PostList from "../components/posts/PostList";
+
 const HomePage = () => {
   return ( 
-      <div>
+      <div className="defaultPaddingX defaultPaddingY">
           <h1>Home page</h1>
+
+          <PostList />
       </div>
   );
 }
