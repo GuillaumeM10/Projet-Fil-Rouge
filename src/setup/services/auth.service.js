@@ -13,9 +13,21 @@ const signup = async (credentials) => {
     return response.data
 }
 
+const forgotPassword = async (data) => {
+    const response = await api.post(`${ENDPPOINT}/forgot-password`, data);
+    return response.data;
+};
+
+const resetPassword = async (id, data) => {
+    const response = await api.post(`${ENDPPOINT}/reset-password/` + id, data);
+    return response.data;
+};
+
 const AuthService = {
     signup,
-    signin
+    signin,
+    forgotPassword,
+    resetPassword
 }
 
 export default AuthService

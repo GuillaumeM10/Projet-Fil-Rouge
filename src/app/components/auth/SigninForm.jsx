@@ -3,7 +3,7 @@ import {
     // useEffect, 
     useState 
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../../setup/contexts/AuthContext";
 import { UserContext } from "../../../setup/contexts/UserContext";
 import AuthService from "../../../setup/services/auth.service";
@@ -42,6 +42,7 @@ const SigninForm = () => {
             { displayedError && <div className="error">{ displayedError }</div> }
 
             <button type="submit">CONNEXION</button>
+            <Link to='/forget-password'>Mot de passe oublié ?</Link>
         </form>
     );
 }
