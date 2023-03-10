@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PostContext } from "../../../setup/contexts/PostContext";
 import { UserContext } from "../../../setup/contexts/UserContext";
 import PostService from "../../../setup/services/post.service";
 import TokenService from "../../../setup/services/token.service";
@@ -9,6 +10,7 @@ const AccountPage = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [ userPosts, setUserPosts ] = useState([]);
+  const { credentials, handleChange } = useContext(PostContext);
 
   const setPosts = async () => {
     if(user.id){
@@ -41,26 +43,26 @@ const AccountPage = () => {
     }
   }
 
-  const updatePost = (e, id) => async() => {
-    console.log("e");
-    // if(e.target.textContent === "Modifier"){
-    //   e.target.parentElement.children[0].disabled = false;
-    //   e.target.parentElement.children[2].style.display = "block";
+  const updatePost = async(e, id) => {
+    // console.log("e");
+    if(e.target.textContent === "Modifier"){
+      e.target.parentElement.childNodes[1].disabled = false;
+      e.target.parentElement.childNodes[2].style.display = "block";
       
-    //   e.target.textContent = "Enregister";
+      e.target.textContent = "Enregister";
       
-    // }else if(e.target.textContent === "Enregister"){
-    //   console.log("enregister");
-    //   e.target.parentElement.children[0].disabled = true;
-    //   e.target.textContent = "Modifier";
+    }else if(e.target.textContent === "Enregister"){
+      console.log("enregister");
+      e.target.parentElement.childNodes[1].disabled = true;
+      e.target.textContent = "Modifier";
       
-    //   try {
-    //     await PostService.update(id);
-    //     setPosts();
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+      try {
+        await PostService.update(id, credentials);
+        setPosts();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
 
@@ -85,28 +87,28 @@ const AccountPage = () => {
                     <div className="userPost" key={post.id}>
                       <h2>Publication {id + 1}</h2>
 
-                      {/* <form> */}
-                        <input 
-                          defaultValue={post.content} 
-                          disabled 
-                        />
+                      <input 
+                        defaultValue={post.content} 
+                        disabled
+                        onChange={handleChange}
+                        name="content"
+                      />
 
-                        <button
-                          onClick={ (e) => {updatePost(e, post.id)} }
-                        >
-                          Modifier
-                        </button>
-                        <button
-                          style={{display: "none"}}
-                          onClick={(e) => {
-                            e.target.parentElement.children[1].textContent = "Modifier";
-                            e.target.parentElement.children[0].disabled = true;
-                            e.target.style.display = "none";
-                          }}
-                        >
-                          Annuler
-                        </button>
-                      {/* </form> */}
+                      <button
+                        onClick={ (e) => {updatePost(e, post.id)} }
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        style={{display: "none"}}
+                        onClick={(e) => {
+                          e.target.parentElement.children[1].textContent = "Modifier";
+                          e.target.parentElement.children[0].disabled = true;
+                          e.target.style.display = "none";
+                        }}
+                      >
+                        Annuler
+                      </button>
                       <button
                         type="button"
                         onClick={removePost(post.id)}
