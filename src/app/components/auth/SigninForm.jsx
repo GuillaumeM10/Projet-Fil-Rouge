@@ -36,7 +36,7 @@ const SigninForm = () => {
     // }, [displayedError])
     
     return ( 
-        <form onSubmit={handleSubmit}>
+        <form className="mainform" onSubmit={handleSubmit}>
             <h1>Connexion</h1>
             <AuthInputs handleChange={handleChange} confirmPassword={false} />
             { displayedError && <div className="error">{ displayedError }</div> }

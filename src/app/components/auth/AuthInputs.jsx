@@ -3,6 +3,8 @@ import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
 
 const AuthInputs = ({handleChange, confirmPassword}) => {
   const { labelDisplay } = useContext(ScriptsContext);
+  let autoComplete = confirmPassword ? "new-password" : "on";
+
   return ( 
     <>
 
@@ -13,6 +15,7 @@ const AuthInputs = ({handleChange, confirmPassword}) => {
             name="email"
             placeholder="Email"
             required
+            autoComplete="username"
             onChange={(e) => {
             handleChange(e)
             labelDisplay(e)
@@ -27,6 +30,7 @@ const AuthInputs = ({handleChange, confirmPassword}) => {
             name="password"
             placeholder="Mot de passe"
             required
+            autoComplete={autoComplete}
             onChange={(e) => {
             handleChange(e)
             labelDisplay(e)
@@ -42,6 +46,7 @@ const AuthInputs = ({handleChange, confirmPassword}) => {
             name="confirmPassword"
             placeholder="Confirmez le mot de passe"
             required
+            autoComplete="new-password"
             onChange={(e) => {
             handleChange(e)
             labelDisplay(e)

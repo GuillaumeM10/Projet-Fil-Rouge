@@ -28,7 +28,7 @@ const PostProvider = ({ children }) => {
         ...credentials,
         "author": user.id
       })
-    }, [user])
+    }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -55,7 +55,8 @@ const PostProvider = ({ children }) => {
         <PostContext.Provider value={{
             credentials,
             handleChange,
-            posts
+            posts,
+            getAllPosts
         }}>
             {children}
         </PostContext.Provider>

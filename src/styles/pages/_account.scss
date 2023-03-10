@@ -1,3 +1,50 @@
 .account{
-  @include cta($primary, 15px, 5px, $white, $black, 20px)
+
+  .userPosts{
+    input{
+
+      &[disabled]{
+        background-color: transparent;
+        color: $black;
+        border: none;
+      }
+    }
+
+    button.updatePost{
+      background-color: transparent;
+      border: none;
+      color: $black;
+      font-size: 1.5rem;
+      cursor: pointer;
+    
+      &:hover{
+        color: $primary;
+      }
+    }
+
+    button.removePost{
+      background-color: transparent;
+      border: none;
+      color: $black;
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover{
+        color: $primary;
+      }
+    }
+
+    button.cancelUpdatePost{
+      background-color: transparent;
+      border: none;
+      color: $black;
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover{
+        color: $primary;
+      }
+    }
+
+  }
 }

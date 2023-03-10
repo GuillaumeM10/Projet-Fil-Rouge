@@ -4,7 +4,7 @@ import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
 
 const CreatePostForm = ({ setPosts }) => {
-  const { credentials, handleChange } = useContext(PostContext);
+  const { credentials, handleChange, getAllPosts } = useContext(PostContext);
   const { labelDisplay } = useContext(ScriptsContext);
   const [ displayedError, setDisplayedError ] = useState(null);
 
@@ -14,6 +14,7 @@ const CreatePostForm = ({ setPosts }) => {
     try {
         await PostService.create(credentials);
         setPosts();
+        getAllPosts();
     } catch (error) {
         setDisplayedError(error.response.data.message);
         console.log(error);

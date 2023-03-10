@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../setup/contexts/AuthContext";
 import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
@@ -39,7 +39,7 @@ const SignupForm = () => {
   // }, [displayedError])
 
   return ( 
-    <form onSubmit={handleSubmit}>
+    <form className='mainform' onSubmit={handleSubmit}>
       <h1>Inscription</h1>
 
       <AuthInputs handleChange={handleChange} confirmPassword={true} />
