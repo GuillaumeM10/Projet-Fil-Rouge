@@ -18,8 +18,8 @@ const forgotPassword = async (data) => {
     return response.data;
 };
 
-const resetPassword = async (id, data) => {
-    const response = await api.post(`${ENDPPOINT}/reset-password/` + id, data);
+const resetPassword = async (token, data) => {
+    const response = await api.post(`${ENDPPOINT}/reset-password/${token}`, data);
     return response.data;
 };
 
