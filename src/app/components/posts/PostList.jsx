@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { PostContext } from '../../../setup/contexts/PostContext';
 
 const PostList = () => {
   const { posts } = useContext(PostContext)
+  console.log(posts);
 
   return (
     <div>
@@ -13,6 +14,10 @@ const PostList = () => {
               <p>{post.content}</p>
               <p>{post.published}</p>
               <p>Auteur : {post.author.firstName} {post.author.lastName}</p>
+
+              { post.uploadFiles && post.uploadFiles.map((file, key) => (
+                <img key={key} src={file.Location}  />
+              ))}
             </div>
           ))}
         </>

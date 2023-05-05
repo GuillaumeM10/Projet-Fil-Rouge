@@ -10,7 +10,7 @@ const CreatePostForm = ({ setPosts }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(credentials);
     try {
         await PostService.create(credentials);
         setPosts();
@@ -34,6 +34,18 @@ const CreatePostForm = ({ setPosts }) => {
           onChange={(e) => {
             handleChange(e)
             labelDisplay(e)
+          }}
+        />
+      </div>
+
+      <div className="formGroup">
+        <label htmlFor="files">Image</label>
+        <input
+          type="file"
+          name="files"
+          placeholder="Image"
+          onChange={(e) => {
+            handleChange(e)
           }}
         />
       </div>

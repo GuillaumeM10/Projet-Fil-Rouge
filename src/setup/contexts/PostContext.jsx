@@ -44,6 +44,7 @@ const PostProvider = ({ children }) => {
         //     })
         // }else{
             if (name === "published") value = e.target.checked;
+            if(name == "files") value = e.target.files[0];
             setCredentials({
                 ...credentials,
                 [name]: value

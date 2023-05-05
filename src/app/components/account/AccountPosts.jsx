@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { PostContext } from "../../../setup/contexts/PostContext";
 import PostService from '../../../setup/services/post.service';
 
@@ -14,6 +14,11 @@ const AccountPosts = ({ setPosts, userPosts }) => {
       console.log(error);
     }
   }
+
+  // useEffect(() => {
+  //   console.log(userPosts);
+  // }, [userPosts])
+
 
   const handleUpdatePost = async(e, id) => {
     if(e.target.textContent === "Annuler"){
@@ -77,6 +82,10 @@ const AccountPosts = ({ setPosts, userPosts }) => {
                 >
                   Supprimer
                 </button>
+
+                { post.uploadFile && (
+                  <img src={post.uploadFile.Location} alt=""  width="300" />
+                )}
               </div>
             ))}
           </>
