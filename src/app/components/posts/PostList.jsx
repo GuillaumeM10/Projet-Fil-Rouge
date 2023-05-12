@@ -16,7 +16,7 @@ const PostList = () => {
               <p>Auteur : {post.author.firstName} {post.author.lastName}</p>
 
               { post.uploadFiles && post.uploadFiles.map((file, key) => (
-                <img key={key} src={file.Location}  />
+                <img key={key} width="500" src={file.Location}  />
               ))}
             </div>
           ))}

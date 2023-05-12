@@ -62,6 +62,10 @@ const AccountPosts = ({ setPosts, userPosts }) => {
                   name="content"
                 />
 
+                { post.uploadFiles && post.uploadFiles.map((file, key) => (
+                  <img key={key} width="500" src={file.Location}  />
+                ))}
+
                 <button
                   onClick={ (e) => { handleUpdatePost(e, post.id)} }
                   className="updatePost"

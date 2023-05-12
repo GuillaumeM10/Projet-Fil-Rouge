@@ -23,7 +23,13 @@ const create = async (post) => {
 
   formData.append('author', post.author)
   formData.append('content', post.content)
-  formData.append('files', post.files)
+
+  // FILES
+  const files = Array.from(post.files)
+  files.forEach((file, index) => {
+    console.log(file);
+    formData.append('files', file)
+  })
 
   const response = await api.post(ENDPOINT, formData, { formData: true })
   

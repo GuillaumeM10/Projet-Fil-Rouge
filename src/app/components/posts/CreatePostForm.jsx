@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { PostContext } from '../../../setup/contexts/PostContext';
 import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
@@ -19,7 +20,35 @@ const CreatePostForm = ({ setPosts }) => {
         setDisplayedError(error.response.data.message);
         console.log(error);
     }
-}
+  }
+
+  // useEffect( () => {
+  //   console.log(credentials);
+  // }, [credentials])
+
+  const logFiles = (e) => {
+    // console.log(e.target.files);
+  }
+
+  const filesPreview = (e) => {
+    const previewFiles = document.querySelector('.previewFiles');
+    previewFiles.innerHTML = '';
+    const files = e.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.addEventListener('load', function() {
+        const div = document.createElement('div');
+        div.classList.add('previewFile');
+        div.innerHTML = `
+          <img src="${this.result}" width="100" />
+          <p>${file.name}</p>
+        `;
+        previewFiles.appendChild(div);
+      });
+      reader.readAsDataURL(file);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -43,11 +72,17 @@ const CreatePostForm = ({ setPosts }) => {
         <input
           type="file"
           name="files"
+          multiple
           placeholder="Image"
           onChange={(e) => {
             handleChange(e)
+            logFiles(e)
+            filesPreview(e)
           }}
         />
+        {/* system make a preview a the files */}
+        <div className="previewFiles"></div>
+
       </div>
 
       <div style={{ 
