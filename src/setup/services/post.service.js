@@ -36,16 +36,6 @@ const create = async (post) => {
   return response.data
 }
 
-
-
-// api.post('/endpoint', formData, { formData: true })
-//   .then(response => {
-//     console.log(response.data);
-//   })
-//   .catch(error => {
-//     console.log(error);
-// });
-
 const update = async (id, post) => {
   const response = await api.put(`${ENDPOINT}/${id}`, post)
   return response.data
