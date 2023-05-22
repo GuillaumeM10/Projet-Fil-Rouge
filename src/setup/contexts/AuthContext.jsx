@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null)
 
     const handleChange = (e) => {
+        console.log(credentials);
         let { name, value } = e.target;
 
         if(["status", "formation", "country", "displayedOnFeed"].includes(name)){
@@ -34,6 +35,7 @@ const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             credentials,
+            setCredentials,
             handleChange,
             token
         }}>

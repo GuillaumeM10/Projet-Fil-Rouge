@@ -3,6 +3,7 @@ import {
     // useEffect, 
     useState 
 } from "react";
+import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../../setup/contexts/AuthContext";
 import { UserContext } from "../../../setup/contexts/UserContext";
@@ -24,9 +25,18 @@ const SigninForm = () => {
             TokenService.setTokenInLocalStorage(accessToken);
             const user = TokenService.getUserInToken(accessToken);
             setUser(user)
-            navigate("/")
+
+            toast.success("Connexion réussie.");
+
+            setTimeout(() => {
+                navigate("/")
+            }, 1000);
+
         } catch (error) {
             setDisplayedError(error.response.data.message);
+
+            toast.error(error.response.data.message);
+
             console.log(error);
         }
     }

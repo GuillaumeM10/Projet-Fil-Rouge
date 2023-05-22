@@ -6,6 +6,8 @@ import { AuthProvider } from './setup/contexts/AuthContext';
 import { UserProvider } from './setup/contexts/UserContext';
 import { ScriptsProvider } from './setup/contexts/ScriptsContext';
 import { PostProvider } from './setup/contexts/PostContext';
+import { Toaster } from 'react-hot-toast';
+import Toast from './app/components/taost/Toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +16,7 @@ root.render(
       <UserProvider>
         <PostProvider>
           <App />
+          <Toast />
         </PostProvider>
       </UserProvider>
     </AuthProvider>
