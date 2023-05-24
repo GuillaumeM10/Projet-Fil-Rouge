@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import ForgotPasswordPage from '../pages/auth/ForgotPasswordPage';
 import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
 import SigninPage from '../pages/auth/SigninPage';
@@ -10,6 +10,12 @@ import AccountPage from '../pages/user/AccountPage';
 import ProtectedRoute from './ProtectedRoute';
 
 const MainRouter = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if(window.location.pathname !== "/auth/signup") localStorage.removeItem("signUpUserDetails")
+  }, [location]);
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
