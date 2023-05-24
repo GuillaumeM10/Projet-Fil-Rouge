@@ -8,12 +8,12 @@ const Navbar = () => {
     return ( 
         <nav className="mainNav defaultPaddingX">
             <Link to="/" className="logo">
-                <img src="./img/logo.svg" alt="" />
+                <img src="/img/logo.svg" alt="" />
             </Link>
 
             <div className="searchBar">
                 <input type="search" placeholder="WORK IN PROGRESS" />
-                <button><img src="./img/search.svg" alt="" /></button>
+                <button><img src="/img/search.svg" alt="" /></button>
             </div>
             
             <ul>

@@ -1,6 +1,52 @@
 .account{
 
   .userPosts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+
+    .userPost{
+      width: calc(100% / 3 - 10px);
+      height: auto;
+      border: 1px solid $black;
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      background-color: $white;
+
+      img{
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+      }
+
+      .btns{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between  ;
+        align-items: center;
+        gap: 10px;
+
+        button{
+          background-color: transparent;
+          border: none;
+          color: $black;
+          font-size: 1.5rem;
+          cursor: pointer;
+
+          &:hover{
+            color: $primary;
+          }
+        }
+      }
+    }
     input{
 
       &[disabled]{

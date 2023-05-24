@@ -27,7 +27,7 @@ const create = async (post) => {
   // FILES
   const files = Array.from(post.files)
   files.forEach((file, index) => {
-    console.log(file);
+    // console.log(file);
     formData.append('files', file)
   })
 

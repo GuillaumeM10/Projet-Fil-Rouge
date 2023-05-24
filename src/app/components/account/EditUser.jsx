@@ -1,0 +1,104 @@
+import React, { useContext } from 'react';
+import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
+import { UserContext } from '../../../setup/contexts/UserContext';
+
+const EditUser = () => {
+  const { user, setUser } = useContext(UserContext);
+  const { labelDisplay } = useContext(ScriptsContext);
+
+  return (
+    <form>
+      <div className="formGroup">
+        <label htmlFor="firstName">Prénom</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          placeholder='Prénom'
+          value={user.firstName}
+          onChange={(e) => {
+            setUser({ ...user, firstName: e.target.value })
+            labelDisplay(e)
+          }}
+        />
+      </div>
+
+      <div className="formGroup">
+        <label htmlFor="lastName">Nom</label>
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          value={user.lastName}
+          placeholder='Nom'
+          onChange={
+            (e) => {
+              setUser({ ...user, lastName: e.target.value })
+              labelDisplay(e)
+            }}
+        />
+      </div>
+
+      <div className="formGroup">
+      <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={user.email}
+          placeholder='Email'
+          onChange={(e) => {
+            setUser({ ...user, email: e.target.value })
+            labelDisplay(e)
+          }}
+        />
+      </div>
+
+      <div className="formGroup">
+        <label htmlFor="profilePicture">Photo de profil</label>
+        <input
+          type="file"
+          name="profilePicture"
+          id="profilePicture"
+          onChange={(e) => {
+            setUser({ ...user, profilePicture: e.target.files[0] })
+            labelDisplay(e)
+          }}
+        />
+      </div>
+
+      <div className="formGroup">
+        <label htmlFor="password">Mot de passe</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder='Mot de passe'
+          onChange={(e) => {
+            setUser({ ...user, password: e.target.value })
+            labelDisplay(e)
+        }}
+        />
+      </div>
+
+      <div className="formGroup">
+        <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder='Confirmer le mot de passe'
+          onChange={(e) =>{
+            setUser({ ...user, confirmPassword: e.target.value })
+            labelDisplay(e)
+          }}
+        />
+      </div>
+      
+      <button type="submit">Modifier</button>
+      
+    </form>
+  );
+};
+
+export default EditUser;

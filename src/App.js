@@ -10,6 +10,8 @@ import MainRouter from './app/routers/MainRouter';
 
 function App() {
   const { setUser } = useContext(UserContext);
+  //if slug is no "/account" then delete element "account" in localstorage
+  if(window.location.pathname !== "/auth/signup") localStorage.removeItem("signUpUserDetails  ")
 
   useEffect(() => {
     const userGlobal = async () => { 

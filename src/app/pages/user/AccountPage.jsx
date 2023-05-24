@@ -5,6 +5,7 @@ import PostService from "../../../setup/services/post.service";
 import TokenService from "../../../setup/services/token.service";
 import CreatePostForm from "../../components/posts/CreatePostForm";
 import AccountPosts from "../../components/account/AccountPosts";
+import EditUser from "../../components/account/EditUser";
 
 const AccountPage = () => {
   const [ userPosts, setUserPosts ] = useState([]);
@@ -44,6 +45,8 @@ const AccountPage = () => {
           >
             Déconnexion
           </button>
+
+          <EditUser />
 
           <CreatePostForm setPosts={setPosts} />
 

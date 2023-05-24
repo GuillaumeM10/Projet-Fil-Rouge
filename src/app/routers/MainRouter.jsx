@@ -5,6 +5,7 @@ import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
 import SigninPage from '../pages/auth/SigninPage';
 import SignupPage from '../pages/auth/SignupPage';
 import HomePage from '../pages/HomePage';
+import ProfilePage from '../pages/profile/ProfilePage';
 import AccountPage from '../pages/user/AccountPage';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -12,6 +13,9 @@ const MainRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+
+      {/* Profile */}
+      <Route path="/profile/:id" element={<ProfilePage />} />
 
       <Route path="/account" element={
         <ProtectedRoute to="/auth/signin" bool={false} >
@@ -24,14 +28,15 @@ const MainRouter = () => {
           <SigninPage />
         </ProtectedRoute>
       } />
+
       <Route path="/auth/signup" element={
         <ProtectedRoute to="/account" bool={true} >
           <SignupPage />
         </ProtectedRoute>
       } />
 
-        <Route path="/forget-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      <Route path="/forget-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
     </Routes>
   );
 };
