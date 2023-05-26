@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../../../setup/contexts/UserContext';
 
 const Step2 = ({ handleChange, labelDisplay}) => {
+  const { user } = useContext(UserContext);
+  //get user from context
+
   const countries = [
     "France",
     "Afrique du Sud",
@@ -67,6 +71,7 @@ const Step2 = ({ handleChange, labelDisplay}) => {
           type="text"
           name="firstName"
           placeholder="Prénom"
+          value={user.firstName}
           required
           onChange={(e) => {
             handleChange(e)
@@ -82,6 +87,7 @@ const Step2 = ({ handleChange, labelDisplay}) => {
           name="lastName"
           placeholder="Nom"
           required
+          value={user.lastName}
           onChange={(e) => {
             handleChange(e)
             labelDisplay(e)
