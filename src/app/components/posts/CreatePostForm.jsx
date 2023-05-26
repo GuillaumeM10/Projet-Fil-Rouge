@@ -1,18 +1,44 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { PostContext } from '../../../setup/contexts/PostContext';
 import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
 
 const CreatePostForm = ({ setPosts }) => {
-  const { credentials, handleChange, getAllPosts } = useContext(PostContext);
   const { labelDisplay } = useContext(ScriptsContext);
   const [ displayedError, setDisplayedError ] = useState(null);
+  const [credentials, setCredentials] = useState({})
+
+  const getAllPosts = async (params) => {
+    try {
+      const response = await PostService.getAll(params);
+      setPosts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAllPosts();
+  }, [])
+
+  const handleChange = (e) => {
+    console.log('change');
+      let { name, value } = e.target;
+      if (name === "published") value = e.target.checked;
+      if(name == "files"){
+          value = e.target.files;
+      };
+      setCredentials({
+          ...credentials,
+          [name]: value
+      })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(credentials);
     try {
+      console.log(credentials);
         await PostService.create(credentials);
         setPosts();
         getAllPosts();

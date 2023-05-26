@@ -5,7 +5,7 @@ import PostService from '../../../setup/services/post.service';
 const AccountPosts = ({ setPosts, userPosts }) => {
   const { credentials, handleChange, getAllPosts } = useContext(PostContext);
 
-    const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   
   const removePost = (id) => async() => {
     try {

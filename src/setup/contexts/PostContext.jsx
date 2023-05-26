@@ -1,18 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import PostService from "../services/post.service";
-import { UserContext } from "./UserContext";
 
 const PostContext = createContext();
 
 const PostProvider = ({ children }) => {
-    const { user } = useContext(UserContext)
     const [posts, setPosts] = useState([])
 
     const [credentials, setCredentials] = useState({})
 
-    const getAllPosts = async () => {
+    const getAllPosts = async (params) => {
       try {
-        const response = await PostService.getAll();
+        const response = await PostService.getAll(params);
         setPosts(response);
       } catch (error) {
         console.log(error);
@@ -23,35 +21,19 @@ const PostProvider = ({ children }) => {
       getAllPosts();
     }, [])
 
-    useEffect(() => {
-      setCredentials({
-        ...credentials,
-        "author": user.id
-      })
-    }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
-
     const handleChange = (e) => {
-        let { name, value } = e.target;
+      console.log('change');
 
-        // if(["status", "formation", "country", "displayedOnFeed"].includes(name)){
-            // if (name === "displayedOnFeed") value = e.target.checked;
-        //     setCredentials({
-        //         ...credentials,
-        //         "userDetail":{
-        //             ...credentials.userDetail,
-        //             [name]: value
-        //         }
-        //     })
-        // }else{
-            if (name === "published") value = e.target.checked;
-            if(name == "files"){
-                value = e.target.files;
-            };
-            setCredentials({
-                ...credentials,
-                [name]: value
-            })
-        // }
+      let { name, value } = e.target;
+      if (name === "published") value = e.target.checked;
+      if(name == "files"){
+          value = e.target.files;
+      };
+
+      setCredentials({
+          ...credentials,
+          [name]: value
+      })
     }
 
     return (

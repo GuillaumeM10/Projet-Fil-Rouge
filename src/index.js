@@ -5,8 +5,8 @@ import App from './App';
 import { AuthProvider } from './setup/contexts/AuthContext';
 import { UserProvider } from './setup/contexts/UserContext';
 import { ScriptsProvider } from './setup/contexts/ScriptsContext';
-import { PostProvider } from './setup/contexts/PostContext';
 import Toast from './app/components/taost/Toast';
+import { PostProvider } from './setup/contexts/PostContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,8 +14,8 @@ root.render(
     <AuthProvider>
       <UserProvider>
         <PostProvider>
-          <App />
-          <Toast />
+            <App />
+            <Toast />
         </PostProvider>
       </UserProvider>
     </AuthProvider>
