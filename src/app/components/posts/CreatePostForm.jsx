@@ -77,7 +77,7 @@ const CreatePostForm = ({ setPosts }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="creatPost" onSubmit={handleSubmit}>
       
       <div className="formGroup">
         <label htmlFor="content">Status</label>

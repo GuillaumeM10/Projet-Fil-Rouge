@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PostContext } from "../../../setup/contexts/PostContext";
 import PostService from '../../../setup/services/post.service';
 
-const AccountPosts = ({ setPosts, userPosts }) => {
+const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
   const { credentials, handleChange, getAllPosts } = useContext(PostContext);
 
   const [isUpdating, setIsUpdating] = useState(false);
@@ -37,14 +37,16 @@ const AccountPosts = ({ setPosts, userPosts }) => {
     setIsUpdating(false);
   }
 
+  useEffect(() => {
+    console.log(userPosts);
+  }, [userPosts])
+
   return (
     <div className="userPosts">
       {userPosts[0] ? (
           <>
             {userPosts && userPosts.map((post, id) => (
               <div className="userPost" key={post.id}>
-                <h2>Publication {id + 1}</h2>
-
                 <input 
                   defaultValue={post.content} 
 
@@ -102,6 +104,21 @@ const AccountPosts = ({ setPosts, userPosts }) => {
                 )}
               </div>
             ))}
+
+            {noMorePosts && (
+              <p>Il n'y a plus de posts à afficher</p>
+            )}
+            {!noMorePosts && (
+              <button
+                onClick={() => {
+                  const oldPage = page
+                  setPage(oldPage + 1)
+                }}
+                className="loadMore"
+                >
+                Voir plus
+              </button>
+            )}
           </>
         ) : (
           <p>Tu n'as pas encore publié de posts</p>

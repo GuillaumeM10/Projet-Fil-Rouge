@@ -7,8 +7,8 @@ const getAll = async (params) => {
   return response.data
 }
 
-const getAllByAuthor = async (author) => {
-  const response = await api.get(`${ENDPOINT}?author=${author}`)
+const getAllByAuthor = async (author, page, limit) => {
+  const response = await api.get(`${ENDPOINT}?author=${author}&page=${page? page : 1}&limit=${limit? limit : 10}`)
   return response.data
 }
 

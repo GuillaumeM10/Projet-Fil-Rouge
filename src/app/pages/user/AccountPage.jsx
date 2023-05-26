@@ -10,6 +10,8 @@ import EditUser from "../../components/account/EditUser";
 const AccountPage = () => {
   const [ userPosts, setUserPosts ] = useState([]);
   const { user, setUser } = useContext(UserContext);
+  const [ page, setPage ] = useState(1); // eslint-disable-line no-unused-vars
+  const [ noMorePosts, setNoMorePosts ] = useState(false);
   const navigate = useNavigate();
   
   const disconnect = async() => {
@@ -21,9 +23,19 @@ const AccountPage = () => {
   const setPosts = async () => {
     if(user.id){
       try {
-        console.log();
-        const response = await PostService.getAllByAuthor(user.id);
-        setUserPosts(response);
+        console.log(user.id);
+        if(userPosts.length === 0){
+          const response = await PostService.getAllByAuthor(user.id, page);
+          setUserPosts(response);
+        }else{
+          const response = await PostService.getAllByAuthor(user.id, page);
+          if(response.length === 0) {
+            setNoMorePosts(true);
+            return
+          }
+          setUserPosts([...userPosts, ...response]);
+        }
+
       } catch (error) {
         console.log(error);
       }
@@ -32,7 +44,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     setPosts();
-  }, [user.id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user.id, page]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return ( 
       <div className="account defaultPaddingX defaultPaddingY">
@@ -46,11 +58,11 @@ const AccountPage = () => {
             Déconnexion
           </button>
 
-          <EditUser />
+          {/* <EditUser /> */}
 
           <CreatePostForm setPosts={setPosts} />
 
-          <AccountPosts userPosts={userPosts} setPosts={setPosts} />
+          <AccountPosts userPosts={userPosts} setPosts={setPosts} setPage={setPage} page={page} noMorePosts={noMorePosts} />
       </div>
   );
 }
