@@ -16,11 +16,11 @@ const SignupForm = () => {
   return ( 
     <div className="signUpContainer">
     { signUpStep === 1 &&
-      <UserForm credentials={credentials} handleChange={handleChange} setSignUpStep={setSignUpStep} toast={toast} setDisplayedError={setDisplayedError} labelDisplay={labelDisplay} />
+      <UserForm setCredentials={setCredentials} credentials={credentials} handleChange={handleChange} setSignUpStep={setSignUpStep} toast={toast} setDisplayedError={setDisplayedError} labelDisplay={labelDisplay} />
     }
 
     { signUpStep !== 1 &&
-      <UserDetailsForm handleChange={handleChange} labelDisplay={labelDisplay} setSignUpStep={setSignUpStep} signUpStep={signUpStep} setCredentials={setCredentials} />
+      <UserDetailsForm handleChange={handleChange} labelDisplay={labelDisplay} setSignUpStep={setSignUpStep} signUpStep={signUpStep} setCredentials={setCredentials} credientials={credentials} />
     }
 
     { displayedError && <div className="error">{ displayedError }</div> }

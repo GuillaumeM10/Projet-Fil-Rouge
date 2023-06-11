@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../../setup/contexts/AuthContext';
+import { UserContext } from '../../../../setup/contexts/UserContext';
+import UserDetailService from '../../../../setup/services/userDetail.service';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
 
 const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep, setCredentials}) => {
+  // get user from context
+  const { credentials } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+  
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
+    console.log('userdetails', credentials.userDetail);
+    console.log('user', user.id);
+
+    try{
+      const response = await UserDetailService.update(user.id, credentials.userDetail)
+      console.log(response);
+    }catch(e){
+      console.log(e);
+    }
   }
 
   const nextStep = () => {

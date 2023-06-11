@@ -1,19 +1,35 @@
+import api from "./api.service";
+
 const ENDPOINT = "/users-details"
 
 const update = async (id, userDetail) => {
-  const formData = new FormData();
+  console.log(userDetail);
+  console.log(id);
 
-  const files = Array.from(userDetail.files)
-  files.forEach((file, index) => {
-    // console.log(file);
-    formData.append('files', file)
-  })
-  formData.append('cv', userDetail.cv)
-  formData.append('banner', userDetail.banner)
-  formData.append('personalPicture', userDetail.profile)
+  let response
+
+  if(
+    userDetail.cv
+    || userDetail.banner
+    || userDetail.profile
+    || userDetail.files
+  ) {
+    const formData = new FormData();
+
+    const files = Array.from(userDetail.files)
+    files.forEach((file, index) => {
+      // console.log(file);
+      formData.append('files', file)
+    })
+    formData.append('cv', userDetail.cv)
+    formData.append('banner', userDetail.banner)
+    formData.append('personalPicture', userDetail.profile)
 
 
-  const response = await api.put(`${ENDPOINT}/${id}`, formData, { formData: true })
+    response = await api.put(`${ENDPOINT}/${id}`, formData, { formData: true })
+  }else{
+    response = await api.put(`${ENDPOINT}/${id}`, userDetail)
+  }
   return response.data
 }
 

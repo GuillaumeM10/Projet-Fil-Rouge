@@ -21,6 +21,13 @@ const AuthProvider = ({ children }) => {
             "range"
         ].includes(name)){
             if (name === "displayedOnFeed") value = e.target.checked;
+            if(name === "cities"){
+                let cities = []
+                e.target.value.forEach(city => {
+                    cities.push({"name": city.value})
+                });
+                value = cities;
+            }
             setCredentials({
                 ...credentials,
                 "userDetail":{

@@ -9,7 +9,8 @@ const UserForm = ({
     handleChange, 
     setSignUpStep, 
     toast, 
-    setDisplayedError
+    setDisplayedError,
+    setCredentials
   }) => {
   const { setUser } = useContext(UserContext);
 
@@ -32,9 +33,21 @@ const UserForm = ({
     setSignUpStep(2);
     if (checkConfirmPassword()) { 
       try {
-
-        console.log(credentials);
-        await AuthService.signup(credentials);
+        let newCredentials
+        if(credentials.userDetail === undefined){
+          newCredentials = {
+            ...credentials, 
+            'userDetail': {
+              ...credentials.userDetails, 
+              'displayedOnFeed': true
+            }
+          }
+        }
+        if(newCredentials.email){
+          await AuthService.signup(newCredentials);
+        }else{
+          await AuthService.signup(credentials);
+        }
         
         //login
         const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
@@ -58,6 +71,23 @@ const UserForm = ({
   return (
     <form className='mainform signUpForm' onSubmit={handleSubmitUser}>
       <AuthInputs handleChange={handleChange} signup={true} />
+
+      <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column'
+        }}>
+        <label htmlFor="displayedOnFeed">Etre affiché dans le feed (oui par défaut)</label>
+        <input
+          type="checkbox"
+          name="displayedOnFeed"
+          placeholder="Je souhaite être visible sur le feed"
+          defaultChecked={true}
+          onChange={(e) => {
+            handleChange(e)
+          }}
+        />
+      </div>
+
       <button type="submit">INSCRIPTION</button>
     </form>
   );
