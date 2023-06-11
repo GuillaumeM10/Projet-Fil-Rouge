@@ -36,7 +36,7 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
     <form onSubmit={handleSubmitUserDetails}>
 
       {signUpStep === 2 &&
-        <Step2 handleChange={handleChange} labelDisplay={labelDisplay} setCredentials={setCredentials} />
+        <Step2 handleChange={handleChange} labelDisplay={labelDisplay} credentials={credentials} />
       }
 
       {signUpStep === 3 &&

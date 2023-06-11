@@ -3,46 +3,20 @@ import { UserContext } from '../../../../setup/contexts/UserContext';
 import UserService from '../../../../setup/services/user.service';
 import Select from 'react-select';
 
-const Step2 = ({ handleChange, labelDisplay}) => {
+const Step2 = ({ handleChange, labelDisplay, credentials}) => {
   const { user } = useContext(UserContext);
   const [ newUser, setNewUser] = useState({});
   const [countries, setCountries] = useState([])
   const [fullCountries, setFullCountries] = useState([])
-  const [cca2, setCca2] = useState([]);
+  const [cca2, setCca2] = useState({});
   const [cities, setCities] = useState([]);
-
-  useEffect(() => {
-    // GET COUNTRIES FROM PUPLIC API
-    fetch('https://restcountries.com/v3.1/all')
-      .then(response => response.json())
-      .then(data => {
-        setFullCountries(data)
-        const countries = data.map(country => country.translations.fra.common)
-        countries.sort()
-        countries.unshift('France')
-        setCountries(countries)
-
-        setCca2(data.reduce((acc, country) => {
-          acc[country.translations.fra.common] = country.cca2
-          return acc
-        }, {}));
-
-      })
-
-      // GET CITIES FROM PUBLIC API
-      // fetch('https://geo.api.gouv.fr/communes?fields=nom&boost=population')
-      // .then(response => response.json())
-      // .then(data => {
-      //   const cities = data.map(city => city.nom)
-      //   cities.sort()
-      //   setCities(cities)
-      // })
-
-  }, [])
+  const [selectedCities, setSelectedCities] = useState([]);
 
   const handleCountryChange = (event) => {
     setCities([])
     const selectedCountry = cca2[event.target.value];
+    console.log(event.target.value);
+    console.log(selectedCountry);
     const maxRows = 1000;
     let startRows = 0;
 
@@ -85,6 +59,37 @@ const Step2 = ({ handleChange, labelDisplay}) => {
   };
 
   useEffect(() => {
+    // GET COUNTRIES FROM PUPLIC API
+    fetch('https://restcountries.com/v3.1/all')
+      .then(response => response.json())
+      .then(data => {
+        setFullCountries(data)
+        const countries = data.map(country => country.translations.fra.common)
+        countries.sort()
+        countries.unshift('France')
+        setCountries(countries)
+
+        if(credentials?.userDetail?.country){
+          setCca2(data.reduce((acc, country) => {
+            acc[country.translations.fra.common] = country.cca2
+            return acc
+          }, {}));
+        }
+      })
+
+      if (credentials?.userDetail?.country) {
+        console.log(credentials.userDetail.country);
+        handleCountryChange({target: {value: credentials.userDetail.country}})
+      }
+  }, [])
+
+  
+
+  const handleCityChange = (event) => {
+    setSelectedCities(event)
+  }
+
+  useEffect(() => {
     const getUser = async () => {
       try {
         const data = await UserService.getOneById(user.id);
@@ -96,9 +101,12 @@ const Step2 = ({ handleChange, labelDisplay}) => {
     getUser();
   }, [user])
 
+  // useEffect(() => {
+  //   console.log(cities)
+  // }, [cities])
+
   // "phone",
-  // "cities",
-  // "range"
+  // "range",
   
   return (
     <div className="step step2">
@@ -153,6 +161,7 @@ const Step2 = ({ handleChange, labelDisplay}) => {
         <select
           name="country"
           required
+          value={credentials?.userDetail?.country}
           onChange={(e) => {
             handleChange(e)
             labelDisplay(e)
@@ -161,7 +170,13 @@ const Step2 = ({ handleChange, labelDisplay}) => {
         >
           <option value="">Choisir un pays</option>
           {countries.map((country, index) => {
-            return <option key={index} value={country}cca2={fullCountries[index]?.cca2} >{country} </option>
+            return <option 
+              key={index} 
+              value={country}
+              cca2={fullCountries[index]?.cca2}
+              >
+                {country} 
+              </option>
           })}
         </select>
       </div>
@@ -173,8 +188,10 @@ const Step2 = ({ handleChange, labelDisplay}) => {
             name="cities"
             placeholder="Choisissez vos villes"
             isMulti
+            defaultValue={selectedCities}
             onChange={(e) => {
               handleChange({target : {name: "cities", value: e}})
+              handleCityChange(e)
               // labelDisplay(e)
             }}
             options={cities.map((city, index) => {
