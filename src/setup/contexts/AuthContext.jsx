@@ -8,10 +8,18 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null)
 
     const handleChange = (e) => {
-        console.log(credentials);
         let { name, value } = e.target;
-
-        if(["status", "formation", "country", "displayedOnFeed"].includes(name)){
+        
+        if([
+            "status", 
+            "formation", 
+            "country", 
+            "displayedOnFeed",
+            "contactEmail",
+            "phone",
+            "cities",
+            "range"
+        ].includes(name)){
             if (name === "displayedOnFeed") value = e.target.checked;
             setCredentials({
                 ...credentials,
@@ -27,7 +35,10 @@ const AuthProvider = ({ children }) => {
             })
         }
     }
-
+    useEffect(() => {
+        console.log(credentials);
+    }, [credentials])
+    
     useEffect(() => {
         setToken(TokenService.getTokenFromLocalStorage())
     }, [])

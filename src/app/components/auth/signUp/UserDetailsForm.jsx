@@ -3,7 +3,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
 
-const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep}) => {
+const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep, setCredentials}) => {
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
   }
@@ -20,7 +20,7 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
     <form onSubmit={handleSubmitUserDetails}>
 
       {signUpStep === 2 &&
-        <Step2 handleChange={handleChange} labelDisplay={labelDisplay} />
+        <Step2 handleChange={handleChange} labelDisplay={labelDisplay} setCredentials={setCredentials} />
       }
 
       {signUpStep === 3 &&
