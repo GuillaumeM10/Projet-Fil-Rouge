@@ -42,9 +42,9 @@ const AuthProvider = ({ children }) => {
             })
         }
     }
-    useEffect(() => {
-        console.log(credentials);
-    }, [credentials])
+    // useEffect(() => {
+    //     console.log(credentials);
+    // }, [credentials])
     
     useEffect(() => {
         setToken(TokenService.getTokenFromLocalStorage())

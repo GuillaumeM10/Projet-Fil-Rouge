@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
 
-const CreatePostForm = ({ setPosts }) => {
+const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
   const { labelDisplay } = useContext(ScriptsContext);
   const [ displayedError, setDisplayedError ] = useState(null);
   const [credentials, setCredentials] = useState({})
@@ -36,12 +36,12 @@ const CreatePostForm = ({ setPosts }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(credentials);
+    // console.log(credentials);
     try {
-      console.log(credentials);
+      // console.log(credentials);
         await PostService.create(credentials);
-        setPosts();
-        getAllPosts();
+        setPosts(true);
+        // getAllPosts();
     } catch (error) {
         setDisplayedError(error.response.data.message);
         console.log(error);

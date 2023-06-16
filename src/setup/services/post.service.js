@@ -20,7 +20,6 @@ const getOneById = async (id) => {
 const create = async (post) => {
   // convert the post object to a FormData object
   if(!post.files){
-    console.log('posts without files');
     const response = await api.post(ENDPOINT, post)
     return response.data
   }

@@ -77,10 +77,10 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
         }
       })
 
-      if (credentials?.userDetail?.country) {
-        console.log(credentials.userDetail.country);
-        handleCountryChange({target: {value: credentials.userDetail.country}})
-      }
+      // if (credentials?.userDetail?.country) {
+      //   console.log(credentials.userDetail.country);
+      //   handleCountryChange({target: {value: credentials.userDetail.country}})
+      // }
   }, [])
 
   
@@ -101,9 +101,9 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
     getUser();
   }, [user])
 
-  // useEffect(() => {
-  //   console.log(cities)
-  // }, [cities])
+  useEffect(() => {
+    console.log(cities)
+  }, [cities])
 
   // "phone",
   // "range",

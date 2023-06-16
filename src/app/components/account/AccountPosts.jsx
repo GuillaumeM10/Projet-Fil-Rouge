@@ -1,9 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PostContext } from "../../../setup/contexts/PostContext";
 import PostService from '../../../setup/services/post.service';
 
 const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
-  const { credentials, handleChange, getAllPosts } = useContext(PostContext);
+  // const { credentials, handleChange, getAllPosts } = useContext(PostContext);
+  const [credentials, setCredentials] = useState({})
+
+
+  // const getAllByAuthor = async (params) => {
+  //   try {
+  //     const response = await PostService.getAll(params);
+  //     setPosts(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  const handleChange = (e) => {
+    console.log('change');
+
+    let { name, value } = e.target;
+    if (name === "published") value = e.target.checked;
+    if(name == "files"){
+        value = e.target.files;
+    };
+
+    setCredentials({
+        ...credentials,
+        [name]: value
+    })
+  }
 
   const [isUpdating, setIsUpdating] = useState(false);
   
@@ -11,7 +36,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
     try {
       await PostService.remove(id);
       setPosts();
-      getAllPosts();
+      // getAllPosts();
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +50,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
     try {
       await PostService.update(id, credentials);
       setPosts();
-      getAllPosts();
+      // getAllPosts();
     } catch (error) {
       console.log(error);
     }
@@ -37,9 +62,9 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
     setIsUpdating(false);
   }
 
-  useEffect(() => {
-    console.log(userPosts);
-  }, [userPosts])
+  // useEffect(() => {
+  //   console.log(userPosts);
+  // }, [userPosts])
 
   return (
     <div className="userPosts">
@@ -96,6 +121,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                     >
                     Supprimer
                   </button>
+                  <a href={'/posts/' + post.id}>Voir post</a>
 
                 </div>
 

@@ -5,6 +5,7 @@ import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
 import SigninPage from '../pages/auth/SigninPage';
 import SignupPage from '../pages/auth/SignupPage';
 import HomePage from '../pages/HomePage';
+import SinglePost from '../pages/post/SinglePost';
 import ProfilePage from '../pages/profile/ProfilePage';
 import AccountPage from '../pages/user/AccountPage';
 import ProtectedRoute from './ProtectedRoute';
@@ -23,12 +24,16 @@ const MainRouter = () => {
       {/* Profile */}
       <Route path="/profile/:id" element={<ProfilePage />} />
 
+      {/* Post */}
+      <Route path="/post/:id" element={<SinglePost />} />
+
       <Route path="/account" element={
         <ProtectedRoute to="/auth/signin" bool={false} >
           <AccountPage />
         </ProtectedRoute>
       } />
       
+      {/* Auth */}
       <Route path="/auth/signin" element={
         <ProtectedRoute to="/account" bool={true} >
           <SigninPage />
@@ -41,8 +46,13 @@ const MainRouter = () => {
         </ProtectedRoute>
       } />
 
+      {/* Rest Password */}
       <Route path="/forget-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+
+      {/* 404 */}
+      {/* <Route path="*" element={<NotFoundPage />} /> */}
+
     </Routes>
   );
 };
