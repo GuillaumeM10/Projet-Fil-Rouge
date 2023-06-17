@@ -25,7 +25,7 @@ const MainRouter = () => {
       <Route path="/profile/:id" element={<ProfilePage />} />
 
       {/* Post */}
-      <Route path="/post/:id" element={<SinglePost />} />
+      <Route path="/posts/:id" element={<SinglePost />} />
 
       <Route path="/account" element={
         <ProtectedRoute to="/auth/signin" bool={false} >
