@@ -11,16 +11,34 @@ const SignupForm = () => {
   const { labelDisplay } = useContext(ScriptsContext);
   const [ displayedError, setDisplayedError ] = useState(null);
   const [signUpStep, setSignUpStep ] = useState(1);
+  const [loggedIn, setLoggedIn] = useState(false);
   // const navigate = useNavigate();
 
   return ( 
     <div className="signUpContainer">
     { signUpStep === 1 &&
-      <UserForm setCredentials={setCredentials} credentials={credentials} handleChange={handleChange} setSignUpStep={setSignUpStep} toast={toast} setDisplayedError={setDisplayedError} labelDisplay={labelDisplay} />
+      <UserForm 
+        setCredentials={setCredentials} 
+        credentials={credentials} 
+        handleChange={handleChange} 
+        setSignUpStep={setSignUpStep} 
+        toast={toast} 
+        setDisplayedError={setDisplayedError} 
+        labelDisplay={labelDisplay} 
+        setLoggedIn={setLoggedIn}
+      />
     }
 
     { signUpStep !== 1 &&
-      <UserDetailsForm handleChange={handleChange} labelDisplay={labelDisplay} setSignUpStep={setSignUpStep} signUpStep={signUpStep} setCredentials={setCredentials} credientials={credentials} />
+      <UserDetailsForm 
+        handleChange={handleChange} 
+        labelDisplay={labelDisplay} 
+        setSignUpStep={setSignUpStep} 
+        signUpStep={signUpStep} 
+        setCredentials={setCredentials} 
+        credientials={credentials} 
+        loggedIn={loggedIn}
+      />
     }
 
     { displayedError && <div className="error">{ displayedError }</div> }

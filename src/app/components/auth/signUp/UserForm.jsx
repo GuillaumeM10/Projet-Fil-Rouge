@@ -10,7 +10,7 @@ const UserForm = ({
     setSignUpStep, 
     toast, 
     setDisplayedError,
-    setCredentials
+    setLoggedIn
   }) => {
   const { setUser } = useContext(UserContext);
 
@@ -44,21 +44,33 @@ const UserForm = ({
           }
         }
         if(newCredentials.email){
-          await AuthService.signup(newCredentials);
-        }else{
-          await AuthService.signup(credentials);
-        }
-        
-        //login
-        const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
-        TokenService.setTokenInLocalStorage(accessToken);
-        const user = TokenService.getUserInToken(accessToken);
-        localStorage.setItem('signUpUserDetails', true);
+          await AuthService.signup(newCredentials).then(async (response) => {
+            //login
+            console.log('login in');
+            const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
+            TokenService.setTokenInLocalStorage(accessToken);
+            const user = TokenService.getUserInToken(accessToken);
+            localStorage.setItem('signUpUserDetails', true);
 
-        setUser(user)
-        
-        //message
-        toast.success("Votre compte a bien été créé !");
+            setUser(user)
+            setLoggedIn(true)
+             //message
+            toast.success("Votre compte a bien été créé !");
+          });
+        }else{
+          await AuthService.signup(credentials).then(async (response) => {
+            //login
+            const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
+            TokenService.setTokenInLocalStorage(accessToken);
+            const user = TokenService.getUserInToken(accessToken);
+            localStorage.setItem('signUpUserDetails', true);
+
+            setUser(user)
+            
+            //message
+            toast.success("Votre compte a bien été créé !");
+          });
+        }
 
       } catch (error) {
         setDisplayedError(error.response.data.message);
