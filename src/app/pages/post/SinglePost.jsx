@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import PostService from '../../../setup/services/post.service';
+import PostCard from '../../components/posts/PostCard';
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -11,7 +12,6 @@ const SinglePost = () => {
       try {
 
         const data = await PostService.getOneById(id);
-        console.log(data);
         setPost(data);
         
       } catch (error) {
@@ -19,20 +19,13 @@ const SinglePost = () => {
       }
     };
     getPost();
-  }, [id]);
+  }, []);
 
   return (
-    <div>
+    <div className='singlePost'>
       {
-        post ? (
-          <>
-            <h1>{post.content}</h1>
-            <div className="author">
-              <p>Auteur :</p>
-              <p className="name">Nom : {post.author?.firstName}</p>
-              <p className="name">Prénom : {post.author?.lastName}</p>
-            </div>
-          </>
+        post.content ? (
+          <PostCard post={post} index={post.id} isSinglePage={true} />
         ) : (
           <p>Loading...</p>
         )
