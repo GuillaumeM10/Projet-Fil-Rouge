@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
+import PdfViewer from '../PdfViewer/PdfViewer';
+import PreviewFiles from '../PreviewFiles/PreviewFiles';
 
 const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
   const { labelDisplay } = useContext(ScriptsContext);
@@ -22,8 +24,11 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
   }, [])
 
   const handleChange = (e) => {
-    console.log('change');
       let { name, value } = e.target;
+      if(name === "content") {
+          value = e.target.value;
+          value = value.replace(/\n/g, "<br />");
+      };
       if (name === "published") value = e.target.checked;
       if(name == "files"){
           value = e.target.files;
@@ -48,37 +53,9 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
     }
   }
 
-  // useEffect( () => {
-  //   console.log(credentials);
-  // }, [credentials])
-
-  const logFiles = (e) => {
-    // console.log(e.target.files);
-  }
-
-  const filesPreview = (e) => {
-    const previewFiles = document.querySelector('.previewFiles');
-    previewFiles.innerHTML = '';
-    const files = e.target.files;
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.addEventListener('load', function() {
-        const div = document.createElement('div');
-        div.classList.add('previewFile');
-        div.innerHTML = `
-          <img src="${this.result}" width="100" />
-          <p>${file.name}</p>
-        `;
-        previewFiles.appendChild(div);
-      });
-      reader.readAsDataURL(file);
-    }
-  }
-
   return (
     <form className="creatPost" onSubmit={handleSubmit}>
-      
+
       <div className="formGroup">
         <label htmlFor="content">Status</label>
         <textarea
@@ -94,20 +71,30 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
       </div>
 
       <div className="formGroup">
-        <label htmlFor="files">Image</label>
+        <p className="extentions">
+          Extensions autorisées : <br />
+          Images : png, jpeg <br />
+          Vidéos : mp4, mov, avi, mkv, wmv, flv, webm, mpeg <br />
+          Audios : mpeg, ogg, wav, wma, aac, flac, mp4 <br />
+          Documents : pdf
+        </p>
+        <label htmlFor="files">Fichiers</label>
         <input
           type="file"
           name="files"
           multiple
           placeholder="Image"
+          limit="5"
+          size="5"
+          accept="image/png, image/jpeg, video/mp4, video/mov, video/avi, video/mkv, video/wmv, video/flv, video/webm, video/mpeg, audio/mpeg, audio/ogg, audio/wav, audio/wma, audio/aac, audio/flac, audio/mp4, application/pdf"
           onChange={(e) => {
             handleChange(e)
-            logFiles(e)
-            filesPreview(e)
           }}
         />
-        {/* system make a preview a the files */}
-        <div className="previewFiles"></div>
+
+        {credentials.files && credentials.files.length > 0 && (
+          <PreviewFiles files={credentials.files} />
+        )}
 
       </div>
 

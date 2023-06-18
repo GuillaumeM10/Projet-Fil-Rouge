@@ -1,0 +1,32 @@
+.pdfViewer{
+  border: solid 1px $black;
+  padding: 5px;
+  width: 100%;
+
+  canvas,
+  .react-pdf__Page > div{
+    width: 100%!important;
+    height: auto!important;
+  }
+
+  .controls{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: $white;
+
+    button{
+      background-color: transparent;
+      border: none;
+      color: $black;
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover{
+        color: $primary;
+      }
+    }
+  }
+}

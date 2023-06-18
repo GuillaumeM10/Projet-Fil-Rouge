@@ -65,7 +65,9 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
 
       </form>
     ) : (
-      <div>Chargement</div>
+      <div>
+        <img className='loading' src="/img/loading.svg" alt="" />
+      </div>
     )}
 
     </>

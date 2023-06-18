@@ -2,12 +2,12 @@ nav.mainNav{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: calc(100% - 240px);
   padding-top: 15px;
   padding-bottom: 15px; 
   box-shadow: inset 0px 0px 0px 1px rgba($color: $black, $alpha: 0.1);
   background-color: $white;
   gap: 20px;
+  // width: 100%;
 
   .logo{
     width: 246px;
@@ -18,7 +18,7 @@ nav.mainNav{
     align-self: center;
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 100%;
 
     input{
       font-size: 22px;
@@ -69,7 +69,7 @@ nav.mainNav{
   }
 
   @media screen and (max-width: $tablette) {
-    width: calc(100% - 120px);
+    width: calc(100% - 160px);
   }
   @media screen and (max-width: $mobile) {
     width: calc(100% - 40px);

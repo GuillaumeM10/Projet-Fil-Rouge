@@ -25,21 +25,18 @@ const AccountPage = () => {
       try {
         if(create){
 
-          console.log('create');
           const response = await PostService.getAllByAuthor(user.id, 1);
-          console.log({response});
           setUserPosts(response);
           setPage(1);
           setNoMorePosts(false);
 
         }else if(userPosts.length === 0){
 
-          console.log('pas de post');
           const response = await PostService.getAllByAuthor(user.id, page);
           setUserPosts(response);
 
         }else if(page > 1){
-          console.log('pagination');
+
           const response = await PostService.getAllByAuthor(user.id, page);
           if(response.length === 0) {
             setNoMorePosts(true);

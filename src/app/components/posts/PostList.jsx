@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PostService from '../../../setup/services/post.service';
+import PostCard from './PostCard';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -52,11 +53,11 @@ const PostList = () => {
       {posts.length > 0 && (
         <>
           {posts.map((post, index) => (
-            <div key={post.id} className={post.id}>
-              <h5>{index + 1}</h5>
-              <h2>{post.title}</h2>
-              <p>{post.content}</p>
-            </div>
+            <PostCard
+              key={post.id}
+              post={post}
+              index={index}
+            />
           ))}
 
           {isLoading && <p>Chargement...</p>}

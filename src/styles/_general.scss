@@ -20,3 +20,26 @@ h1, h2, h3, h4, h5, h6{
     height: calc(100vh - 85px);
     display: flex;
 }
+
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    padding: 300px;
+    animation: loading 1s infinite;
+
+    @media screen and (max-width: $mobile){
+        padding: 100px;
+    }
+}
+
+@keyframes loading{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
