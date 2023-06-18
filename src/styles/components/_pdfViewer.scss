@@ -1,7 +1,7 @@
 .pdfViewer{
   border: solid 1px $black;
   padding: 5px;
-  width: 100%;
+  width: calc(100% - 12px);
 
   canvas,
   .react-pdf__Page > div{

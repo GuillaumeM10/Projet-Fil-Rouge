@@ -1,0 +1,28 @@
+.previewFiles{
+  width: 100%;
+
+  .swiper-slide{
+    display: flex;
+    height: auto;
+    
+    .previewFile{
+      margin: auto 0;
+      margin: auto 0;
+      width: 100%;
+    }
+  }
+  
+  img,
+  video,
+  canvas,
+  .react-pdf__Page > div{
+    width: 100%!important;
+    height: auto!important;
+  }
+
+  audio{
+    width: 100%;
+  }
+
+  
+}

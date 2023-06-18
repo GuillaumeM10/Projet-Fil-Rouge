@@ -10,7 +10,7 @@ const PostList = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    PostService.getAll(`limit=2&page=${page}`)
+    PostService.getAll(`limit=5&page=${page}`)
       .then(response => {
 
         console.log('new posts', response);
@@ -49,9 +49,9 @@ const PostList = () => {
   }, [endPost, isLoading, page]);
 
   return (
-    <div>
+    <div className='main'>
       {posts.length > 0 && (
-        <>
+        <div className="posts">
           {posts.map((post, index) => (
             <PostCard
               key={post.id}
@@ -62,7 +62,7 @@ const PostList = () => {
 
           {isLoading && <p>Chargement...</p>}
           {endPost && <p>Fin des posts</p>}
-        </>
+        </div>
       )}
     </div>
   );
