@@ -34,7 +34,7 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
 
   return (
     <>
-    {loggedIn ? (
+    {/* {loggedIn ? ( */}
       <form onSubmit={handleSubmitUserDetails}>
 
         {signUpStep === 2 &&
@@ -46,7 +46,7 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
         }
 
         {signUpStep === 4 &&
-          <Step4 handleChange={handleChange} />
+          <Step4 handleChange={handleChange} credentials={credentials} />
         }
 
         <div className="btn">
@@ -64,11 +64,11 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
         </div>
 
       </form>
-    ) : (
+    {/* ) : (
       <div>
         <img className='loading' src="/img/loading.svg" alt="" />
       </div>
-    )}
+    )} */}
 
     </>
   );

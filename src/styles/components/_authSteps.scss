@@ -1,0 +1,154 @@
+.signUpContainer .step{
+  
+
+  &.step4{
+    .formGroup{
+      padding-bottom: 30px;
+      padding-top: 15px;
+      
+      .previewFiles{
+        max-width: 270px;
+      }
+    }
+  }
+
+  &.step3{
+    .skills{
+      .formGroup{
+        padding-bottom: 20px;
+      }
+
+      .addButton{
+        background-color: transparent;
+        color: $black;
+        border: none;
+        border-bottom: 2px solid $black;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        width: 100%;
+
+        &:hover{
+          background-color: $black;
+          color: $white;
+        }
+      }
+
+      .cards{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      
+      .skill{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        border: 1px solid $primary;
+        justify-content: center;
+        width: calc(50% - 27px);
+        position: relative;
+        padding: 10px;
+
+        p{padding: 0;margin: 0;}
+
+        .name{
+          font-size: 14px;
+          font-weight: 600;
+          color: $black;
+        }
+
+        .level{
+          font-size: 14px;
+          font-weight: 600;
+          color: $black;
+          background-color: $primary;
+          padding: 5px 10px;
+          border-radius: 5px;
+        }
+        .description{
+          font-size: 14px;
+          font-weight: 600;
+          color: $black;
+          background-color: $primary;
+          padding: 5px 10px;
+          border-radius: 5px;
+        }
+      }
+
+      .removeButton{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: red;
+        color: $white;
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        width: 20px;
+        height: 20px;
+
+        &:hover{
+          background-color: darken($color: $primary, $amount: 10%);
+        }
+      }
+    }
+  }
+}
+
+.signUpContainer form{
+  width: 100%;
+
+  > .btn{
+    margin-top: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    
+    button{
+      background-color: $primary;
+      color: $white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      
+      &:hover{
+        background-color: darken($color: $primary, $amount: 10%);
+      }
+      &[type='submit']{
+        background-color: green;
+        color: $white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        
+        &:hover{
+          background-color: lighten($color: green, $amount: 10%);
+        }
+      }
+    }
+  }
+
+}

@@ -18,7 +18,14 @@ const AuthProvider = ({ children }) => {
             "contactEmail",
             "phone",
             "cities",
-            "range"
+            "range",
+            "files",
+            "cv",
+            "personalPicture",
+            "banner",
+            "skills",
+            "description",
+            "school"
         ].includes(name)){
             if (name === "displayedOnFeed") value = e.target.checked;
             if(name === "cities"){
@@ -28,6 +35,23 @@ const AuthProvider = ({ children }) => {
                 });
                 value = cities;
             }
+            if(name == "files"){
+                value = e.target.files;
+            };
+            if(
+                name == "cv"
+                || name == "personalPicture"
+                || name == "banner"
+            ){
+                if(!e?.target?.files[0]){
+                    value = null;
+                }else{
+                    let files = new DataTransfer();
+                    files.items.add(e?.target?.files[0]);
+                    value = files.files;
+                }
+            }
+                
             setCredentials({
                 ...credentials,
                 "userDetail":{
@@ -42,9 +66,9 @@ const AuthProvider = ({ children }) => {
             })
         }
     }
-    // useEffect(() => {
-    //     console.log(credentials);
-    // }, [credentials])
+    useEffect(() => {
+        console.log(credentials);
+    }, [credentials])
     
     useEffect(() => {
         setToken(TokenService.getTokenFromLocalStorage())

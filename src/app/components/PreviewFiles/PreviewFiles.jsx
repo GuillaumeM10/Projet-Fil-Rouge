@@ -9,9 +9,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const PreviewFiles = ({ files, location }) => {
+const PreviewFiles = ({ files, location, isSwiper=false }) => {
   const [previewData, setPreviewData] = useState([]); // State to store the preview data
-  const width = location ? '' : '500';
+  const width = location || isSwiper ? '' : '500';
 
   useEffect(() => {
     const generatePreviewData = async () => {
@@ -47,9 +47,9 @@ const PreviewFiles = ({ files, location }) => {
   };
 
   return (
-    <div className={"previewFiles" + (location ? ' swiper' : '')}>
+    <div className={"previewFiles" + (location || isSwiper ? ' swiper' : '')}>
       
-      {location ? (
+      {location || isSwiper ? (
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={50}
@@ -174,7 +174,7 @@ const PreviewFiles = ({ files, location }) => {
         })
       )}
 
-      {location && (
+      {location || isSwiper && (
         <div className="swiper-pagination"></div>
       )}
     </div>

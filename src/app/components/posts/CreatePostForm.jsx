@@ -70,7 +70,7 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
         />
       </div>
 
-      <div className="formGroup">
+      <div className="formGroup file">
         <p className="extentions">
           Extensions autorisées : <br />
           Images : png, jpeg <br />
@@ -78,19 +78,22 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
           Audios : mpeg, ogg, wav, wma, aac, flac, mp4 <br />
           Documents : pdf
         </p>
-        <label htmlFor="files">Fichiers</label>
+        <p>
+          Taille maximale : 10 Mo
+        </p>
         <input
           type="file"
           name="files"
           multiple
           placeholder="Image"
           limit="5"
-          size="5"
+          size={10000000}
           accept="image/png, image/jpeg, video/mp4, video/mov, video/avi, video/mkv, video/wmv, video/flv, video/webm, video/mpeg, audio/mpeg, audio/ogg, audio/wav, audio/wma, audio/aac, audio/flac, audio/mp4, application/pdf"
           onChange={(e) => {
             handleChange(e)
           }}
         />
+        <label htmlFor="files">Fichiers</label>
 
         {credentials.files && credentials.files.length > 0 && (
           <PreviewFiles files={credentials.files} />

@@ -105,13 +105,11 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
     console.log(cities)
   }, [cities])
 
-  // "phone",
-  // "range",
-  
   return (
     <div className="step step2">
       <h2>Personnel</h2>
 
+      {/* firstName */}
       <div className="formGroup">
         <label htmlFor="firstName">Prénom</label>
         <input 
@@ -127,6 +125,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
         />
       </div>
 
+      {/* lastName */}
       <div className="formGroup">
         <label htmlFor="lastName">Nom</label>
         <input
@@ -142,6 +141,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
         />
       </div>
 
+      {/* contactEmail */}
       <div className="formGroup">
         <label htmlFor="contactEmail">Email de contact</label>
         <input
@@ -156,6 +156,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
         />
       </div>
 
+      {/* country */}
       <div className="formGroup">
         <label htmlFor="country">Pays</label>
         <select
@@ -181,6 +182,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
         </select>
       </div>
 
+      {/* cities */}
       {cities.length > 0 && (
         <div className="formGroup">
           <label htmlFor="cities">Villes</label>
@@ -202,6 +204,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials}) => {
         </div>
       )}
 
+      {/* status */}
       <div className="formGroup">
         <label htmlFor="status">Status</label>
         <select 
