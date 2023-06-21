@@ -2,7 +2,6 @@ import React from 'react';
 import PreviewFiles from '../../PreviewFiles/PreviewFiles';
 
 const Step4 = ({ handleChange, credentials}) => {
-
   return (
     <div className="step step4">
       <h2>Mes documents</h2>
@@ -98,7 +97,7 @@ const Step4 = ({ handleChange, credentials}) => {
           name="files"
           multiple
           size={10000000}
-          accept=".pdf,.png,.jpg,.jpeg"
+          accept=".pdf,.png,.jpg,.jpeg,.mp3,.aac,.wav,.mp4,.mkv"
           placeholder="Autres fichiers"
           onChange={(e) => {
             handleChange(e)
@@ -111,7 +110,7 @@ const Step4 = ({ handleChange, credentials}) => {
           }}
         >Autres fichiers</label>
         <p>
-          <small>Formats acceptés : pdf, png, jpg, jpeg</small>
+          <small>Formats acceptés : pdf, png, jpg, jpeg, mp3, aac, waw, mp4, mkv</small>
         </p>
         <p>
           <small>Max : 10 Mo</small>

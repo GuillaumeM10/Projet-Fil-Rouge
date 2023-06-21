@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import Select from 'react-select';
 
-const Step3 = ({ handleChange, labelDisplay}) => {
+const Step3 = ({ handleChange, labelDisplay, credentials }) => {
   const [skills, setSkills] = useState({
     "target": {
       "name" : null,
@@ -13,7 +14,7 @@ const Step3 = ({ handleChange, labelDisplay}) => {
   const handleChangeSkills = (e) => {
     let { name, value } = e.target;
     const oldSkills = currentSkill;
-    setCurrentSkill({...oldSkills, [name]: value})
+    setCurrentSkill({...oldSkills, [name]: `${value}`})
   }
 
   const addSkill = (e) => {
@@ -86,6 +87,25 @@ const Step3 = ({ handleChange, labelDisplay}) => {
     }
   }, [skills])
 
+  useEffect(() => {
+    if(credentials?.userDetail?.skills){
+      let skillsArray = [];
+      credentials.userDetail.skills.map((skill) => {
+        skillsArray.push({
+          "name": skill.name,
+          "level": skill.level,
+          "description": skill.description
+        })
+      })
+      
+      setSkills({
+        "target": {
+          "name": "skills",
+          "value": skillsArray
+      }})
+    }
+  }, [])
+
   // links
   // experiences
   
@@ -101,6 +121,7 @@ const Step3 = ({ handleChange, labelDisplay}) => {
           type="text"
           name="formation"
           placeholder="Formation"
+          defaultValue={credentials?.userDetail?.formation}
           required
           onChange={(e) => {
             handleChange(e)
@@ -115,6 +136,7 @@ const Step3 = ({ handleChange, labelDisplay}) => {
         <textarea
           name="description"
           placeholder="Description"
+          defaultValue={credentials?.userDetail?.description}
           required
           onChange={(e) => {
             handleChange(e)
@@ -130,6 +152,7 @@ const Step3 = ({ handleChange, labelDisplay}) => {
           type="number"
           name="range"
           placeholder="Range"
+          defaultValue={credentials?.userDetail?.range}
           required
           onChange={(e) => {
             handleChange(e)
@@ -145,6 +168,7 @@ const Step3 = ({ handleChange, labelDisplay}) => {
           type="text"
           name="school"
           placeholder="Ecole"
+          defaultValue={credentials?.userDetail?.school}
           required
           onChange={(e) => {
             handleChange(e)
@@ -176,18 +200,19 @@ const Step3 = ({ handleChange, labelDisplay}) => {
         {/* level */}
         <div className="formGroup level">
           <label htmlFor="level">Niveau</label>
-          <select
+          <Select 
             name="level"
             required
+            placeholder="Niveau"
             onChange={(e) => {
-              labelDisplay(e)
-              handleChangeSkills(e)
+              handleChangeSkills({ target : { name: "level", value: e.value }})
             }}
-          >
-            <option value="0">Débutant</option>
-            <option value="1">Intermédiaire</option>
-            <option value="2">Avancé</option>
-          </select>
+            options={[
+              { value: 0, label: "Débutant" },
+              { value: 1, label: "Intermédiaire" },
+              { value: 2, label: "Avancé" }
+            ]}
+          />
         </div>
 
         {/* description */}

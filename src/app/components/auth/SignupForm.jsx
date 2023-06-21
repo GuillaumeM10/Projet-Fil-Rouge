@@ -13,6 +13,9 @@ const SignupForm = () => {
   const [signUpStep, setSignUpStep ] = useState(1);
   const [loggedIn, setLoggedIn] = useState(false);
   // const navigate = useNavigate();
+  useEffect(() => {
+    setCredentials({});
+  }, []);
 
   return ( 
     <div className="signUpContainer">
@@ -37,6 +40,7 @@ const SignupForm = () => {
         signUpStep={signUpStep} 
         setCredentials={setCredentials} 
         credientials={credentials} 
+        toast={toast}
         loggedIn={loggedIn}
       />
     }

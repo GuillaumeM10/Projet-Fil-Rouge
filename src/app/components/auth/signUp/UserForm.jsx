@@ -73,6 +73,7 @@ const UserForm = ({
         }
 
       } catch (error) {
+        console.log(error);
         setDisplayedError(error.response.data.message);
 
         toast.error(error.response.data.message);
