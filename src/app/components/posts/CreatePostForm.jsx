@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
-import PdfViewer from '../PdfViewer/PdfViewer';
 import PreviewFiles from '../PreviewFiles/PreviewFiles';
 
 const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
@@ -19,8 +18,8 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
     }
   }
 
-  useEffect(() => {
-    getAllPosts();
+  useEffect(() => { 
+    getAllPosts(); // eslint-disable-next-line
   }, [])
 
   const handleChange = (e) => {
@@ -30,7 +29,7 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
           value = value.replace(/\n/g, "<br />");
       };
       if (name === "published") value = e.target.checked;
-      if(name == "files"){
+      if(name === "files"){
           value = e.target.files;
       };
       setCredentials({
@@ -71,16 +70,7 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
       </div>
 
       <div className="formGroup file">
-        <p className="extentions">
-          Extensions autorisées : <br />
-          Images : png, jpeg <br />
-          Vidéos : mp4, mov, avi, mkv, wmv, flv, webm, mpeg <br />
-          Audios : mpeg, ogg, wav, wma, aac, flac, mp4 <br />
-          Documents : pdf
-        </p>
-        <p>
-          Taille maximale : 10 Mo
-        </p>
+        
         <input
           type="file"
           name="files"
@@ -93,12 +83,28 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
             handleChange(e)
           }}
         />
-        <label htmlFor="files">Fichiers</label>
+        <label
+          onClick={(e) => {
+            e.target.parentElement.querySelector('input').click()
+          }} 
+          htmlFor="files" 
+        >
+          Fichiers
+        </label>
 
         {credentials.files && credentials.files.length > 0 && (
-          <PreviewFiles files={credentials.files} />
+          <PreviewFiles files={credentials.files} isSwiper={true} />
         )}
-
+        <p className="extentions">
+          Extensions autorisées : <br />
+          Images : png, jpeg <br />
+          Vidéos : mp4, mov, avi, mkv, wmv, flv, webm, mpeg <br />
+          Audios : mpeg, ogg, wav, wma, aac, flac, mp4 <br />
+          Documents : pdf
+        </p>
+        <p>
+          Taille maximale : 10 Mo
+        </p>
       </div>
 
       <div style={{ 

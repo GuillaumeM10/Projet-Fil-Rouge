@@ -12,7 +12,7 @@ const PostCard = ({
       {post ? (
         <div key={post.id} className={post.id + ' post'}>
           <div className="author">
-            <img src={post.author?.detail?.personalPicture ? post.author?.detail?.personalPicture : '/img/profil.svg'} alt={post.author?.firstName} className='pp' />
+            <img src={post.author?.userDetail?.personalPicture?.Location ? post.author.userDetail.personalPicture.Location : '/img/profil.svg'} alt={post.author?.firstName} className='pp' />
             <div className="names">
               <h4>{post.author.firstName}</h4>
               <h4>{post.author.lastName}</h4>

@@ -54,6 +54,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     setPosts();
+    console.log(user);
   }, [user.id, page]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return ( 

@@ -20,10 +20,10 @@ const PdfViewer = ({ uri }) => {
         <Document
           file={uri}
           onLoadSuccess={onDocumentLoadSuccess}
-          options={{
-            cMapUrl: 'cmaps/',
-            cMapPacked: true,
-          }}
+          // options={{
+          //   cMapUrl: 'cmaps/',
+          //   cMapPacked: true,
+          // }}
         >
           <Page pageNumber={currentPage} />
         </Document>
