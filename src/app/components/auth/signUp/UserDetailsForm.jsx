@@ -7,7 +7,7 @@ import Step3 from './Step3';
 import Step4 from './Step4';
 import { useNavigate } from 'react-router-dom';
 
-const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep, loggedIn, toast}) => {
+const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
   const { credentials } = useContext(AuthContext);
   const { user } = useContext(UserContext);
@@ -19,15 +19,17 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
     setSending(true);
 
     try{
-      await UserDetailService.update(user.id, credentials.userDetail)
+      await UserDetailService.update(user.userDetail, credentials.userDetail)
       toast.success("Votre profil a bien été mis à jour !");
       setTimeout(() => {
-        navigate('/account');
+        // navigate('/account');
         setSending(false);
       }, 1000);
     }catch(e){
       toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
       console.log(e);
+      setSending(false);
+
     }
   }
 
@@ -46,11 +48,11 @@ const UserDetailsForm = ({ handleChange, labelDisplay, signUpStep, setSignUpStep
         <form onSubmit={handleSubmitUserDetails}>
 
           {signUpStep === 2 &&
-            <Step2 handleChange={handleChange} labelDisplay={labelDisplay} credentials={credentials} />
+            <Step2 handleChange={handleChange} credentials={credentials} />
           }
 
           {signUpStep === 3 &&
-            <Step3 handleChange={handleChange} labelDisplay={labelDisplay} credentials={credentials}/>
+            <Step3 handleChange={handleChange} credentials={credentials}/>
           }
 
           {signUpStep === 4 &&

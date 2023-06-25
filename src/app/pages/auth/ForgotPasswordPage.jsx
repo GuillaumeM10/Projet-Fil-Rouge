@@ -1,12 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import AuthService from "../../../setup/services/auth.service";
 import { Link } from "react-router-dom";
-import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
+import FunctionsService from "../../../setup/services/functions.service";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [result, setResult] = useState({ type: "", message: "" });
-  const { labelDisplay } = useContext(ScriptsContext);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -39,7 +38,7 @@ const ForgotPasswordPage = () => {
             placeholder="Email"
             onChange={(e) => {
               onChangeEmail(e)
-              labelDisplay(e)
+              FunctionsService.labelDisplay(e)
             }}
             required
           />

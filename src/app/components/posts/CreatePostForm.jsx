@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import PostService from '../../../setup/services/post.service';
 import PreviewFiles from '../PreviewFiles/PreviewFiles';
+import FunctionsService from '../../../setup/services/functions.service';
 
 const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
-  const { labelDisplay } = useContext(ScriptsContext);
   const [ displayedError, setDisplayedError ] = useState(null);
   const [credentials, setCredentials] = useState({})
 
@@ -64,7 +63,7 @@ const CreatePostForm = ({ setPosts, setUserPosts, setPage, user }) => {
           required
           onChange={(e) => {
             handleChange(e)
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
         />
       </div>

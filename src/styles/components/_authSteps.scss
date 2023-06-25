@@ -13,7 +13,12 @@
   }
 
   &.step3{
-    .skills{
+    .skills,
+    .experiences,
+    .links{
+      width: 100%;
+      max-width: 400px;
+
       .formGroup{
         padding-bottom: 20px;
       }
@@ -44,7 +49,9 @@
       }
 
       
-      .skill{
+      .skill,
+      .experience,
+      .link{
         display: flex;
         flex-direction: column;
         align-items: center;

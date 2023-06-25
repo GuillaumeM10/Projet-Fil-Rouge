@@ -25,7 +25,9 @@ const AuthProvider = ({ children }) => {
             "banner",
             "skills",
             "description",
-            "school"
+            "school",
+            "experiences",
+            "links"
         ].includes(name)){
             if (name === "displayedOnFeed") value = e.target.checked;
             if(name === "cities"){
@@ -35,13 +37,13 @@ const AuthProvider = ({ children }) => {
                 });
                 value = cities;
             }
-            if(name == "files"){
+            if(name === "files"){
                 value = e.target.files;
             };
             if(
-                name == "cv"
-                || name == "personalPicture"
-                || name == "banner"
+                name === "cv"
+                || name === "personalPicture"
+                || name === "banner"
             ){
                 if(!e?.target?.files[0]){
                     value = null;

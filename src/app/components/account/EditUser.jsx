@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { ScriptsContext } from '../../../setup/contexts/ScriptsContext';
 import { UserContext } from '../../../setup/contexts/UserContext';
+import FunctionsService from '../../../setup/services/functions.service';
 
 const EditUser = () => {
   const { user, setUser } = useContext(UserContext);
-  const { labelDisplay } = useContext(ScriptsContext);
 
   return (
     <form>
@@ -18,7 +17,7 @@ const EditUser = () => {
           value={user.firstName}
           onChange={(e) => {
             setUser({ ...user, firstName: e.target.value })
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
         />
       </div>
@@ -34,7 +33,7 @@ const EditUser = () => {
           onChange={
             (e) => {
               setUser({ ...user, lastName: e.target.value })
-              labelDisplay(e)
+              FunctionsService.labelDisplay(e)
             }}
         />
       </div>
@@ -49,7 +48,7 @@ const EditUser = () => {
           placeholder='Email'
           onChange={(e) => {
             setUser({ ...user, email: e.target.value })
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
         />
       </div>
@@ -62,7 +61,7 @@ const EditUser = () => {
           id="profilePicture"
           onChange={(e) => {
             setUser({ ...user, profilePicture: e.target.files[0] })
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
         />
       </div>
@@ -76,7 +75,7 @@ const EditUser = () => {
           placeholder='Mot de passe'
           onChange={(e) => {
             setUser({ ...user, password: e.target.value })
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
         }}
         />
       </div>
@@ -90,7 +89,7 @@ const EditUser = () => {
           placeholder='Confirmer le mot de passe'
           onChange={(e) =>{
             setUser({ ...user, confirmPassword: e.target.value })
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
         />
       </div>

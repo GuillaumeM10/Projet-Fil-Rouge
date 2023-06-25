@@ -1,8 +1,6 @@
-import { useContext } from "react";
-import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
+import FunctionsService from "../../../setup/services/functions.service";
 
 const AuthInputs = ({handleChange, signup}) => {
-  const { labelDisplay } = useContext(ScriptsContext);
   let autoComplete = signup ? "new-password" : "on";
 
   return ( 
@@ -20,7 +18,7 @@ const AuthInputs = ({handleChange, signup}) => {
             // required
             onChange={(e) => {
               handleChange(e)
-              labelDisplay(e)
+              FunctionsService.labelDisplay(e)
             }}
           />
         </div>
@@ -34,7 +32,7 @@ const AuthInputs = ({handleChange, signup}) => {
             // required
             onChange={(e) => {
               handleChange(e)
-              labelDisplay(e)
+              FunctionsService.labelDisplay(e)
             }}
           />
         </div>
@@ -51,7 +49,7 @@ const AuthInputs = ({handleChange, signup}) => {
             autoComplete="username"
             onChange={(e) => {
             handleChange(e)
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
           />
       </div>
@@ -66,7 +64,7 @@ const AuthInputs = ({handleChange, signup}) => {
             autoComplete={autoComplete}
             onChange={(e) => {
             handleChange(e)
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
         />
       </div>
@@ -82,7 +80,7 @@ const AuthInputs = ({handleChange, signup}) => {
             autoComplete="new-password"
             onChange={(e) => {
             handleChange(e)
-            labelDisplay(e)
+            FunctionsService.labelDisplay(e)
           }}
           />
         </div>

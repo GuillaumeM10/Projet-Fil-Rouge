@@ -15,7 +15,9 @@ const update = async (id, userDetail) => {
   if(userDetail.displayedOnFeed) formData.append('displayedOnFeed', userDetail.displayedOnFeed)
 
   if(userDetail.skills) formData.append('skills', JSON.stringify(userDetail.skills))
+  if(userDetail.experiences) formData.append('experiences', JSON.stringify(userDetail.experiences))
   if(userDetail.cities) formData.append('cities', JSON.stringify(userDetail.cities))
+  if(userDetail.links) formData.append('links', JSON.stringify(userDetail.links))
 
   const fileType = (name, filesObj) => {
     const files = Array.from(filesObj)

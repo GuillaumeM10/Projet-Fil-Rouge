@@ -1,13 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import AuthService from "../../../setup/services/auth.service";
 import { useParams } from "react-router-dom";
-import { ScriptsContext } from "../../../setup/contexts/ScriptsContext";
+import FunctionsService from "../../../setup/services/functions.service";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
   const [password, setPassword] = useState({});
   const [result, setResult] = useState({ type: "", message: "" });
-  const { labelDisplay } = useContext(ScriptsContext);
 
   const onChangePassword = (e) => {
     // setPassword(e.target.value);
@@ -57,7 +56,7 @@ const ResetPasswordPage = () => {
             placeholder="Password"
             onChange={(e) => {
               onChangePassword(e)
-              labelDisplay(e)
+              FunctionsService.labelDisplay(e)
             }}
           />
         </div>
@@ -70,7 +69,7 @@ const ResetPasswordPage = () => {
             placeholder="Confirm password"
             onChange={(e) => {
               onChangePassword(e)
-              labelDisplay(e)
+              FunctionsService.labelDisplay(e)
             }}
           />
         </div>

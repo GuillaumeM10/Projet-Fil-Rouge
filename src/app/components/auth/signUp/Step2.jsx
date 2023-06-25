@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../../setup/contexts/UserContext';
 import UserService from '../../../../setup/services/user.service';
 import Select, { components } from 'react-select';
+import FunctionsService from '../../../../setup/services/functions.service';
 
-const Step2 = ({ handleChange, labelDisplay, credentials }) => {
+const Step2 = ({ handleChange, credentials }) => {
   // Access user data from the UserContext
   const { user } = useContext(UserContext);
 
@@ -12,7 +13,6 @@ const Step2 = ({ handleChange, labelDisplay, credentials }) => {
   const [countries, setCountries] = useState([]);
   const [cca2, setCca2] = useState({});
   const [cities, setCities] = useState([]);
-  const [selectedCities, setSelectedCities] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   // Custom Option component to handle hiding options based on search value
@@ -96,17 +96,17 @@ const Step2 = ({ handleChange, labelDisplay, credentials }) => {
 
 
   // Fetch user data on component mount
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     try {
-  //       const data = await UserService.getOneById(user.id);
-  //       setNewUser(data);
-  //     } catch (error) {
-  //       console.log({ type: 'error', message: error.response.data.message });
-  //     }
-  //   };
-  //   getUser();
-  // }, [user]);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const data = await UserService.getOneById(user.id);
+        setNewUser(data);
+      } catch (error) {
+        console.log({ type: 'error', message: error.response.data.message });
+      }
+    };
+    getUser();
+  }, [user]);
 
   useEffect(() => {
     if (credentials?.userDetail?.country) {
@@ -129,7 +129,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials }) => {
           required
           onChange={(e) => {
             handleChange(e);
-            labelDisplay(e);
+            FunctionsService.labelDisplay(e);
           }}
         />
       </div>
@@ -145,7 +145,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials }) => {
           defaultValue={ credentials?.lastName ? credentials?.lastName : newUser?.lastName }
           onChange={(e) => {
             handleChange(e);
-            labelDisplay(e);
+            FunctionsService.labelDisplay(e);
           }}
         />
       </div>
@@ -160,7 +160,7 @@ const Step2 = ({ handleChange, labelDisplay, credentials }) => {
           defaultValue={ credentials?.contactEmail ? credentials?.contactEmail : newUser?.contactEmail }
           onChange={(e) => {
             handleChange(e);
-            labelDisplay(e);
+            FunctionsService.labelDisplay(e);
           }}
         />
       </div>
