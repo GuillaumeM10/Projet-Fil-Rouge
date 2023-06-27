@@ -85,21 +85,26 @@ const UserForm = ({
     <form className='mainform signUpForm' onSubmit={handleSubmitUser}>
       <AuthInputs handleChange={handleChange} signup={true} />
 
-      <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column'
-        }}>
-        <label htmlFor="displayedOnFeed">Etre affiché dans le feed (oui par défaut)</label>
-        <input
-          type="checkbox"
-          name="displayedOnFeed"
-          placeholder="Je souhaite être visible sur le feed"
-          defaultChecked={true}
-          onChange={(e) => {
-            handleChange(e)
-          }}
-        />
-      </div>
+      <label className="checkboxContainer" htmlFor="displayedOnFeed">
+        <span>
+          Etre affiché dans le feed (oui par défaut)
+        </span>
+      
+        <span className="animation">
+
+          <input
+            type="checkbox"
+            name="displayedOnFeed"
+            placeholder="Je souhaite être visible sur le feed"
+            defaultChecked={true}
+            id='displayedOnFeed'
+            onChange={(e) => {
+              handleChange(e)
+            }}
+          />
+          <span className="handle"></span>
+        </span>
+      </label>
 
       <button type="submit">INSCRIPTION</button>
     </form>

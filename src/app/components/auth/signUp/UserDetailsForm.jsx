@@ -6,6 +6,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
 import { useNavigate } from 'react-router-dom';
+import TokenService from '../../../../setup/services/token.service';
 
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
@@ -19,7 +20,10 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
     setSending(true);
 
     try{
-      await UserDetailService.update(user.userDetail, credentials.userDetail)
+      // get user from local storage
+      let userDetailId = TokenService.getUserInToken();
+      userDetailId = userDetailId.userDetail
+      await UserDetailService.update(userDetailId, credentials.userDetail)
       toast.success("Votre profil a bien été mis à jour !");
       setTimeout(() => {
         // navigate('/account');

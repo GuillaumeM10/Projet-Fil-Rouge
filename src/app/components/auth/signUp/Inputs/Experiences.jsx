@@ -191,19 +191,27 @@ const Experiences = ({
       </div>
 
       {/* actualyIn */}
-      <div className="formGroup actualyIn">
 
-        <label htmlFor="actualyIn">Actuellement en poste</label>
-        <input
-          type="checkbox"
-          name="actualyIn"
-          placeholder="Actuellement en poste"
-          onChange={(e) => {
-            handleChangeExperiences(e)
-          }}
-          />
+        <label className="checkboxContainer formGroup actualyIn" htmlFor="actualyIn">
+          <span>
+            Actuellement en poste
+          </span>
+        
+          <span className="animation">
 
-      </div>
+            <input
+              type="checkbox"
+              name="actualyIn"
+              placeholder="Je souhaite être visible sur le feed"
+              id='actualyIn'
+              onChange={(e) => {
+                handleChangeExperiences(e)
+              }}
+            />
+            <span className="handle"></span>
+          </span>
+        </label>
+
 
       <button
         type="button"
@@ -224,7 +232,7 @@ const Experiences = ({
                 <p>{FunctionsService.dateFormater(experience.startDate)}</p>
                 <p>{FunctionsService.dateFormater(experience.endDate)}</p>
                 <p>{experience.type}</p>
-                <p>{experience.actualyIn ? experience.actualyIn : "false"}</p>
+                <p className='actualyIn'>{experience.actualyIn ? "j'occupe actuellment le post" : "je n'occupe pas actuellement ce post"}</p>
                 
                 <button 
                   type="button"

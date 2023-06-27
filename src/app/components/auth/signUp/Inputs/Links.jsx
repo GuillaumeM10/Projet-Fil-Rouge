@@ -1,35 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FunctionsService from '../../../../../setup/services/functions.service';
+import Select from 'react-select';
+import LinkCategoriesService from '../../../../../setup/services/linkCategory.service';
 
 const Links = ({
   setLinks,
   links,
 }) => {
   const [currentLink, setCurrentLink] = useState({});
+  const [linkCategories, setLinkCategories] = useState([]);
+  const [linkCategoriesOptions, setLinkCategoriesOptions] = useState([]);
+
 
   const handleChangeLinks = (e) => {
     let { name, value } = e.target;
+    if (name === "linkCategory") value = parseInt(value);
     const oldLinks = currentLink;
-    setCurrentLink({...oldLinks, [name]: `${value}`})
+    setCurrentLink({...oldLinks, [name]: value})
   }
 
   const addLink = (e) => {
     const oldLinks = links;
   
-    if( // if the skill is already in the list
+    if(
       !currentLink.name
       || (
         links.target.value.find((link) => link.name === currentLink.name)
-        && links.target.value.find((link) => link.link === currentLink.link)
+        && links.target.value.find((link) => link.url === currentLink.url)
         && links.target.value.find((link) => link.description === currentLink.description)
+        && links.target.value.find((link) => link.linkCategory === currentLink.linkCategory)
       )
     ) return;
 
-    if( // if the skill is already in the list but with different level or description
+    if(
     links.target.value.find((link) => link.name === currentLink.name)
       && (
-        links.target.value.find((link) => link.link !== currentLink.link)
+        links.target.value.find((link) => link.url !== currentLink.url)
         || links.target.value.find((link) => link.description !== currentLink.description)
+        || links.target.value.find((link) => link.linkCategory !== currentLink.linkCategory)
       )
     ){
       const skill = links.target.value.find((link) => link.name === currentLink.name);
@@ -47,17 +55,16 @@ const Links = ({
       return;
     }
 
-    setLinks({ // if the skill is not in the list
+    setLinks({
       ...oldLinks,
       "target": {
-        "name": "skills",
+        "name": "links",
         "value": [
           ...oldLinks.target.value,
           currentLink
         ]
       }
     });
-    // handleChange(skills);
   }
 
   const removeLink = (e, index) => {
@@ -76,6 +83,29 @@ const Links = ({
     });
   }
 
+  useEffect(() => {
+    LinkCategoriesService.getAll().then((res) => {
+      setLinkCategories(res);
+    
+    }).catch((err) => {
+    
+      console.log(err);
+    
+    })
+      
+  }, [])
+  useEffect(() => {
+    console.log(links);
+  }, [links])
+  useEffect(() => {
+    const options = linkCategories.map((linkCategory) => {
+      return {
+        value: linkCategory.id,
+        label: linkCategory.name,
+      }
+    })
+    setLinkCategoriesOptions(options);
+  }, [linkCategories])
 
   return (
     <div className='links'>
@@ -98,10 +128,10 @@ const Links = ({
       
       {/* link */}
       <div className="formGroup">
-        <label htmlFor="link">Lien</label>
+        <label htmlFor="url">Lien</label>
         <input
           type="text"
-          name="link"
+          name="url"
           placeholder="Lien"
           required
           onChange={(e) => {
@@ -126,6 +156,19 @@ const Links = ({
           />
       </div>
 
+      {/* linkCategory */}
+      <div className="formGroup">
+        <label htmlFor="linkCategory">Catégorie</label>
+        <Select
+          name="linkCategory"
+          placeholder="Catégorie"
+          options={linkCategoriesOptions}
+          onChange={(e) => {
+            handleChangeLinks({ target : { name: "linkCategory", value: e.value }})
+          }}
+        />
+      </div>
+
       <button
         type="button"
         className="addButton"
@@ -140,8 +183,19 @@ const Links = ({
         {links.target.value.map((link, index) => {
             return (
               <div className='experience' key={index}>
-                <a href={link.link} target='_blank'>{link.name}</a>
+                <a href={link.url} className="row" target='_blank'>
+                  {link.linkCategory && linkCategories.length > 2 && (() => {
+                    let cat = linkCategories.find((linkCategory) => (linkCategory.id === +link.linkCategory));
+                    console.log({cat});
+                    return (
+                      <div dangerouslySetInnerHTML={{__html: cat.icon}}></div>
+                    );
+                  })()}
+                  {link.name}
+                </a>
+                
                 <p>{link.description}</p>
+                
                 
                 <button 
                   type="button"

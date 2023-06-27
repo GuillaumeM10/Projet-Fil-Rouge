@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
 const getUserInToken = (accessToken) => {
+    accessToken = accessToken || getTokenFromLocalStorage();
     const user = jwtDecode(accessToken);
     return user;
 }

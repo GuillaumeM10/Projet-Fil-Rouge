@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik");
+$size: 30px;
+$width: $size * 2;
+$border-width: 1px;
+$background-color: #ccd1d9;
+$border-color: #aab2bd;
+$spacing: ($border-width * 2);
+$checked-background-color: #37bc9b;
+$unchecked-background-color: white;
+$checked-color: white;
+$unchecked-color: $background-color;
+$toggle-on-label: "\2713"; // "\2713"
+$toggle-off-label: "\d7";
+$off-on-right: false; // initial position of handle
+
+.checkboxContainer{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+.animation{
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  width: ($width);
+  border-radius: ($size / 2);
+  height: $size;
+  background-color: $background-color;
+  border: ($border-width) solid darken($border-color, 8%);
+
+  input[type='checkbox']{
+    appearance: none;
+    opacity: 0;
+    &:focus + .handle {
+      &::before {
+        transform: scale(1);
+        opacity: 0.25;
+      }
+    }
+    &:checked + .handle {
+      @if $off-on-right {
+        left: auto;
+        right: (($size + $spacing) - $border-width);
+      } @else {
+        left: (($size + $spacing) - $border-width);
+        right: auto;
+      }
+
+      &::after {
+        color: $checked-color;
+        border-color: $checked-background-color;
+        background-color: $checked-background-color;
+        @if $toggle-on-label != "" {
+          content: $toggle-on-label;
+        } @else {
+          content: "";
+        }
+      }
+    }
+  }
+
+  .handle {
+    cursor: pointer;
+    position: absolute;
+    border-radius: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: ($size / 2);
+    line-height: ($size - ($spacing * 4));
+
+    @if $off-on-right {
+      left: auto;
+      right: ($spacing + $border-width);
+      transition: right 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    } @else {
+      left: ($spacing + $border-width);
+      right: auto;
+      transition: left 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    &::after {
+      width: ($size - ($spacing * 4));
+      height: ($size - ($spacing * 4));
+      border: ($border-width) solid lighten($border-color, 7%);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      background-color: $unchecked-background-color;
+      border-radius: 100%;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      color: $unchecked-color;
+      transition: background-color 0.2s ease, border-color 0.2s ease,
+        color 0.2s ease;
+      pointer-events: none;
+      user-select: none;
+      @if $toggle-off-label != "" {
+        content: $toggle-off-label;
+      } @else {
+        content: "";
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      display: block;
+      width: ($size * 1.5);
+      height: ($size * 1.5);
+      border-radius: 50%;
+      opacity: 0;
+      transform-style: flat;
+      transform: scale(0);
+      top: 50%;
+      left: 50%;
+      margin-top: (($size * 1.5) / -2);
+      margin-left: (($size * 1.5) / -2);
+      background-color: lighten($border-color, 5%);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    &:hover {
+      &::before {
+        transform: scale(1);
+        opacity: 0.25;
+      }
+    }
+  }
+}

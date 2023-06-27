@@ -1,3 +1,5 @@
+import api from "./api.service"
+
 const ENDPOINT = "/link-categories"
 
 const getAll = async () => {

@@ -6,6 +6,8 @@ import Experiences from './Inputs/Experiences';
 import Links from './Inputs/Links';
 
 const Step3 = ({ handleChange, credentials }) => {
+  const [tabs, setTabs] = useState('skills');
+
   const [skills, setSkills] = useState({
     "target": {
       "name" : null,
@@ -59,8 +61,9 @@ const Step3 = ({ handleChange, credentials }) => {
         "target": {
           "name": "skills",
           "value": skillsArray
-        }})
-      }
+        }
+      })
+    }
 
     if(credentials?.userDetail?.experiences){
       let experiencesArray = [];
@@ -92,8 +95,9 @@ const Step3 = ({ handleChange, credentials }) => {
           
           linksArray.push({
             "name": link.name,
-            "url": link.url,
-            "description": link.description || ""
+            "link": link.url,
+            "description": link.description,
+            "linkCategory": link.linkCategory,
           })
   
         }
@@ -108,6 +112,7 @@ const Step3 = ({ handleChange, credentials }) => {
 
   }, [])
     
+
 
   // links
 
@@ -146,24 +151,53 @@ const Step3 = ({ handleChange, credentials }) => {
         credentials={credentials?.userDetail?.school}
         placeholder={"Ecole"}
       />
-      
+
+      <div className="tabs buttons">
+        <button
+          onClick={() => setTabs("skills")}
+          className={"skills " + (tabs === "skills" ? "active" : "")}
+        >
+          Skills
+        </button>
+
+        <button
+          onClick={() => setTabs("experiences")}
+          className={"experiences " + (tabs === "experiences" ? "active" : "")}
+        >
+          Experiences
+        </button>
+        
+        <button
+          onClick={() => setTabs("links")}
+          className={"links " + (tabs === "links" ? "active" : "")}
+        >
+          Links
+        </button>
+      </div>
+
       {/* skills */}
-      <Skills 
-        setSkills={setSkills}
-        skills={skills}
-      />
+      {tabs === "skills" && (
+        <Skills 
+          setSkills={setSkills}
+          skills={skills}
+        />
+      )}
 
       {/* experiences */}
-      <Experiences
-        setExperiences={setExperiences}
-        experiences={experiences}
-      />
+      {tabs === "experiences" && (
+        <Experiences
+          setExperiences={setExperiences}
+          experiences={experiences}
+        />
+      )}
 
       {/* links */}
-      <Links
-        setLinks={setLinks}
-        links={links}
-      />
+      {tabs === "links" && (
+        <Links
+          setLinks={setLinks}
+          links={links}
+        />
+      )}
       
     </div>
   );

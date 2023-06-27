@@ -6,6 +6,7 @@ import TokenService from "../../../setup/services/token.service";
 import CreatePostForm from "../../components/posts/CreatePostForm";
 import AccountPosts from "../../components/account/AccountPosts";
 import EditUser from "../../components/account/EditUser";
+import AdminAddLinkCat from "../../components/account/AdminAddLinkCat";
 
 const AccountPage = () => {
   const [ userPosts, setUserPosts ] = useState([]);
@@ -54,12 +55,19 @@ const AccountPage = () => {
 
   useEffect(() => {
     setPosts();
-    console.log(user);
+    // console.log(user);
   }, [user.id, page]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return ( 
       <div className="account defaultPaddingX defaultPaddingY">
           <h1>Profil Utilisateur</h1>
+
+          {user.role === "admin" && (
+            <>
+              <p>Administrateur</p>
+              <AdminAddLinkCat />
+            </>
+          )}
 
           <p>{user.email}</p>
 
