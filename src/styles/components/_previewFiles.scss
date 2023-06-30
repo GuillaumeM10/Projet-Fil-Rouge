@@ -6,9 +6,10 @@
     height: auto;
     
     .previewFile{
+      padding: 0 40px 30px 40px;
       margin: auto 0;
       margin: auto 0;
-      width: 100%;
+      width: calc(100% - 80px);
     }
   }
   

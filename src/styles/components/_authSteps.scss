@@ -11,165 +11,7 @@
       }
     }
   }
-
-  &.step3{
-    .tabs.buttons{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      width: 100%;
-      max-width: 400px;
-
-      button{
-        background-color: transparent;
-        color: $black;
-        border: none;
-        border-bottom: 2px solid $black;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: 100%;
-
-        &:hover{
-          background-color: $black;
-          color: $white;
-        }
-        &.active{
-          background-color: $black;
-          color: $white;
-        }
-      }
-    }
-
-    .skills,
-    .experiences,
-    .links{
-      width: 100%;
-      max-width: 400px;
-
-      .formGroup{
-        padding-bottom: 20px;
-      }
-
-      .addButton{
-        background-color: transparent;
-        color: $black;
-        border: none;
-        border-bottom: 2px solid $black;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: 100%;
-
-        &:hover{
-          background-color: $black;
-          color: $white;
-        }
-      }
-
-      .cards{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 10px;
-      }
-      
-      .skill,
-      .experience,
-      .link{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        flex-grow: 1;
-        flex-wrap: wrap;
-        border: 1px solid $primary;
-        justify-content: center;
-        width: calc(50% - 27px);
-        position: relative;
-        padding: 10px;
-
-        p{padding: 0;margin: 0;}
-
-        svg{
-          width: 20px;
-        }
-
-        a{
-          color: $black;
-          text-decoration: none;
-          border: 1px solid $black;
-          padding: 5px 10px;
-          border-radius: 5px;
-          height: fit-content;
-          font-size: 14px;
-          font-weight: 600;
-          transition: all 0.2s ease-in-out;
-          >div{height: fit-content;display: flex;}
-
-          &:hover{
-            color: $primary;
-            border: 1px solid $primary;
-          }
-        }
-
-        .name{
-          font-size: 14px;
-          font-weight: 600;
-          color: $black;
-        }
-
-        .level{
-          font-size: 14px;
-          font-weight: 600;
-          color: $black;
-          background-color: $primary;
-          padding: 5px 10px;
-          border-radius: 5px;
-        }
-        .description{
-          font-size: 14px;
-          font-weight: 600;
-          color: $black;
-          background-color: $primary;
-          padding: 5px 10px;
-          border-radius: 5px;
-        }
-      }
-
-      .removeButton{
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: red;
-        color: $white;
-        border: none;
-        text-align: center;
-        border-radius: 5px;
-        font-size: 10px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: 20px;
-        height: 20px;
-
-        &:hover{
-          background-color: darken($color: $primary, $amount: 10%);
-        }
-      }
-
-      .actualyIn{
-        font-size: 14px;
-        text-align: center;
-      }
-    }
-  }
+ 
 }
 
 .signUpContainer form{
@@ -184,36 +26,138 @@
     gap: 10px;
     padding: 10px 20px;
     
-    button{
-      background-color: $primary;
-      color: $white;
+  }
+
+}
+
+.step3{
+  .tabs.buttons{
+    max-width: 400px;
+  }
+
+  .skills,
+  .experiences,
+  .links{
+    width: 100%;
+    max-width: 400px;
+
+    .formGroup{
+      padding-bottom: 20px;
+    }
+
+    .addButton{
+      background-color: transparent;
+      color: $black;
       border: none;
+      border-bottom: 2px solid $black;
       padding: 10px 20px;
-      border-radius: 5px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
-      
+      width: 100%;
+      border-radius: 0;
+
+      &:hover{
+        background-color: $black;
+        color: $white;
+      }
+    }
+
+    .cards{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .skill,
+    .experience,
+    .link{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      border: 1px solid $primary;
+      justify-content: center;
+      width: calc(50% - 27px);
+      position: relative;
+      padding: 10px;
+
+      p{padding: 0;margin: 0;}
+
+      svg{
+        width: 20px;
+      }
+
+      a{
+        color: $black;
+        text-decoration: none;
+        border: 1px solid $black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        height: fit-content;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        >div{height: fit-content;display: flex;}
+
+        &:hover{
+          color: $primary;
+          border: 1px solid $primary;
+        }
+      }
+
+      .name{
+        font-size: 14px;
+        font-weight: 600;
+        color: $black;
+      }
+
+      .level{
+        font-size: 14px;
+        font-weight: 600;
+        color: $black;
+        background-color: $primary;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      .description{
+        font-size: 14px;
+        font-weight: 600;
+        color: $black;
+        background-color: $primary;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+    }
+
+    .removeButton{
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: red;
+      color: $white;
+      border: none;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      width: 20px;
+      height: 20px;
+
       &:hover{
         background-color: darken($color: $primary, $amount: 10%);
       }
-      &[type='submit']{
-        background-color: green;
-        color: $white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        
-        &:hover{
-          background-color: lighten($color: green, $amount: 10%);
-        }
-      }
+    }
+
+    .actualyIn{
+      font-size: 14px;
+      text-align: center;
     }
   }
-
 }

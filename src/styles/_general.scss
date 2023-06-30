@@ -9,6 +9,7 @@ body{
     box-sizing: border-box;
 }
 
+// ------- TITLES --------- //
 h1, h2, h3, h4, h5, h6{
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
@@ -21,6 +22,7 @@ h1, h2, h3, h4, h5, h6{
     display: flex;
 }
 
+// ------- ANIMATIONS - LOADING --------- //
 .loading{
     display: flex;
     justify-content: center;
@@ -44,6 +46,7 @@ h1, h2, h3, h4, h5, h6{
     }
 }
 
+// ------- FLEX --------- //
 .row{
     display: flex;
     flex-wrap: nowrap;
@@ -53,4 +56,37 @@ h1, h2, h3, h4, h5, h6{
 .wrap{
     display: flex;
     flex-wrap: wrap;
+}
+
+// ------- TABULATIONS --------- //
+.tabs.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+
+    button{
+        background-color: transparent;
+        color: $black;
+        border: none;
+        border-bottom: 2px solid $black;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        width: 100%;
+        border-radius: 0;
+
+        &:hover{
+        background-color: $black;
+        color: $white;
+        }
+        &.active{
+        background-color: $black;
+        color: $white;
+        }
+    }
 }

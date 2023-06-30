@@ -18,13 +18,22 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
       const dataArray = [];
       for (const file of files) {
         let data;
-
+        console.log({file});
         if (file.Location) { // Fetch file from AWS S3
-          const response = await fetch(file.Location);
-          const blob = await response.blob();
-          data = await readFile(blob);
+          const fileType = file.Location.split('.').pop();
+          console.log({fileType});
+          if(fileType === "pdf"){
+
+            const response = await fetch(file.Location);
+            const blob = await response.blob();
+            data = await readFile(blob);
+
+          }else{
+            data = file;
+          }
         } else {
           data = await readFile(file); // Read file asynchronously
+          console.log({data});
         }
 
         dataArray.push(data); // Store the data in the array
@@ -59,9 +68,13 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
           // scrollbar={{ draggable: true }}
         >
           {previewData.map((data, index) => {
+            if(data === undefined) return null;
             const file = files[index];
 
             // From AWS S3
+            if(file?.Location){
+              file.type = file.Location.split('.').pop();
+            }
             if (!file.type) {
               file.type = data && data.split(';')[0].split(':')[1];
             }
@@ -74,16 +87,14 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                 <div className={"previewFile swiper-card" + ' ' + file.type}>
                   {file?.name && (<p>{file?.name}</p>)} 
 
-                  {
-                  
-                  file.type === 'application/pdf' || file.type === 'pdf' ? (
+                  {file.type === 'application/pdf' || file.type === 'pdf' ? (
                     
                     <PdfViewer uri={data} /> 
                   
                     ) : file.type === 'image/png' || file.type === 'png' ||
                         file.type === 'image/jpeg' || file.type === 'jpeg' ? (
 
-                    <img width={width} src={data} alt={file.name} />
+                    <img width={width} src={file.Location ? file.Location : data} alt={file.name} />
 
                   ) : file.type === 'video/mp4' || file.type === 'mp4' ||
                       file.type === 'video/mov' || file.type === 'mov' ||
@@ -95,7 +106,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                       file.type === 'video/mpeg' || file.type === 'mpeg' ? (
                     
                     <video width={width} controls>
-                      <source src={data} type={file.type} /> 
+                      <source src={file.Location ? file.Location : data} type={file.type.includes('video/') ? file.type : "video/" + file.type} /> 
                     </video>
                   
                   ) : file.type === 'audio/mpeg' || file.type === 'mpeg' ||
@@ -107,7 +118,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                       file.type === 'audio/mp3' || file.type === 'mp3' ? (
                     
                     <audio controls>
-                      <source src={data} type={file.type} /> 
+                      <source src={file.Location ? file.Location : data} type={file.type.includes('audio/') ? file.type : "audio/" + file.type} /> 
                     </audio>
                   
                   ) : null}
@@ -118,9 +129,13 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
         </Swiper>
       ) : (
         previewData.map((data, index) => {
+          if(data === undefined) return null;
           const file = files[index];
 
           // From AWS S3
+          if(file?.Location){
+            file.type = file.Location.split('.').pop();
+          }
           if (!file.type) {
             file.type = data && data.split(';')[0].split(':')[1];
           }
@@ -128,20 +143,19 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
             file.type = file.Location.split('.').pop();
           }
 
+          console.log(file.type);
           return (
             <div key={index} className={"previewFile swiper-card"}>
               {file?.name && (<p>{file?.name}</p>)} 
-
-              {
               
-              file.type === 'application/pdf' || file.type === 'pdf' ? (
+              { file.type === 'application/pdf' || file.type === 'pdf' ? (
                 
                 <PdfViewer uri={data} /> 
               
                 ) : file.type === 'image/png' || file.type === 'png' ||
                     file.type === 'image/jpeg' || file.type === 'jpeg' ? (
 
-                <img width={width} src={data} alt={file.name} />
+                <img width={width} src={file.Location ? file.Location : data} alt={file.name} />
 
               ) : file.type === 'video/mp4' || file.type === 'mp4' ||
                   file.type === 'video/mov' || file.type === 'mov' ||
@@ -153,7 +167,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                   file.type === 'video/mpeg' || file.type === 'mpeg' ? (
                 
                 <video width={width} controls>
-                  <source src={data} type={file.type} /> 
+                  <source src={file.Location ? file.Location : data} type={file.type.includes('video/') ? file.type : "video/" + file.type} /> 
                 </video>
               
               ) : file.type === 'audio/mpeg' || file.type === 'mpeg' ||
@@ -165,7 +179,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                   file.type === 'audio/mp4' || file.type === 'mp4' ? (
                 
                 <audio controls>
-                  <source src={data} type={file.type} /> 
+                  <source src={file.Location ? file.Location : data} type={file.type.includes('audio/') ? file.type : "audio/" + file.type} /> 
                 </audio>
               
               ) : null}

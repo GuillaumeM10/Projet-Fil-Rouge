@@ -6,13 +6,14 @@ import TokenService from "../../../setup/services/token.service";
 import CreatePostForm from "../../components/posts/CreatePostForm";
 import AccountPosts from "../../components/account/AccountPosts";
 import EditUser from "../../components/account/EditUser";
-import AdminAddLinkCat from "../../components/account/AdminAddLinkCat";
+import AdminControls from "../../components/account/AdminControls";
 
 const AccountPage = () => {
   const [ userPosts, setUserPosts ] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const [ page, setPage ] = useState(1); // eslint-disable-line no-unused-vars
   const [ noMorePosts, setNoMorePosts ] = useState(false);
+  const [tabs, setTabs] = useState('');
   const navigate = useNavigate();
   
   const disconnect = async() => {
@@ -62,13 +63,6 @@ const AccountPage = () => {
       <div className="account defaultPaddingX defaultPaddingY">
           <h1>Profil Utilisateur</h1>
 
-          {user.role === "admin" && (
-            <>
-              <p>Administrateur</p>
-              <AdminAddLinkCat />
-            </>
-          )}
-
           <p>{user.email}</p>
 
           <button
@@ -77,11 +71,59 @@ const AccountPage = () => {
             Déconnexion
           </button>
 
-          {/* <EditUser /> */}
+          <div className="tabs buttons">
+            <button
+              onClick={() => setTabs("createPost")}
+              className={"createPost " + (tabs === "createPost" ? "active" : "")}
+            >
+              Créer un post
+            </button>
 
-          <CreatePostForm setPosts={setPosts} setUserPosts={setUserPosts} setPage={setPage} user={user} />
+            <button
+              onClick={() => setTabs("editUser")}
+              className={"editUser " + (tabs === "editUser" ? "active" : "")}
+            >
+              Editer le profil
+            </button>
 
-          <AccountPosts userPosts={userPosts} setPosts={setPosts} setPage={setPage} page={page} noMorePosts={noMorePosts} />
+            <button
+              onClick={() => setTabs("myPosts")}
+              className={"myPosts " + (tabs === "myPosts" ? "active" : "")}
+            >
+              Mes posts
+            </button>
+
+            {user.role === "admin" && (
+              <button
+                onClick={() => setTabs("admin")}
+                className={"admin " + (tabs === "admin" ? "active" : "")}
+              >
+                Admin
+              </button>
+            )}
+
+          </div>
+
+          {/* createPost */}
+          {tabs === "createPost" && (
+            <CreatePostForm setPosts={setPosts} setUserPosts={setUserPosts} setPage={setPage} user={user} />
+            )}
+
+          {/* editUser */}
+          {tabs === "editUser" && (
+            <EditUser />
+          )}
+
+          {/* myPosts */}
+          {tabs === "myPosts" && (
+            <AccountPosts userPosts={userPosts} setPosts={setPosts} setPage={setPage} page={page} noMorePosts={noMorePosts} />
+          )}
+
+          {/* admin */}
+          {tabs === "admin" && (
+            <AdminControls />
+          )}
+
       </div>
   );
 }

@@ -45,6 +45,7 @@ form.mainform{
     transition: all 0.2s ease-in-out;
 
     &.active{
+      z-index: 1;
       visibility: visible;
       pointer-events: auto;
       opacity: 1;
@@ -108,6 +109,37 @@ input[type="file"]{
 
     &:hover{
       background-color: rgba($color: $black, $alpha: 0.1);
+    }
+  }
+}
+
+button{
+  background-color: $primary;
+  color: $white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover{
+    background-color: darken($color: $primary, $amount: 10%);
+  }
+  &[type='submit']{
+    background-color: green;
+    color: $white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    
+    &:hover{
+      background-color: lighten($color: green, $amount: 10%);
     }
   }
 }

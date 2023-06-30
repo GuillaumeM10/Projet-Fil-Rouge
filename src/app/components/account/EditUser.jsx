@@ -1,102 +1,104 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../setup/contexts/UserContext';
-import FunctionsService from '../../../setup/services/functions.service';
+import Step2 from '../auth/signUp/Step2';
+import Step4 from '../auth/signUp/Step4';
+import Step3 from '../auth/signUp/Step3';
+import { AuthContext } from '../../../setup/contexts/AuthContext';
+import toast, { Toaster } from "react-hot-toast";
+import UserDetailService from '../../../setup/services/userDetail.service';
+import TokenService from '../../../setup/services/token.service';
 
 const EditUser = () => {
   const { user, setUser } = useContext(UserContext);
+  const { setCredentials, credentials, handleChange } = useContext(AuthContext);
+  const [ displayedError, setDisplayedError ] = useState(null);
+  const [ sending, setSending ] = useState(false);
+  const [tabs, setTabs] = useState('');
+
+  const handleSubmitUserDetails = async (e) => {
+    e.preventDefault();
+    setSending(true);
+
+    try{
+      // get user from local storage
+      let userDetailId = TokenService.getUserInToken();
+      userDetailId = userDetailId.userDetail
+      await UserDetailService.update(userDetailId, credentials.userDetail)
+      toast.success("Votre profil a bien été mis à jour !");
+      setTimeout(() => {
+        // navigate('/account');
+        setSending(false);
+      }, 1000);
+    }catch(e){
+      toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
+      console.log(e);
+      setSending(false);
+
+    }
+  }
+
+  useEffect(() => {
+    setCredentials({ ...credentials, userDetail: user.userDetail })
+  }, [user.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <form>
-      <div className="formGroup">
-        <label htmlFor="firstName">Prénom</label>
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          placeholder='Prénom'
-          value={user.firstName}
-          onChange={(e) => {
-            setUser({ ...user, firstName: e.target.value })
-            FunctionsService.labelDisplay(e)
-          }}
-        />
+    <div className="editUser">
+      <p>Edit profil</p>
+
+      <div className="tabs buttons">
+          <button
+            onClick={() => setTabs("personnal")}
+            className={"personnal " + (tabs === "personnal" ? "active" : "")}
+          >
+            Personnel
+          </button>
+
+          <button
+            onClick={() => setTabs("professionnal")}
+            className={"professionnal " + (tabs === "professionnal" ? "active" : "")}
+          >
+            Professionnel
+          </button>
+
+          <button
+            onClick={() => setTabs("myDocs")}
+            className={"myDocs " + (tabs === "myDocs" ? "active" : "")}
+          >
+            Mes documents
+          </button>
+
       </div>
 
-      <div className="formGroup">
-        <label htmlFor="lastName">Nom</label>
-        <input
-          type="text"
-          name="lastName"
-          id="lastName"
-          value={user.lastName}
-          placeholder='Nom'
-          onChange={
-            (e) => {
-              setUser({ ...user, lastName: e.target.value })
-              FunctionsService.labelDisplay(e)
-            }}
-        />
-      </div>
+      <form onSubmit={handleSubmitUserDetails}>
 
-      <div className="formGroup">
-      <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={user.email}
-          placeholder='Email'
-          onChange={(e) => {
-            setUser({ ...user, email: e.target.value })
-            FunctionsService.labelDisplay(e)
-          }}
-        />
-      </div>
+        {!sending ? (
+          <>
+            {tabs === "personnal" && (
+              <Step2 handleChange={handleChange} credentials={credentials} />
+              )}
 
-      <div className="formGroup">
-        <label htmlFor="profilePicture">Photo de profil</label>
-        <input
-          type="file"
-          name="profilePicture"
-          id="profilePicture"
-          onChange={(e) => {
-            setUser({ ...user, profilePicture: e.target.files[0] })
-            FunctionsService.labelDisplay(e)
-          }}
-        />
-      </div>
+            {tabs === "professionnal" && (
+              <Step3 handleChange={handleChange} credentials={credentials}/>
+              )}
 
-      <div className="formGroup">
-        <label htmlFor="password">Mot de passe</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder='Mot de passe'
-          onChange={(e) => {
-            setUser({ ...user, password: e.target.value })
-            FunctionsService.labelDisplay(e)
-        }}
-        />
-      </div>
+            {tabs === "myDocs" && (
+              <Step4 handleChange={handleChange} credentials={credentials} />
+              )}
+          
+            {tabs !== "" && <button type="submit">Valider</button>}
+            
+            { displayedError && <div className="error">{ displayedError }</div> }
+          </>
+        ) : (
+          <div>
+            <img className='loading' src="/img/loading.svg" alt="" />
+          </div>
+        )}
 
-      <div className="formGroup">
-        <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          placeholder='Confirmer le mot de passe'
-          onChange={(e) =>{
-            setUser({ ...user, confirmPassword: e.target.value })
-            FunctionsService.labelDisplay(e)
-          }}
-        />
-      </div>
-      
-      <button type="submit">Modifier</button>
-      
-    </form>
+      </form>
+
+      <Toaster />
+    </div>
   );
 };
 

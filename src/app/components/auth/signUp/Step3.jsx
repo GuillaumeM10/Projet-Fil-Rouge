@@ -112,10 +112,6 @@ const Step3 = ({ handleChange, credentials }) => {
 
   }, [])
     
-
-
-  // links
-
   return (
     <div className="step step3">
       <h2>Professionnel</h2>

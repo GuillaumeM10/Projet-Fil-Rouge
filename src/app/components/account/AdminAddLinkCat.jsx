@@ -36,7 +36,6 @@ const AdminAddLinkCat = () => {
   ];
 
   const addLinkCat = async (e) => {
-    console.log(linkCats);
     try {
       let response = await LinkCategoriesService.create(linkCats)
       setResponse(typeof response === 'object' ? 'catégorie de liens ajouté' : response)

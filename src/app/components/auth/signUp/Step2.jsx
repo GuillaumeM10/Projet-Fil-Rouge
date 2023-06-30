@@ -3,6 +3,7 @@ import { UserContext } from '../../../../setup/contexts/UserContext';
 import UserService from '../../../../setup/services/user.service';
 import Select, { components } from 'react-select';
 import FunctionsService from '../../../../setup/services/functions.service';
+import DefaultInput from './Inputs/DefaultInput';
 
 const Step2 = ({ handleChange, credentials }) => {
   // Access user data from the UserContext
@@ -119,55 +120,38 @@ const Step2 = ({ handleChange, credentials }) => {
       <h2>Personnel</h2>
 
       {/* firstName */}
-      <div className="formGroup">
-        <label htmlFor="firstName">Prénom</label>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="Prénom"
-          defaultValue={ credentials?.firstName ? credentials?.firstName : newUser?.firstName }
-          required
-          onChange={(e) => {
-            handleChange(e);
-            FunctionsService.labelDisplay(e);
-          }}
-        />
-      </div>
+      <DefaultInput
+        name="firstName"
+        placeholder="Prénom"
+        credentials={ credentials?.firstName ? credentials?.firstName : newUser?.firstName }
+        handleChange={handleChange}
+      />
 
       {/* lastName */}
-      <div className="formGroup">
-        <label htmlFor="lastName">Nom</label>
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Nom"
-          required
-          defaultValue={ credentials?.lastName ? credentials?.lastName : newUser?.lastName }
-          onChange={(e) => {
-            handleChange(e);
-            FunctionsService.labelDisplay(e);
-          }}
-        />
-      </div>
+      <DefaultInput
+        name="lastName"
+        placeholder="Nom"
+        credentials={ credentials?.lastName ? credentials?.lastName : newUser?.lastName }
+        handleChange={handleChange}
+      />
+
 
       {/* contactEmail */}
-      <div className="formGroup">
-        <label htmlFor="contactEmail">Email de contact</label>
-        <input
-          type="email"
-          name="contactEmail"
-          placeholder="Email de contact"
-          defaultValue={ credentials?.contactEmail ? credentials?.contactEmail : newUser?.contactEmail }
-          onChange={(e) => {
-            handleChange(e);
-            FunctionsService.labelDisplay(e);
-          }}
-        />
-      </div>
+      <DefaultInput
+        name="contactEmail"
+        placeholder="Email de contact"
+        credentials={ credentials?.userDetail?.contactEmail ? credentials?.userDetail?.contactEmail : "" }
+        handleChange={handleChange}
+      />
 
       {/* country */}
       <div className="formGroup">
-        <label htmlFor="country">Pays</label>
+        <label 
+          htmlFor="country"
+          className={credentials?.userDetail?.country ? "active" : ""}
+        >
+          Pays
+        </label>
         <Select 
           name="country"
           placeholder="Choisissez votre pays"
@@ -193,7 +177,12 @@ const Step2 = ({ handleChange, credentials }) => {
       {/* cities */}
       {cities.length > 0 && (
         <div className="formGroup">
-          <label htmlFor="cities">Villes</label>
+          <label 
+            htmlFor="cities"
+            className={credentials?.userDetail?.cities ? "active" : ""}
+          >
+            Villes
+          </label>
           <Select
             name="cities"
             placeholder="Choisissez vos villes"
@@ -223,11 +212,24 @@ const Step2 = ({ handleChange, credentials }) => {
 
       {/* status */}
       <div className="formGroup">
-        <label htmlFor="status">Status</label>
+        <label 
+          htmlFor="status"
+          className={credentials?.userDetail?.status ? "active" : ""}
+        >
+          Status
+        </label>
         <Select
           name="status"
           className="status"
           placeholder="Status"
+          defaultValue={
+            credentials?.userDetail?.status
+              ? {
+                  value: credentials.userDetail.status,
+                  label: credentials.userDetail.status,
+                }
+              : null
+          }
           required
           onChange={(selectedOption) => {
             handleChange({target : {name: "status", value: selectedOption.value}});

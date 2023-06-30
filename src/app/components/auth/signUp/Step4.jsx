@@ -16,6 +16,7 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="CV"
           onChange={(e) => {
             handleChange(e)
+            console.log(e.target.name);
           }}
         />
         <label 
@@ -31,7 +32,10 @@ const Step4 = ({ handleChange, credentials}) => {
           <small>Max : 10 Mo</small>
         </p>
         {credentials?.userDetail?.cv && credentials?.userDetail?.cv.length > 0 && (
-          <PreviewFiles isSwiper={true} files={credentials?.userDetail?.cv} />
+          <PreviewFiles files={credentials?.userDetail?.cv} />
+        )}
+        {credentials?.userDetail?.cv && credentials?.userDetail?.cv.Location && (
+          <PreviewFiles files={[credentials?.userDetail?.cv]} />
         )}
       </div>
 
@@ -45,6 +49,7 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="Photo de profil"
           onChange={(e) => {
             handleChange(e)
+            console.log(e.target.name);
           }}
         />
         <label 
@@ -57,7 +62,10 @@ const Step4 = ({ handleChange, credentials}) => {
           <small>Formats acceptés : png, jpg, jpeg</small>
         </p>
         {credentials?.userDetail?.personalPicture && credentials?.userDetail?.personalPicture.length > 0 && (
-          <PreviewFiles isSwiper={true} files={credentials?.userDetail?.personalPicture} />
+          <PreviewFiles files={credentials?.userDetail?.personalPicture} />
+        )}
+        {credentials?.userDetail?.personalPicture && credentials?.userDetail?.personalPicture.Location && (
+          <PreviewFiles files={[credentials?.userDetail?.personalPicture]} />
         )}
       </div>
 
@@ -71,6 +79,7 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="Bannière"
           onChange={(e) => {
             handleChange(e)
+            console.log(e.target.name);
           }}
         />
         <label 
@@ -86,7 +95,10 @@ const Step4 = ({ handleChange, credentials}) => {
           <small>Max : 10 Mo</small>
         </p>
         {credentials?.userDetail?.banner && credentials?.userDetail?.banner.length > 0 && (
-          <PreviewFiles isSwiper={true} files={credentials?.userDetail?.banner} />
+          <PreviewFiles files={credentials?.userDetail?.banner} />
+        )}
+        {credentials?.userDetail?.banner && credentials?.userDetail?.banner.Location && (
+          <PreviewFiles files={[credentials?.userDetail?.banner]} />
         )}
       </div>
 
@@ -101,6 +113,7 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="Autres fichiers"
           onChange={(e) => {
             handleChange(e)
+            console.log(e.target.name);
           }}
         />
         <label 

@@ -11,7 +11,12 @@ const DefaultInput = ({
   const lowerCaseName = name.toLowerCase();
   return (
     <div className="formGroup">
-        <label htmlFor={lowerCaseName}>{placeholder ? placeholder : name}</label>
+        <label 
+          htmlFor={lowerCaseName}
+          className={credentials ? 'active' : ''}
+        >
+          {placeholder ? placeholder : name}
+        </label>
         {textarea ? (
           <textarea
             name={lowerCaseName}
@@ -20,6 +25,9 @@ const DefaultInput = ({
             required
             onChange={(e) => {
               handleChange(e)
+              FunctionsService.labelDisplay(e)
+            }}
+            onLoad={(e) => {
               FunctionsService.labelDisplay(e)
             }}
           />

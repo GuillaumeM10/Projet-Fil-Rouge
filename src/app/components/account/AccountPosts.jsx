@@ -11,9 +11,9 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
   });
 
   const handleChange = (e) => {
-    let { name, value, className } = e.target;
+    let { name, value, classList } = e.target;
     if (name === "published") value = e.target.checked;
-    if(className === "content"){
+    if(classList[0] === "content"){
         value = e.target.innerHTML;
         value = value.replace(/<div>/g, '');
         value = value.replace(/<\/div>/g, '<br>');
@@ -22,7 +22,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
     if(name == "files"){
         value = e.target.files;
     };
-
+    console.log(classList[0], value);
     setCredentials({
         ...credentials,
         [name]: value
