@@ -34,7 +34,7 @@ const Step2 = ({ handleChange, credentials }) => {
     let startRows = 0;
   
     try {
-      const response = await axios.get(`http://api.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&username=guillaumem`);
+      const response = await axios.get(`https://secure.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&username=guillaumem`);
       const data = response.data;
       let result = data.geonames.map(city => city.name);
       const totalResults = data.totalResultsCount;
@@ -44,7 +44,7 @@ const Step2 = ({ handleChange, credentials }) => {
           if (startRows < 5000) {
             startRows += maxRows;
   
-            const newResponse = await axios.get(`http://api.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&startRow=${startRows}&username=guillaumem`);
+            const newResponse = await axios.get(`https://secure.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&startRow=${startRows}&username=guillaumem`);
             const newData = newResponse.data;
   
             result = [...result, ...newData.geonames.map(city => city.name)];
