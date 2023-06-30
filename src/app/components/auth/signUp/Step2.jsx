@@ -4,6 +4,7 @@ import UserService from '../../../../setup/services/user.service';
 import Select, { components } from 'react-select';
 import FunctionsService from '../../../../setup/services/functions.service';
 import DefaultInput from './Inputs/DefaultInput';
+import axios from 'axios';
 
 const Step2 = ({ handleChange, credentials }) => {
   // Access user data from the UserContext
@@ -26,43 +27,38 @@ const Step2 = ({ handleChange, credentials }) => {
     setSearchValue(event);
   };
 
-  // Handler for country change
-  const handleCountryChange = (event) => {
+  // Handler for country change  
+  const handleCountryChange = async (event) => {
     const selectedCountry = cca2[event.value];
     const maxRows = 1000;
     let startRows = 0;
-
-    fetch(`http://api.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&username=guillaumem`)
-      .then(response => response.json())
-      .then(data => {
-        // ... Handle API response and update cities state
-        let result = data.geonames.map(city => city.name); // Adjust this based on the API response structure
-        const totalResults = data.totalResultsCount;
-
-        if (totalResults > maxRows + startRows) {
-          while (totalResults > startRows + maxRows) {
-            if (startRows < 5000) {
-              startRows += maxRows;
-              fetch(`http://api.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&startRow=${startRows}&username=guillaumem`)
-                .then(response => response.json())
-                .then(newData => {
-                  result = [...result, ...newData.geonames.map(city => city.name)];
-                  setCities(result);
-                })
-                .catch(error => {
-                  console.error('Error fetching cities:', error);
-                });
-            } else {
-              return;
-            }
+  
+    try {
+      const response = await axios.get(`http://api.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&username=guillaumem`);
+      const data = response.data;
+      let result = data.geonames.map(city => city.name);
+      const totalResults = data.totalResultsCount;
+  
+      if (totalResults > maxRows + startRows) {
+        while (totalResults > startRows + maxRows) {
+          if (startRows < 5000) {
+            startRows += maxRows;
+  
+            const newResponse = await axios.get(`http://api.geonames.org/searchJSON?country=${selectedCountry}&maxRows=${maxRows}&startRow=${startRows}&username=guillaumem`);
+            const newData = newResponse.data;
+  
+            result = [...result, ...newData.geonames.map(city => city.name)];
+            setCities(result);
+          } else {
+            return;
           }
-        } else {
-          setCities(result);
         }
-      })
-      .catch(error => {
-        console.error('Error fetching cities:', error);
-      });
+      } else {
+        setCities(result);
+      }
+    } catch (error) {
+      console.error('Error fetching cities:', error);
+    }
   };
 
   // Fetch and setup countries on component mount
