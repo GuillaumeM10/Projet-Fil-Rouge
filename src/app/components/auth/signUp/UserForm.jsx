@@ -25,10 +25,7 @@ const UserForm = ({
   }
 
   const handleSubmitUser = async (e) => {
-
-    console.log(e);
     e.preventDefault();
-    // checkConfirmPassword()
 
     setSignUpStep(2);
     if (checkConfirmPassword()) { 

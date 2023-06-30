@@ -118,7 +118,7 @@ const Step3 = ({ handleChange, credentials }) => {
       
       {/* formation */}
       <DefaultInput 
-        name="Formation"
+        name="formation"
         handleChange={handleChange}
         credentials={credentials?.userDetail?.formation}
       />
@@ -133,7 +133,7 @@ const Step3 = ({ handleChange, credentials }) => {
 
       {/* range */}
       <DefaultInput 
-        name="Range"
+        name="range"
         handleChange={handleChange}
         credentials={credentials?.userDetail?.range}
         placeholder={"Distance maximal de déplacement (en kilomètres)"}
@@ -142,7 +142,7 @@ const Step3 = ({ handleChange, credentials }) => {
 
       {/* school */}
       <DefaultInput 
-        name="School"
+        name="school"
         handleChange={handleChange}
         credentials={credentials?.userDetail?.school}
         placeholder={"Ecole"}

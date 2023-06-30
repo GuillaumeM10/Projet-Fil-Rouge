@@ -94,9 +94,7 @@ const Links = ({
     })
       
   }, [])
-  useEffect(() => {
-    console.log(links);
-  }, [links])
+
   useEffect(() => {
     const options = linkCategories.map((linkCategory) => {
       return {
@@ -186,7 +184,6 @@ const Links = ({
                 <a href={link.url} className="row" target='_blank'>
                   {link.linkCategory && linkCategories.length > 2 && (() => {
                     let cat = linkCategories.find((linkCategory) => (linkCategory.id === +link.linkCategory));
-                    console.log({cat});
                     return (
                       <div dangerouslySetInnerHTML={{__html: cat.icon}}></div>
                     );

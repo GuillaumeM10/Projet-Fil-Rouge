@@ -16,7 +16,6 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="CV"
           onChange={(e) => {
             handleChange(e)
-            console.log(e.target.name);
           }}
         />
         <label 
@@ -49,7 +48,6 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="Photo de profil"
           onChange={(e) => {
             handleChange(e)
-            console.log(e.target.name);
           }}
         />
         <label 
@@ -79,7 +77,6 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="Bannière"
           onChange={(e) => {
             handleChange(e)
-            console.log(e.target.name);
           }}
         />
         <label 
@@ -113,7 +110,6 @@ const Step4 = ({ handleChange, credentials}) => {
           placeholder="Autres fichiers"
           onChange={(e) => {
             handleChange(e)
-            console.log(e.target.name);
           }}
         />
         <label 

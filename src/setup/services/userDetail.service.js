@@ -33,7 +33,6 @@ const update = async (id, userDetail) => {
 
   const response = await api.put(`${ENDPOINT}/${id}`, formData, { formData: true })
 
-  console.log({"response": response.data});
   return response.data
 }
 

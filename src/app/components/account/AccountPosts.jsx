@@ -22,7 +22,6 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
     if(name == "files"){
         value = e.target.files;
     };
-    console.log(classList[0], value);
     setCredentials({
         ...credentials,
         [name]: value

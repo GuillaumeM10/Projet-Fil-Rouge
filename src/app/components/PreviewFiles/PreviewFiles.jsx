@@ -18,10 +18,8 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
       const dataArray = [];
       for (const file of files) {
         let data;
-        console.log({file});
         if (file.Location) { // Fetch file from AWS S3
           const fileType = file.Location.split('.').pop();
-          console.log({fileType});
           if(fileType === "pdf"){
 
             const response = await fetch(file.Location);
@@ -33,7 +31,6 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
           }
         } else {
           data = await readFile(file); // Read file asynchronously
-          console.log({data});
         }
 
         dataArray.push(data); // Store the data in the array
@@ -143,7 +140,6 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
             file.type = file.Location.split('.').pop();
           }
 
-          console.log(file.type);
           return (
             <div key={index} className={"previewFile swiper-card"}>
               {file?.name && (<p>{file?.name}</p>)} 

@@ -12,7 +12,6 @@ const ProfilePage = () => {
       try {
         const data = await UserService.getOneById(id);
         setUser(data);
-        console.log(data);
       } catch (error) {
         setResult({ type: "error", message: error.response.data.message });
       }

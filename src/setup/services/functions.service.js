@@ -1,6 +1,5 @@
 const labelDisplay = (e) => {
   const label = e.target.previousElementSibling;
-  console.log(label);
   if (e.target.value !== "") {
     label.classList.add("active");
   } else {

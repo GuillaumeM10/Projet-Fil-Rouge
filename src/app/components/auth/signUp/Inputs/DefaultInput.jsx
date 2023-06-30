@@ -8,18 +8,18 @@ const DefaultInput = ({
   type,
   textarea = false
 }) => {
-  const lowerCaseName = name.toLowerCase();
+  // const lowerCaseName = name.toLowerCase();
   return (
     <div className="formGroup">
         <label 
-          htmlFor={lowerCaseName}
+          htmlFor={name}
           className={credentials ? 'active' : ''}
         >
           {placeholder ? placeholder : name}
         </label>
         {textarea ? (
           <textarea
-            name={lowerCaseName}
+            name={name}
             placeholder={placeholder ? placeholder : name}
             defaultValue={credentials}
             required
@@ -34,7 +34,7 @@ const DefaultInput = ({
         ) : (
           <input
             type={type ? type : "text"}
-            name={lowerCaseName}
+            name={name}
             placeholder={placeholder ? placeholder : name}
             defaultValue={credentials}
             required

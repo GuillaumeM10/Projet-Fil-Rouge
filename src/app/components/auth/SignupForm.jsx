@@ -10,7 +10,7 @@ const SignupForm = () => {
   const [ displayedError, setDisplayedError ] = useState(null);
   const [signUpStep, setSignUpStep ] = useState(1);
   const [loggedIn, setLoggedIn] = useState(false);
-  // const navigate = useNavigate();
+  
   useEffect(() => {
     setCredentials({});
   }, []);

@@ -26,8 +26,8 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
       await UserDetailService.update(userDetailId, credentials.userDetail)
       toast.success("Votre profil a bien été mis à jour !");
       setTimeout(() => {
-        // navigate('/account');
         setSending(false);
+        navigate('/account');
       }, 1000);
     }catch(e){
       toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
@@ -47,8 +47,8 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
 
   return (
     <>
-    {/* {loggedIn ? ( */}
-      {!sending ? (
+    {loggedIn ? (
+      !sending ? (
         <form onSubmit={handleSubmitUserDetails}>
 
           {signUpStep === 2 &&
@@ -82,13 +82,13 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
         <div>
           <img className='loading' src="/img/loading.svg" alt="" />
         </div>
-      )}
+      )
       
-    {/* ) : (
+    ) : (
       <div>
         <img className='loading' src="/img/loading.svg" alt="" />
       </div>
-    )} */}
+    )}
 
     </>
   );

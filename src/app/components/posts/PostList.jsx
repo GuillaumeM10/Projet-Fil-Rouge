@@ -13,12 +13,9 @@ const PostList = () => {
     PostService.getAll(`limit=5&page=${page}`)
       .then(response => {
 
-        console.log('new posts', response);
-
         if (response.length > 0) {
           setPosts(prevPosts => [...prevPosts, ...response]);
         } else {
-          console.log('end posts');
           setEndPost(true);
         }
 
