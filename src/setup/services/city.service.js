@@ -1,3 +1,5 @@
+import api from "./api.service"
+
 const ENDPOINT = "/cities"
 
 const getAll = async () => {

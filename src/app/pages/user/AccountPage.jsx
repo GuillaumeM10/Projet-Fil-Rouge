@@ -106,7 +106,7 @@ const AccountPage = () => {
 
           {/* createPost */}
           {tabs === "createPost" && (
-            <CreatePostForm setPosts={setPosts} setUserPosts={setUserPosts} setPage={setPage} user={user} />
+            <CreatePostForm setPosts={setPosts} user={user} />
             )}
 
           {/* editUser */}

@@ -28,7 +28,7 @@ const Step4 = ({ handleChange, credentials}) => {
           <small>Formats acceptés : pdf, png, jpg, jpeg</small>
         </p>
         <p>
-          <small>Max : 10 Mo</small>
+          <small>Max : 2 Mo</small>
         </p>
         {credentials?.userDetail?.cv && credentials?.userDetail?.cv.length > 0 && (
           <PreviewFiles files={credentials?.userDetail?.cv} />
@@ -58,6 +58,9 @@ const Step4 = ({ handleChange, credentials}) => {
         >Photo de profil</label>
         <p>
           <small>Formats acceptés : png, jpg, jpeg</small>
+        </p>
+        <p>
+          <small>Max : 2 Mo</small>
         </p>
         {credentials?.userDetail?.personalPicture && credentials?.userDetail?.personalPicture.length > 0 && (
           <PreviewFiles files={credentials?.userDetail?.personalPicture} />
@@ -89,7 +92,7 @@ const Step4 = ({ handleChange, credentials}) => {
           <small>Formats acceptés : png, jpg, jpeg</small>
         </p>
         <p>
-          <small>Max : 10 Mo</small>
+          <small>Max : 2 Mo</small>
         </p>
         {credentials?.userDetail?.banner && credentials?.userDetail?.banner.length > 0 && (
           <PreviewFiles files={credentials?.userDetail?.banner} />
@@ -141,7 +144,7 @@ const Step4 = ({ handleChange, credentials}) => {
             type="checkbox"
             name="displayedOnFeed"
             placeholder="Je souhaite être visible sur le feed"
-            defaultChecked={true}
+            defaultChecked={credentials?.userDetail?.displayedOnFeed ? credentials.userDetail.displayedOnFeed : false}
             id='displayedOnFeed'
             onChange={(e) => {
               handleChange(e)

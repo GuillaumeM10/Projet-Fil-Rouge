@@ -7,6 +7,7 @@ import { AuthContext } from '../../../setup/contexts/AuthContext';
 import toast, { Toaster } from "react-hot-toast";
 import UserDetailService from '../../../setup/services/userDetail.service';
 import TokenService from '../../../setup/services/token.service';
+import FunctionsService from '../../../setup/services/functions.service';
 
 const EditUser = () => {
   const { user, setUser } = useContext(UserContext);
@@ -18,6 +19,11 @@ const EditUser = () => {
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
     setSending(true);
+    
+    if(credentials.userDetail.files && FunctionsService.filesSizeCheck(credentials.userDetail.files, false, 10000000, setSending) === false) return
+    if(credentials.userDetail.banner && FunctionsService.filesSizeCheck(credentials.userDetail.banner, false, 2000000, setSending, `La taille totale de la banner ne doit pas dépasser 2mo`) === false) return
+    if(credentials.userDetail.cv && FunctionsService.filesSizeCheck(credentials.userDetail.cv, false, 2000000, setSending, `La taille totale du cv ne doit pas dépasser 2mo`) === false) return
+    if(credentials.userDetail.personalPicture && FunctionsService.filesSizeCheck(credentials.userDetail.personalPicture, false, 2000000, setSending, `La taille totale de la photo de profile ne doit pas dépasser 2mo`) === false) return
 
     try{
       // get user from local storage

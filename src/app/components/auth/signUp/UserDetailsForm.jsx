@@ -7,6 +7,7 @@ import Step3 from './Step3';
 import Step4 from './Step4';
 import { useNavigate } from 'react-router-dom';
 import TokenService from '../../../../setup/services/token.service';
+import FunctionsService from '../../../../setup/services/functions.service';
 
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
@@ -18,6 +19,11 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
     setSending(true);
+
+    if(credentials.userDetail.files && FunctionsService.filesSizeCheck(credentials.userDetail.files, false, 10000000, setSending) === false) return
+    if(credentials.userDetail.banner && FunctionsService.filesSizeCheck(credentials.userDetail.banner, false, 2000000, setSending, `La taille totale de la banner ne doit pas dépasser 2mo`) === false) return
+    if(credentials.userDetail.cv && FunctionsService.filesSizeCheck(credentials.userDetail.cv, false, 2000000, setSending, `La taille totale du cv ne doit pas dépasser 2mo`) === false) return
+    if(credentials.userDetail.personalPicture && FunctionsService.filesSizeCheck(credentials.userDetail.personalPicture, false, 2000000, setSending, `La taille totale de la photo de profile ne doit pas dépasser 2mo`) === false) return
 
     try{
       // get user from local storage

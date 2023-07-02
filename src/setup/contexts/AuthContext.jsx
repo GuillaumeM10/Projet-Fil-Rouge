@@ -68,9 +68,9 @@ const AuthProvider = ({ children }) => {
             })
         }
     }
-    // useEffect(() => {
-    //     console.log(credentials);
-    // }, [credentials])
+    useEffect(() => {
+        if(JSON.stringify(credentials) !== '{}') console.log(credentials);
+    }, [credentials])
     
     useEffect(() => {
         setToken(TokenService.getTokenFromLocalStorage())

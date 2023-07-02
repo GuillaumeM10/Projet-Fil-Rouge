@@ -67,18 +67,20 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
           {previewData.map((data, index) => {
             if(data === undefined) return null;
             const file = files[index];
-
+            if(!file) return null;
+            
             // From AWS S3
-            if(file?.Location){
+            if(file?.Location && file !== undefined){
               file.type = file.Location.split('.').pop();
             }
-            if (!file.type) {
+            if (file && !file?.type && file !== undefined) {
               file.type = data && data.split(';')[0].split(':')[1];
             }
-            if (file.type === 'application/octet-stream') {
+            if (file && file.type === 'application/octet-stream' && file !== undefined) {
               file.type = file.Location.split('.').pop();
             }
 
+            if(!file || !file.type) return null;
             return (
               <SwiperSlide key={index}>
                 <div className={`previewFile swiper-card" ${file.type}`}>

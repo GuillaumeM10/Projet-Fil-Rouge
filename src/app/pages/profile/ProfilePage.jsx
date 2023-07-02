@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UserService from '../../../setup/services/user.service';
 import { Toaster, toast } from 'react-hot-toast';
 
 const ProfilePage = () => {
   const { id } = useParams();
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!user.userDetail) return;
+    if(!user.userDetail || user.userDetail.displayedOnFeed === false || user.userDetail.profilComplet === false) {
+      navigate('/');
+    }  // eslint-disable-next-line
+  }, [user]);
 
   useEffect(() => {
     const getUser = async () => {

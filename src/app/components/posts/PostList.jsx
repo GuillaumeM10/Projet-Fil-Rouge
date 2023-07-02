@@ -9,19 +9,20 @@ const PostList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    PostService.getAll(`limit=5&page=${page}`)
-      .then(response => {
+    const getPosts = async () => {
+      setIsLoading(true);
+      const newPosts = await PostService.getAll(`limit=5&page=${page}`)
+      if(newPosts.length === 0){
+        setEndPost(true);
+      }else{
+        const prevPosts = posts;
+        setPosts([...prevPosts, ...newPosts]);
+      }
 
-        if (response.length > 0) {
-          setPosts(prevPosts => [...prevPosts, ...response]);
-        } else {
-          setEndPost(true);
-        }
+      setIsLoading(false);
+    }
 
-        setIsLoading(false);
-        console.log('page', page);
-      });
+    getPosts();
   }, [page]);
 
   useEffect(() => {

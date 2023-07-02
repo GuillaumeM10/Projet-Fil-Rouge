@@ -1,3 +1,5 @@
+import { toast } from "react-hot-toast";
+
 const labelDisplay = (e) => {
   const label = e.target.previousElementSibling;
   if (e.target.value !== "") {
@@ -17,9 +19,34 @@ const dateFormater = (date) => {
   return dateFormated;
 }
 
+const filesSizeCheck = (
+  fileToCheck, 
+  setDisplayedError = false, 
+  maxSize = 10000000,
+  setSending = false,
+  message = `La taille totale des fichiers ne doit pas dépasser ${maxSize / 1000000}mo`
+) => {
+  let filesSize = 0;
+  for (let i = 0; i < fileToCheck.length; i++) {
+    filesSize += fileToCheck[i].size;
+  }
+
+  if (filesSize > maxSize) {
+    if(setDisplayedError !== false) setDisplayedError(message);
+    toast.error(message, {
+      duration: 5000,
+    });
+    if(setSending) setSending(false);
+    return false;
+  }else{
+    return true;
+  }
+}
+
 const FunctionsService = {
   labelDisplay,
-  dateFormater
+  dateFormater,
+  filesSizeCheck
 }
 
 export default FunctionsService

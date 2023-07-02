@@ -28,10 +28,14 @@ const create = async (post) => {
   formData.append('author', post.author)
   formData.append('content', post.content)
 
+  if(post.cities) formData.append('cities', JSON.stringify(post.cities))
+
+  if(post.published === true) formData.append('published', "true")
+  if(post.published === false) formData.append('published', "false")
+
   // FILES
   const files = Array.from(post.files)
   files.forEach((file, index) => {
-    // console.log(file);
     formData.append('files', file)
   })
   
@@ -40,7 +44,26 @@ const create = async (post) => {
 }
 
 const update = async (id, post) => {
-  const response = await api.put(`${ENDPOINT}/${id}`, post)
+  if(!post.files){
+    const response = await api.put(`${ENDPOINT}/${id}`, post)
+    return response.data
+  }
+  const formData = new FormData();
+
+  formData.append('author', post.author)
+  formData.append('content', post.content)
+
+  if(post.cities) formData.append('cities', JSON.stringify(post.cities))
+
+  if(post.published === true) formData.append('published', "true")
+  if(post.published === false) formData.append('published', "false")
+
+  const files = Array.from(post.files)
+  files.forEach((file, index) => {
+    formData.append('files', file)
+  })
+
+  const response = await api.put(`${ENDPOINT}/${id}`, formData, { formData: true })
   return response.data
 }
 

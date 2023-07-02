@@ -12,7 +12,16 @@ const update = async (id, userDetail) => {
   if(userDetail.description) formData.append('description', userDetail.description)
   if(userDetail.range) formData.append('range', userDetail.range)
   if(userDetail.school) formData.append('school', userDetail.school)
-  if(userDetail.displayedOnFeed) formData.append('displayedOnFeed', userDetail.displayedOnFeed)
+
+  formData.append('profilComplet', "true")
+  formData.append('displayedOnFeed', "true")
+
+  // if(userDetail.displayedOnFeed === true) formData.append('displayedOnFeed', "true")
+  // if(userDetail.displayedOnFeed === false) formData.append('displayedOnFeed', "false")
+
+  // if(userDetail.profilComplet === true) formData.append('profilComplet', "true")
+  // if(userDetail.profilComplet === false) formData.append('profilComplet', "false")
+
 
   if(userDetail.skills) formData.append('skills', JSON.stringify(userDetail.skills))
   if(userDetail.experiences) formData.append('experiences', JSON.stringify(userDetail.experiences))
