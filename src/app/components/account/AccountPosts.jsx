@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PostService from '../../../setup/services/post.service';
 import PreviewFiles from '../PreviewFiles/PreviewFiles';
 
@@ -19,7 +19,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
         value = value.replace(/<\/div>/g, '<br>');
         name = "content";
     }
-    if(name == "files"){
+    if(name === "files"){
         value = e.target.files;
     };
     setCredentials({
@@ -71,7 +71,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                 <div className="userPost" key={post.id} id={post.id}>
 
                   <div 
-                    className={"content" + ((isUpdating && (menu.id == post.id )) ? ' updating' : '')}
+                    className={"content" + ((isUpdating && (menu.id === post.id )) ? ' updating' : '')}
                     contentEditable={isUpdating ? true : false}
                     dangerouslySetInnerHTML={{__html: post.content}}
                     onInput={handleChange}
@@ -115,7 +115,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                         className="menu"
                         onClick={e =>{
                           const oldMenu = menu;
-                          if(oldMenu.id != post.id){
+                          if(oldMenu.id !== post.id){
                             setIsUpdating(false);
                           }
                           setMenu(

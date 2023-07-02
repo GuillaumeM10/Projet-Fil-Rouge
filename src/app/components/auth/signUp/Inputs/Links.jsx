@@ -181,7 +181,7 @@ const Links = ({
         {links.target.value.map((link, index) => {
             return (
               <div className='experience' key={index}>
-                <a href={link.url} className="row" target='_blank'>
+                <a href={link.url} className="row" target='_blank' rel="noreferrer">
                   {link.linkCategory && linkCategories.length > 2 && (() => {
                     let cat = linkCategories.find((linkCategory) => (linkCategory.id === +link.linkCategory));
                     return (

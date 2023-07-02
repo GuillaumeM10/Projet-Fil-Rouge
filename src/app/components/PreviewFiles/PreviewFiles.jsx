@@ -81,7 +81,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
 
             return (
               <SwiperSlide key={index}>
-                <div className={"previewFile swiper-card" + ' ' + file.type}>
+                <div className={`previewFile swiper-card" ${file.type}`}>
                   {file?.name && (<p>{file?.name}</p>)} 
 
                   {file.type === 'application/pdf' || file.type === 'pdf' ? (
@@ -184,7 +184,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
         })
       )}
 
-      {location || isSwiper && (
+      {(location || isSwiper) && (
         <div className="swiper-pagination"></div>
       )}
     </div>

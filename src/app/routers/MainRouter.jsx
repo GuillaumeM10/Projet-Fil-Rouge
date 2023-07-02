@@ -51,7 +51,7 @@ const MainRouter = () => {
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
       {/* 404 */}
-      {/* <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<HomePage />} />
 
     </Routes>
   );

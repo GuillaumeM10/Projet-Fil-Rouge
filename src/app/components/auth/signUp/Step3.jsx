@@ -30,31 +30,31 @@ const Step3 = ({ handleChange, credentials }) => {
   useEffect(() => {
     if(skills.target.name === "skills"){
       handleChange(skills);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skills])
 
   useEffect(() => {
     if(experiences.target.name === "experiences"){
       handleChange(experiences);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [experiences])
 
   useEffect(() => {
     if(links.target.name === "links"){
       handleChange(links);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [links])
   
   useEffect(() => {
     if(credentials?.userDetail?.skills){
       let skillsArray = [];
-
-      credentials.userDetail.skills.map((skill) => {
+      // eslint-disable-next-line
+      credentials.userDetail.skills.map((skill) => { // eslint-disable-next-line
         skillsArray.push({
           "name": skill.name,
           "level": skill.level,
           "description": skill.description
-        })
+        }) 
       })
       
       setSkills({
@@ -68,6 +68,7 @@ const Step3 = ({ handleChange, credentials }) => {
     if(credentials?.userDetail?.experiences){
       let experiencesArray = [];
 
+      // eslint-disable-next-line
       credentials.userDetail.experiences.map((experience) => {
 
         experiencesArray.push({
@@ -91,6 +92,7 @@ const Step3 = ({ handleChange, credentials }) => {
     if(credentials?.userDetail?.links){
       let linksArray = [];
 
+      // eslint-disable-next-line
       credentials.userDetail.links.map((link) => {
           
           linksArray.push({
@@ -109,7 +111,7 @@ const Step3 = ({ handleChange, credentials }) => {
           "value": linksArray
       }})
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
     
   return (

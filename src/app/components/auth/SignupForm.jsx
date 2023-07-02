@@ -12,7 +12,7 @@ const SignupForm = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   
   useEffect(() => {
-    setCredentials({});
+    setCredentials({}); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return ( 

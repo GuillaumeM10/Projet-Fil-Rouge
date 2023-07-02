@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../../setup/contexts/AuthContext';
-import { UserContext } from '../../../../setup/contexts/UserContext';
+// import { UserContext } from '../../../../setup/contexts/UserContext';
 import UserDetailService from '../../../../setup/services/userDetail.service';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -11,7 +11,7 @@ import TokenService from '../../../../setup/services/token.service';
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
   const { credentials } = useContext(AuthContext);
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
   const [ sending, setSending ] = useState(false);
   const navigate = useNavigate();
   

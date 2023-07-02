@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import UserService from '../../../setup/services/user.service';
+import { Toaster, toast } from 'react-hot-toast';
 
 const ProfilePage = () => {
   const { id } = useParams();
   const [user, setUser] = useState({});
-  const [result, setResult] = useState({ type: "", message: "" });
 
   useEffect(() => {
     const getUser = async () => {
@@ -13,7 +13,7 @@ const ProfilePage = () => {
         const data = await UserService.getOneById(id);
         setUser(data);
       } catch (error) {
-        setResult({ type: "error", message: error.response.data.message });
+        toast.error(error.response.data.message);
       }
     };
     getUser();
@@ -35,6 +35,7 @@ const ProfilePage = () => {
       ) : (
         <p>Loading...</p>
       )}
+      <Toaster />
     </div>
   );
 };

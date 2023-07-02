@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../../setup/contexts/UserContext';
 import UserService from '../../../../setup/services/user.service';
 import Select, { components } from 'react-select';
-import FunctionsService from '../../../../setup/services/functions.service';
+// import FunctionsService from '../../../../setup/services/functions.service';
 import DefaultInput from './Inputs/DefaultInput';
 import axios from 'axios';
 
@@ -88,7 +88,7 @@ const Step2 = ({ handleChange, credentials }) => {
   // Fetch user data on component mount
   useEffect(() => {
     handleChange({ target: { name: 'cities', value: [] } });
-    setupCountries();
+    setupCountries(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -102,13 +102,13 @@ const Step2 = ({ handleChange, credentials }) => {
         console.log({ type: 'error', message: error.response.data.message });
       }
     };
-    getUser();
+    getUser(); 
   }, [user]);
 
   useEffect(() => {
     if (credentials?.userDetail?.country) {
       handleCountryChange({ value: credentials?.userDetail?.country });
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [credentials?.userDetail?.country, cca2]);
 
   return (
