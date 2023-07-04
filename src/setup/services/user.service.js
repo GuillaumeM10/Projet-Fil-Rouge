@@ -2,8 +2,8 @@ import api from "./api.service"
 
 const ENDPOINT = "/users"
 
-const getAll = async () => {
-  const response = await api.get(ENDPOINT)
+const getAll = async (query) => {
+  const response = await api.get(`${ENDPOINT}?${query}`)
   return response.data
 }
 

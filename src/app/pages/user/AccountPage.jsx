@@ -13,7 +13,7 @@ const AccountPage = () => {
   const { user, setUser } = useContext(UserContext);
   const [ page, setPage ] = useState(1); // eslint-disable-line no-unused-vars
   const [ noMorePosts, setNoMorePosts ] = useState(false);
-  const [tabs, setTabs] = useState('');
+  const [tabs, setTabs] = useState('createPost');
   const navigate = useNavigate();
   
   const disconnect = async() => {
@@ -61,7 +61,7 @@ const AccountPage = () => {
 
   return ( 
       <div className="account defaultPaddingX defaultPaddingY">
-          <h1>Profil Utilisateur</h1>
+          <h1>Compte</h1>
 
           <p>{user.email}</p>
 

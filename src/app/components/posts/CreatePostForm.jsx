@@ -123,13 +123,13 @@ const CreatePostForm = ({ setPosts }) => {
       })
   }
 
-  useEffect(() => {
-    console.log(credentials);
-  }, [credentials])
+  // useEffect(() => {
+  //   console.log(credentials);
+  // }, [credentials])
 
-  useEffect(() => {
-    console.log({skills});
-  }, [skills])
+  // useEffect(() => {
+  //   console.log({skills});
+  // }, [skills])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

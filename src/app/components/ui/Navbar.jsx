@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../setup/contexts/UserContext";
+import SearchBar from "../searchBar/SearchBar";
 
 const Navbar = () => {
     const { user } = useContext(UserContext);
@@ -11,10 +12,7 @@ const Navbar = () => {
                 <img src="/img/logo.svg" alt="" />
             </Link>
 
-            <div className="searchBar">
-                <input type="search" placeholder="WORK IN PROGRESS" />
-                <button><img src="/img/search.svg" alt="" /></button>
-            </div>
+            <SearchBar />
             
             <ul>
                 {/* <li>
