@@ -21,7 +21,7 @@ const PostCard = ({
             </div>
           ): null}
           <div className="author">
-            {post.author.userDetail.displayedOnFeed && post.author.userDetail.profilComplet ? (
+            {post.author.userDetail?.displayedOnFeed && post.author.userDetail?.profilComplet ? (
               <a href={`/profile/${post.author.id}`}>
                 <img src={post.author?.userDetail?.personalPicture?.Location ? post.author.userDetail.personalPicture.Location : '/img/profil.svg'} alt={post.author?.firstName} className='pp' />
                 <div className="names">
