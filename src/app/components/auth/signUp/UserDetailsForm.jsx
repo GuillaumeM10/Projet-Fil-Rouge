@@ -8,6 +8,7 @@ import Step4 from './Step4';
 import { useNavigate } from 'react-router-dom';
 import TokenService from '../../../../setup/services/token.service';
 import FunctionsService from '../../../../setup/services/functions.service';
+import UserService from '../../../../setup/services/user.service';
 
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
@@ -19,6 +20,30 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
     setSending(true);
+
+    if(credentials.lastName 
+      || credentials.firstName 
+      || credentials.email 
+      || credentials.password 
+      || credentials.passwordConfirm 
+    ){
+      let userOnly = {
+        lastName: credentials.lastName,
+        firstName: credentials.firstName,
+        email: credentials.email,
+        password: credentials.password,
+        passwordConfirm: credentials.passwordConfirm
+      };
+      try{
+        let userId = TokenService.getUserInToken();
+        userId = userId.id
+        await UserService.update(userId, userOnly)
+      }catch(e){
+        toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
+        console.log(e);
+        setSending(false);
+      }
+    }
 
     if(credentials.userDetail.files && FunctionsService.filesSizeCheck(credentials.userDetail.files, false, 10000000, setSending) === false) return
     if(credentials.userDetail.banner && FunctionsService.filesSizeCheck(credentials.userDetail.banner, false, 2000000, setSending, `La taille totale de la banner ne doit pas dépasser 2mo`) === false) return

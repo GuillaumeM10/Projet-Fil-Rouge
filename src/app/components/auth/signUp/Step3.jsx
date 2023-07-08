@@ -127,7 +127,7 @@ const Step3 = ({ handleChange, credentials }) => {
 
       {/* description */}
       <DefaultInput 
-        name="Description"
+        name="description"
         handleChange={handleChange}
         credentials={credentials?.userDetail?.description}
         textarea={true}

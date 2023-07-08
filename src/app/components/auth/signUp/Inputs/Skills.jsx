@@ -121,12 +121,16 @@ const Skills = ({
         <textarea
           name="description"
           placeholder="Description"
+          maxLength={200}
           required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeSkills(e)
           }}
         />
+        <small>
+          {currentSkill.description && currentSkill.description.length}/200
+        </small>
       </div>
       <button
         type="button"

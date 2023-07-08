@@ -8,7 +8,7 @@ const PostCard = ({
 }) => {
   return (
     <>
-      {post ? (
+      {post.published && post ? (
         <div key={post.id} className={post.id + ' post'}>
           {post.skills || post.cities ? (
             <div className="tags">
@@ -56,7 +56,7 @@ const PostCard = ({
             </a>
           )}
         </div>
-      ) : (
+      ) : post.published && (
         <p>Loading...</p>
       )}
     </>

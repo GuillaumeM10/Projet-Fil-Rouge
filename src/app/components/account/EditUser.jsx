@@ -8,9 +8,10 @@ import toast, { Toaster } from "react-hot-toast";
 import UserDetailService from '../../../setup/services/userDetail.service';
 import TokenService from '../../../setup/services/token.service';
 import FunctionsService from '../../../setup/services/functions.service';
+import UserService from '../../../setup/services/user.service';
 
 const EditUser = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { setCredentials, credentials, handleChange } = useContext(AuthContext);
   const [ displayedError, setDisplayedError ] = useState(null);
   const [ sending, setSending ] = useState(false);
@@ -19,7 +20,32 @@ const EditUser = () => {
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
     setSending(true);
-    
+
+    if(credentials.lastName 
+      || credentials.firstName 
+      || credentials.email 
+      || credentials.password 
+      || credentials.passwordConfirm 
+    ){
+      let userOnly = {
+        lastName: credentials.lastName,
+        firstName: credentials.firstName,
+        email: credentials.email,
+        password: credentials.password,
+        passwordConfirm: credentials.passwordConfirm
+      };
+      try{
+        let userId = TokenService.getUserInToken();
+        userId = userId.id
+        await UserService.update(userId, userOnly)
+      }catch(e){
+        toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
+        setDisplayedError(e.response.data.message);
+        console.log(e);
+        setSending(false);
+      }
+    }
+
     if(credentials.userDetail.files && FunctionsService.filesSizeCheck(credentials.userDetail.files, false, 10000000, setSending) === false) return
     if(credentials.userDetail.banner && FunctionsService.filesSizeCheck(credentials.userDetail.banner, false, 2000000, setSending, `La taille totale de la banner ne doit pas dépasser 2mo`) === false) return
     if(credentials.userDetail.cv && FunctionsService.filesSizeCheck(credentials.userDetail.cv, false, 2000000, setSending, `La taille totale du cv ne doit pas dépasser 2mo`) === false) return
@@ -37,6 +63,7 @@ const EditUser = () => {
       }, 1000);
     }catch(e){
       toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
+      setDisplayedError(e.response.data.message);
       console.log(e);
       setSending(false);
 

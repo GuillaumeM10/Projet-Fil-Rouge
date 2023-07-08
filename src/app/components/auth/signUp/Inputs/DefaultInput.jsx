@@ -6,7 +6,8 @@ const DefaultInput = ({
   credentials,
   placeholder,
   type,
-  textarea = false
+  textarea = false,
+  required = true,
 }) => {
   // const lowerCaseName = name.toLowerCase();
   return (
@@ -22,7 +23,8 @@ const DefaultInput = ({
             name={name}
             placeholder={placeholder ? placeholder : name}
             defaultValue={credentials}
-            required
+            required={required}
+            maxLength={500}
             onChange={(e) => {
               handleChange(e)
               FunctionsService.labelDisplay(e)
@@ -37,7 +39,8 @@ const DefaultInput = ({
             name={name}
             placeholder={placeholder ? placeholder : name}
             defaultValue={credentials}
-            required
+            required={required}
+            maxLength={500}
             onChange={(e) => {
               handleChange(e)
               FunctionsService.labelDisplay(e)

@@ -159,11 +159,15 @@ const CreatePostForm = ({ setPosts }) => {
           name="content"
           placeholder="Contenu du post"
           required
+          maxLength={500}
           onChange={(e) => {
             handleChange(e)
             FunctionsService.labelDisplay(e)
           }}
         />
+        <small>
+          {credentials.content?.length || 0}/500
+        </small>
       </div>
 
       {/* skills */}
