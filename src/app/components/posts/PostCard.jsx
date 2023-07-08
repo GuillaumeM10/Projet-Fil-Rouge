@@ -6,9 +6,10 @@ const PostCard = ({
   index,
   isSinglePage = false
 }) => {
+  console.log('post', post);
   return (
     <>
-      {post.published && post ? (
+      {/* {post.published && post ? (
         <div key={post.id} className={post.id + ' post'}>
           {post.skills || post.cities ? (
             <div className="tags">
@@ -58,7 +59,7 @@ const PostCard = ({
         </div>
       ) : post.published && (
         <p>Loading...</p>
-      )}
+      )} */}
     </>
   );
 };
