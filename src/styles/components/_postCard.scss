@@ -45,6 +45,7 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
+      object-fit: cover;
     }
     .names{
       display: flex;
@@ -91,8 +92,8 @@
     height: auto;
     color: white;
     text-decoration: none;
-    background: $primary;
-    border: solid 1px $primary;
+    background: $green;
+    border: solid 1px $green;
     border-radius: 5px;
     padding: 5px 10px;
     font-size: 12px;
@@ -101,8 +102,7 @@
     transition: all 0.2s ease-in-out;
 
     &:hover{
-      background: transparent;
-      color: $primary;
+      background: darken($color: $green, $amount: 15);
     }
   }
 }

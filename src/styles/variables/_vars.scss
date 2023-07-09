@@ -7,19 +7,20 @@ $mobile: 768px;
 
 @media screen and (max-width: $tablette){
   .defaultPaddingX{padding-left:80px; padding-right:80px}
-  .defaultPaddingY{padding-top:40px; padding-bottom:40px}
+  .defaultPaddingY{padding-top:54px; padding-bottom:40px}
 }
 
 @media screen and (max-width: $mobile){
-  .defaultPaddingX{padding-left:40px; padding-right:40px}
-  .defaultPaddingY{padding-top:20px; padding-bottom:20px}
+  .defaultPaddingX{padding-left:20px; padding-right:20px}
+  .defaultPaddingY{padding-top:54px; padding-bottom:20px}
 }
 
 $white: #fff;
 $black: #000;
+$green: #5abdb4;
 
-$primary: #7286D3;
+$primary: #22253A;
 $primaryLight: #8EA7E9;
 $primaryLighter: #E5E0FF;
 
-$background: #F5F5F5;
+$background: #f7f9f9;

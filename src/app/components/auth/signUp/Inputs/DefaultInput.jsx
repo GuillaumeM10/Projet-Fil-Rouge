@@ -9,9 +9,8 @@ const DefaultInput = ({
   textarea = false,
   required = true,
 }) => {
-  // const lowerCaseName = name.toLowerCase();
   return (
-    <div className="formGroup">
+    <div className={`formGroup ${name}`}>
         <label 
           htmlFor={name}
           className={credentials ? 'active' : ''}

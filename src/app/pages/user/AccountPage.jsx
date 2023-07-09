@@ -66,6 +66,7 @@ const AccountPage = () => {
           <p>{user.email}</p>
 
           <button
+          className="btnPrimary"
             onClick={disconnect}
           >
             Déconnexion

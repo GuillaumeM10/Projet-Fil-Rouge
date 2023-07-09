@@ -107,6 +107,7 @@ const Skills = ({
           onChange={(e) => {
             handleChangeSkills({ target : { name: "level", value: e.value }})
           }}
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={[
             { value: 0, label: "Débutant" },
             { value: 1, label: "Intermédiaire" },

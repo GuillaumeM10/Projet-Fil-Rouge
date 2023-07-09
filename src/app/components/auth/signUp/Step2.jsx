@@ -5,6 +5,7 @@ import Select, { components } from 'react-select';
 // import FunctionsService from '../../../../setup/services/functions.service';
 import DefaultInput from './Inputs/DefaultInput';
 import axios from 'axios';
+import FunctionsService from '../../../../setup/services/functions.service';
 
 const Step2 = ({ handleChange, credentials }) => {
   // Access user data from the UserContext
@@ -141,7 +142,7 @@ const Step2 = ({ handleChange, credentials }) => {
       />
 
       {/* country */}
-      <div className="formGroup">
+      <div className="formGroup reactSelect country">
         <label 
           htmlFor="country"
           className={credentials?.userDetail?.country ? "active" : ""}
@@ -151,6 +152,7 @@ const Step2 = ({ handleChange, credentials }) => {
         <Select 
           name="country"
           placeholder="Choisissez votre pays"
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={countries.map((country, index) => ({
             value: country,
             label: country,
@@ -172,7 +174,7 @@ const Step2 = ({ handleChange, credentials }) => {
 
       {/* cities */}
       {cities.length > 0 && (
-        <div className="formGroup">
+        <div className="formGroup reactSelect cities">
           <label 
             htmlFor="cities"
             className={credentials?.userDetail?.cities ? "active" : ""}
@@ -186,6 +188,7 @@ const Step2 = ({ handleChange, credentials }) => {
             onChange={e => {
               handleChange({target : {name: "cities", value: e}})
             }}
+            styles={FunctionsService.reactSelectCustomStyles()}
             options={cities
               .filter((city, index) =>
                 city.toLowerCase().includes(searchValue.toLowerCase())
@@ -207,7 +210,7 @@ const Step2 = ({ handleChange, credentials }) => {
       )}
 
       {/* status */}
-      <div className="formGroup">
+      <div className="formGroup reactSelect alternant">
         <label 
           htmlFor="status"
           className={credentials?.userDetail?.status ? "active" : ""}
@@ -230,6 +233,7 @@ const Step2 = ({ handleChange, credentials }) => {
           onChange={(selectedOption) => {
             handleChange({target : {name: "status", value: selectedOption.value}});
           }}
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={[
             { value: 'Etudiant', label: 'Etudiant' },
             { value: 'Alternant', label: 'Alternant' },

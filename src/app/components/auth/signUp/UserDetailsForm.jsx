@@ -80,7 +80,10 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
     <>
     {loggedIn ? (
       !sending ? (
-        <form onSubmit={handleSubmitUserDetails}>
+        <form 
+          className="mainform"
+          onSubmit={handleSubmitUserDetails}
+        >
 
           {signUpStep === 2 &&
             <Step2 handleChange={handleChange} credentials={credentials} />

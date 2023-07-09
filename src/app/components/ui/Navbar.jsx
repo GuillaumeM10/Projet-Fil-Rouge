@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../setup/contexts/UserContext";
 import SearchBar from "../searchBar/SearchBar";
 
 const Navbar = () => {
     const { user } = useContext(UserContext);
+    const [burgerActive, setBurgerActive] = useState(false);
 
     return ( 
         <nav className="mainNav defaultPaddingX">
@@ -12,12 +13,21 @@ const Navbar = () => {
                 <img src="/img/logo.svg" alt="" />
             </Link>
 
-            <SearchBar />
+            <button 
+                className={`burger ${burgerActive ? "active" : ""}`}
+                onClick={() => {
+                    const oldBurgerActive = burgerActive;
+                    setBurgerActive(!oldBurgerActive)
+                }}
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <SearchBar burgerActive={burgerActive} />
             
-            <ul>
-                {/* <li>
-                    <Link to="/">Home</Link>
-                </li>     */}
+            <ul className={`list ${burgerActive ? "active" : ""}`}>
                 {user.email && 
                     <li>
                         <Link to="/account">Account</Link>

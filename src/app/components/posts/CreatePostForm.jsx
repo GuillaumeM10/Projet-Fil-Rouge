@@ -181,6 +181,7 @@ const CreatePostForm = ({ setPosts }) => {
             handleChange({target : {name: "skills", value: e}})
           }}
           onInputChange={handleSearchChange}
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={
             skills.map((skill, index) => {
               if(searchValue && !skills.some((skill) => skill.name === searchValue)) return { value: searchValue, label: searchValue }
@@ -201,6 +202,7 @@ const CreatePostForm = ({ setPosts }) => {
         <Select 
           name="country"
           placeholder="Choisissez votre pays"
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={countries.map((country, index) => ({
             value: country,
             label: country,
@@ -227,6 +229,7 @@ const CreatePostForm = ({ setPosts }) => {
             onChange={e => {
               handleChange({target : {name: "cities", value: e}})
             }}
+            styles={FunctionsService.reactSelectCustomStyles()}
             options={cities
               .filter((city, index) =>
                 city.toLowerCase().includes(searchValue.toLowerCase())
@@ -277,6 +280,7 @@ const CreatePostForm = ({ setPosts }) => {
         <div className="authorizedFiles">
           <button
             type="button"
+            className='btn btnPrimarySmall'
             onClick={() => setToggleFilesTypes(!toggleFilesTypes)}
           >
             Extensions autorisées

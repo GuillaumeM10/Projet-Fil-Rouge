@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import FunctionsService from '../../../../../setup/services/functions.service';
 import Select from 'react-select';
 
@@ -178,6 +178,7 @@ const Experiences = ({
           onChange={(e) => {
             handleChangeExperiences({ target : { name: "type", value: e.value }})
           }}
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={[
             { value: "Stage", label: "Stage" },
             { value: "Alternance", label: "Alternance" },

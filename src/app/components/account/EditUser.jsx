@@ -102,7 +102,10 @@ const EditUser = () => {
 
       </div>
 
-      <form onSubmit={handleSubmitUserDetails}>
+      <form 
+        className="mainform"
+        onSubmit={handleSubmitUserDetails}
+      >
 
         {!sending ? (
           <>

@@ -1,8 +1,8 @@
 // conversion px to rem
 @mixin FontSize($px) {
-  font-size: calc($px / 16px * 1rem)!important;
+  font-size: calc(#{$px} / 16px);
 }
 
 @function pxToRem($px){
-  @return calc($px / 16px * 1rem);
+  @return calc(#{$px} / 16px);
 }

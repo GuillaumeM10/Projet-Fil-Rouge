@@ -12,82 +12,104 @@ $pictoCrossDark: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' w
 $pictoUp: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.585' height='6.535' viewBox='0 0 10.585 6.535'%3E%3Cg id='arrow-down-sign-to-navigate' transform='translate(10.086 103.104) rotate(180)' opacity='0.502'%3E%3Cpath id='Tracé_20485' data-name='Tracé 20485' d='M4.793,102.6a.669.669,0,0,1-.475-.2L.2,98.286a.671.671,0,1,1,.949-.949l3.647,3.647L8.44,97.337a.671.671,0,1,1,.949.949l-4.121,4.122A.669.669,0,0,1,4.793,102.6Z' transform='translate(0)' fill='%23fff' stroke='%23fff' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E";
 
 
-@mixin cta($bg, $px, $py, $color, $borderColor, $fontSize, $picto: false, $translateY: false, $translateX: false, $bkHover: false, $width: false, $lineHeight: false){
-  a, button{
-
-    position: relative;
-    display: flex;
-    align-items: baseline;
-    @include FontSize($fontSize);
-    font-weight: 500;
-    padding: pxToRem($py) pxToRem($px);
-    background-color: $bg;
-    color: $color;
-    margin: 4px;
-    border: 0;
-    border-radius: pxToRem(25px);
-    justify-content: center;
-    outline: none;
-    cursor: pointer;
-    
-    .elementor-button-text{
-      white-space: nowrap;
+@mixin cta($bg, $px, $py, $color, $fontSize, $picto: false, $translateY: false, $translateX: false, $bkHover: false, $width: false, $lineHeight: false){
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  font-size: #{$fontSize}px;
+  font-weight: 500;
+  padding: #{$py}px #{$px}px;
+  background-color: $bg;
+  color: $color;
+  margin: 4px;
+  border: 0;
+  border-radius: 25px;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  
+  .elementor-button-text{
+    white-space: nowrap;
+  }
+  @if($bkHover){
+    &:hover{
+      background-color: $bkHover;
     }
-    @if($bkHover){
-      &:hover{
-        background-color: $bkHover;
-      }
+  }@else{
+    &:hover{
+      background-color: darken($bg, 10%);
     }
-    @if($width){
-      width: $width;
-    } @else {
-      width: fit-content;
-    }
-    @if($lineHeight){
-      line-height: calc($fontSize + 2px);
-    } @else {
-      line-height: 23px;
-    }
-    @if ($picto){
-      @if($translateX and $translateY){
-        &:after{
-          transform: translate($translateX, $translateY);
-        }
-      }@else{
-        @if($translateX){
-          &:after{
-            transform: translateX($translateX);
-          }
-        }
-        @if($translateY){
-          &:after{
-            transform: translateY($translateY);
-          }
-        }
-      }
+  }
+  @if($width){
+    width: $width;
+  } @else {
+    width: fit-content;
+  }
+  @if($lineHeight){
+    line-height: calc(#{$fontSize}px + 2px);
+  } @else {
+    line-height: 23px;
+  }
+  @if ($picto){
+    @if($translateX and $translateY){
       &:after{
-        content: url($picto);
-        margin-left: pxToRem(15px);
+        transform: translate($translateX, $translateY);
+      }
+    }@else{
+      @if($translateX){
+        &:after{
+          transform: translateX($translateX);
+        }
+      }
+      @if($translateY){
+        &:after{
+          transform: translateY($translateY);
+        }
       }
     }
-    &::before{
-      content: "";
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      border-radius: pxToRem(30px);
-      border: solid 2px $borderColor;
-      opacity: 0;
-      transition: all 0.2s ease-in-out;
+    &:after{
+      content: url($picto);
+      margin-left: 15px;
+    }
+  }
+  &::before{
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: 30px;
+    border: solid 2px darken($bg, 10%);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
 
-    }
-    &:hover:before, &:focus:before{
-      opacity: 1;
-    }
+  }
+  &:hover:before, &:focus:before{
+    opacity: 1;
   }
 }
 
-//cta(bg color, padding-x, padding-y, color, borderColor, fontSize, picto, $translateY: 3px, $translateX: 3px, $bkHover: $white15)
+//cta(bg color, padding-x, padding-y, color, fontSize, picto, $translateY: 3px, $translateX: 3px, $bkHover: $white15)
+.btnPrimary{
+  @include cta($primary, 20, 10, $white, 14);
+}
+
+.btnPrimarySmall{
+  @include cta($primary, 10, 5, $white, 12, $lineHeight: true);
+}
+
+.btnGreen,
+button[type='submit']{
+  @include cta($green, 20, 10, $white, 14);
+}
+
+input[type="file"]{
+  display: none;
+
+  & + label{
+    @include cta($green, 20, 10, $white, 16, $picto: $pictoUp, $width: 100%);
+    width: calc(100% - 40px);
+  }
+}
 

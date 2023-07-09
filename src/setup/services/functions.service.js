@@ -43,10 +43,114 @@ const filesSizeCheck = (
   }
 }
 
+const reactSelectCustomStyles = () => {
+  return {
+    control: (provided, state) => ({
+      ...provided,
+      fontWeight: 400,
+      marginTop: '15px',
+      borderRadius: '10px',
+      background: '#22253A',
+      border: 'none',
+      padding: '5px 10px',
+      display: 'flex',
+      color: '#ffffff',
+      width: '100%',
+      fontSize: '14px',
+      transition: 'background 0.3s',
+      outline: state.isFocused ? 'none' : null,
+      borderColor: state.isFocused ? '#22253A' : null,
+      boxShadow: 'none',
+      zIndex: state.isFocused ? '1' : null,
+      cursor: 'pointer',
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? '#22253A' : null,
+      color: state.isSelected ? '#ffffff' : null,
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: '#3b4064',
+        color: '#ffffff',
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: '#22253A',
+      padding: '5px 0px',
+      color: '#ffffff',
+      borderRadius: '10px',
+      cursor: 'pointer',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#ffffff',
+      cursor: 'pointer',
+    }),
+    input: (provided) => ({
+      ...provided,
+      color: '#ffffff',
+      cursor: 'pointer',
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: '#ffffffbe',
+      cursor: 'pointer',
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: '#ffffff',
+      cursor: 'pointer',
+      transition: 'background 0.3s',
+      ':hover': {
+        backgroundColor: '#232536',
+        color: '#ffffff',
+      },
+    }),
+    clearIndicator: (provided) => ({
+      ...provided,
+      color: '#ffffff',
+      cursor: 'pointer',
+      transition: 'background 0.3s',
+      ':hover': {
+        backgroundColor: '#232536',
+        color: '#ffffff',
+      },
+    }),
+    // Add styles for multi-select if needed
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: '#3B3E5B',
+      color: '#ffffff',
+      borderRadius: '10px',
+      padding: '5px 10px',
+      margin: '5px',
+      cursor: 'pointer',
+    }),
+    multiValueLabel: (provided) => ({
+      ...provided,
+      color: '#ffffff',
+      cursor: 'pointer',
+    }),
+    multiValueRemove: (provided) => ({
+      ...provided,
+      color: '#ffffff',
+      cursor: 'pointer',
+      transition: 'background 0.3s',
+      ':hover': {
+        backgroundColor: '#232536',
+        color: '#ffffff',
+      },
+    })
+    // Add styles for other components like dropdown indicator, etc. if needed
+  };
+};
+
 const FunctionsService = {
   labelDisplay,
   dateFormater,
-  filesSizeCheck
+  filesSizeCheck,
+  reactSelectCustomStyles
 }
 
 export default FunctionsService

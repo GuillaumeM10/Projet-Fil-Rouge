@@ -9,6 +9,34 @@ body{
     box-sizing: border-box;
 }
 
+// ------- SCOLL BAR --------- //
+::-webkit-scrollbar{
+    width: 16px;
+}
+::-webkit-scrollbar-track{
+    background: #f3f3f3;
+}
+::-webkit-scrollbar-thumb{
+    background: $green;
+    width: 10px;
+    border: 3px solid #f3f3f3;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: $green;
+}
+
+.reactSelect{
+
+    ::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb{
+        border: 3px solid transparent;
+    }
+}
+
+
 // ------- TITLES --------- //
 h1, h2, h3, h4, h5, h6{
     font-family: 'Montserrat', sans-serif;
@@ -66,12 +94,13 @@ h1, h2, h3, h4, h5, h6{
     gap: 10px;
     margin-top: 10px;
     width: 100%;
-
-    button{
+}
+.tabs.buttons button,
+    .addButton{
         background-color: transparent;
         color: $black;
         border: none;
-        border-bottom: 2px solid $black;
+        border-bottom: 2px solid $primary;
         padding: 10px 20px;
         font-size: 14px;
         font-weight: 600;
@@ -80,13 +109,18 @@ h1, h2, h3, h4, h5, h6{
         width: 100%;
         border-radius: 0;
 
-        &:hover{
-        background-color: $black;
-        color: $white;
-        }
+        &:hover,
         &.active{
-        background-color: $black;
-        color: $white;
+            background-color: $primary;
+            color: $white;
         }
     }
+
+
+.hidden{
+    display: none;
+}
+
+.absolute{
+    position: absolute;
 }

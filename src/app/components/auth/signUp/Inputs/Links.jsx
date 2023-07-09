@@ -160,6 +160,7 @@ const Links = ({
         <Select
           name="linkCategory"
           placeholder="Catégorie"
+          styles={FunctionsService.reactSelectCustomStyles()}
           options={linkCategoriesOptions}
           onChange={(e) => {
             handleChangeLinks({ target : { name: "linkCategory", value: e.value }})

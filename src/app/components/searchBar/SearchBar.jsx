@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import UserService from '../../../setup/services/user.service';
 import PostService from '../../../setup/services/post.service';
 
-const SearchBar = () => {
+const SearchBar = ({ burgerActive }) => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [type, setType] = useState("posts");
@@ -28,29 +28,7 @@ const SearchBar = () => {
     setFocused(true);
   };
 
-  const getData = async () => {
-    setLoading(true)
-    if(type === "users"){
-      try {
-        const data = await UserService.getAll(`search=${search}`);
-        setData(data);
-        if(data.length === 0) setError("Pas de résultats");
-        else setError("");
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
-    }else if(type === "posts"){
-      try {
-        const data = await PostService.getAll(`search=${search}`);
-        setData(data);
-        if(data.length === 0) setError("Pas de résultats");
-        else setError("");
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
-    }
-    setLoading(false)
-  };
+  
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -71,6 +49,30 @@ const SearchBar = () => {
   const debouncedOnChange = debounce(handleSearch);
 
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true)
+      if(type === "users"){
+        try {
+          const data = await UserService.getAll(`search=${search}`);
+          setData(data);
+          if(data.length === 0) setError("Pas de résultats");
+          else setError("");
+        } catch (error) {
+          console.log(error.response.data.message);
+        }
+      }else if(type === "posts"){
+        try {
+          const data = await PostService.getAll(`search=${search}`);
+          setData(data);
+          if(data.length === 0) setError("Pas de résultats");
+          else setError("");
+        } catch (error) {
+          console.log(error.response.data.message);
+        }
+      }
+      setLoading(false)
+    };
+    
     if (search.length > 1) {      
       getData();
     } else {
@@ -79,7 +81,7 @@ const SearchBar = () => {
   }, [search, type]);
 
   return (
-    <div className="searchBarContainer">
+    <div className={`searchBarContainer ${burgerActive ? "active" : ""}`}>
 
       <div className="searchBar">
           <input 
@@ -98,7 +100,7 @@ const SearchBar = () => {
           <img src="/img/search.svg" alt="" />
       </div>
 
-      {focused && search.length > 0 && (
+      {focused && search.length > 1 && (
         <div className="results" ref={resultsRef}>
           <div className="btns">
             <button 
