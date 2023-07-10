@@ -84,6 +84,7 @@ const EditUser = () => {
 
       <div className="tabs buttons">
           <button
+            type='button'
             onClick={() => setTabs("personnal")}
             className={"personnal " + (tabs === "personnal" ? "active" : "")}
           >
@@ -91,6 +92,7 @@ const EditUser = () => {
           </button>
 
           <button
+            type='button'
             onClick={() => setTabs("professionnal")}
             className={"professionnal " + (tabs === "professionnal" ? "active" : "")}
           >
@@ -98,6 +100,7 @@ const EditUser = () => {
           </button>
 
           <button
+            type='button'
             onClick={() => setTabs("myDocs")}
             className={"myDocs " + (tabs === "myDocs" ? "active" : "")}
           >
