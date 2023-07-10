@@ -152,6 +152,7 @@ const Step3 = ({ handleChange, credentials }) => {
 
       <div className="tabs buttons">
         <button
+          type='button'
           onClick={() => setTabs("skills")}
           className={"skills " + (tabs === "skills" ? "active" : "")}
         >
@@ -159,6 +160,7 @@ const Step3 = ({ handleChange, credentials }) => {
         </button>
 
         <button
+          type='button'
           onClick={() => setTabs("experiences")}
           className={"experiences " + (tabs === "experiences" ? "active" : "")}
         >
@@ -166,6 +168,7 @@ const Step3 = ({ handleChange, credentials }) => {
         </button>
         
         <button
+          type='button'
           onClick={() => setTabs("links")}
           className={"links " + (tabs === "links" ? "active" : "")}
         >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import PostService from '../../../setup/services/post.service';
 import PreviewFiles from '../PreviewFiles/PreviewFiles';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import Select, { components } from 'react-select';
 import { Toaster, toast } from 'react-hot-toast';
 import SkillService from '../../../setup/services/skill.service';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const CreatePostForm = ({ setPosts }) => {
   const [ displayedError, setDisplayedError ] = useState(null);
@@ -17,6 +18,7 @@ const CreatePostForm = ({ setPosts }) => {
   const [toggleFilesTypes, setToggleFilesTypes] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [skills, setSkills] = useState([]);
+  const recaptchaRef = useRef(null);
 
   // Custom Option component to handle hiding options based on search value
   const Option = (props) => {
@@ -138,13 +140,14 @@ const CreatePostForm = ({ setPosts }) => {
     
     try {
       // console.log(credentials);
-        await PostService.create(credentials);
-        toast.success('Votre post a bien été créé');
-        setPosts(true);
+      const token = await recaptchaRef.current.executeAsync();
+      await PostService.create({...credentials, token});
+      toast.success('Votre post a bien été créé');
+      setPosts(true);
     } catch (error) {
-        setDisplayedError(error.response.data.message);
-        toast.error(error.response.data.message);
-        console.log(error);
+      setDisplayedError(error.response.data.message);
+      toast.error(error.response.data.message);
+      console.log(error);
     }
   }
 
@@ -319,6 +322,12 @@ const CreatePostForm = ({ setPosts }) => {
 
       { displayedError && <div className="error">{ displayedError }</div> }
       
+      <ReCAPTCHA
+          ref={recaptchaRef}
+          size="invisible"
+          sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+      />
+
       <button type="submit">Créer</button>
 
       <Toaster />

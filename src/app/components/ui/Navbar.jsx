@@ -14,6 +14,7 @@ const Navbar = () => {
             </Link>
 
             <button 
+                type='button'
                 className={`burger ${burgerActive ? "active" : ""}`}
                 onClick={() => {
                     const oldBurgerActive = burgerActive;

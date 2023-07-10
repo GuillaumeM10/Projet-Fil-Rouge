@@ -36,12 +36,14 @@ const PdfViewer = ({ uri }) => {
           <div className="btns">
 
             <button
+              type='button'
               disabled={currentPage <= 1}
               onClick={() => setCurrentPage(currentPage - 1)}
               >
               Previous
             </button>
             <button
+              type='button'
               disabled={currentPage >= numPages}
               onClick={() => setCurrentPage(currentPage + 1)}
               >

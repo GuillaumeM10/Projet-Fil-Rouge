@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AuthService from "../../../setup/services/auth.service";
 import { Link } from "react-router-dom";
 import FunctionsService from "../../../setup/services/functions.service";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [result, setResult] = useState({ type: "", message: "" });
+  const recaptchaRef = useRef(null);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -14,7 +16,8 @@ const ForgotPasswordPage = () => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      await AuthService.forgotPassword({ email });
+      const token = await recaptchaRef.current.executeAsync();
+      await AuthService.forgotPassword({ ...email, token });
       setEmail("");
       setResult({ type: "success", message: "mail sent" });
     } catch (error) {
@@ -53,6 +56,12 @@ const ForgotPasswordPage = () => {
             {result.message}
           </p>
         )}
+
+        <ReCAPTCHA
+            ref={recaptchaRef}
+            size="invisible"
+            sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+        />
         <button type="submit">
           Confirm
         </button>

@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { UserContext } from '../../../../setup/contexts/UserContext';
 import AuthService from '../../../../setup/services/auth.service';
 import TokenService from '../../../../setup/services/token.service';
 import AuthInputs from '../AuthInputs';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const UserForm = ({
     credentials, 
@@ -13,6 +14,7 @@ const UserForm = ({
     setLoggedIn
   }) => {
   const { setUser } = useContext(UserContext);
+  const recaptchaRef = useRef(null);
 
   const checkConfirmPassword = () => {
     if (credentials.password !== credentials.confirmPassword) {
@@ -40,8 +42,8 @@ const UserForm = ({
         }
         if(newCredentials?.email && credentials.userDetail === undefined){
           try {
-            
-            await AuthService.signup(newCredentials).then(async (response) => {
+            const token = await recaptchaRef.current.executeAsync();
+            await AuthService.signup({...newCredentials, token}).then(async (response) => {
               //login
               console.log('login in');
               const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
@@ -65,7 +67,8 @@ const UserForm = ({
           }
         }else{
           try {
-            await AuthService.signup(credentials).then(async (response) => {
+            const token = await recaptchaRef.current.executeAsync();
+            await AuthService.signup({...credentials, token}).then(async (response) => {
               //login
               const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
               TokenService.setTokenInLocalStorage(accessToken);
@@ -115,7 +118,11 @@ const UserForm = ({
           <span className="handle"></span>
         </span>
       </label>
-
+      <ReCAPTCHA
+          ref={recaptchaRef}
+          size="invisible"
+          sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+      />
       <button type="submit">INSCRIPTION</button>
     </form>
   );

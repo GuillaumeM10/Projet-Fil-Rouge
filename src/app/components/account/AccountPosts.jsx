@@ -95,6 +95,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                       <button
                         onClick={(e) => { handleCancelUpdate(e)} }
                         className="cancelUpdatePost"
+                        type='button'
                       >
                         Annuler
                       </button>
@@ -113,6 +114,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
 
                       <button 
                         className="menu"
+                        type='button'
                         onClick={e =>{
                           const oldMenu = menu;
                           if(oldMenu.id !== post.id){
@@ -136,6 +138,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                           <>
                             <a href={'/posts/' + post.id}>Voir le post</a>
                             <button
+                              type='button'
                               onClick={ (e) => { 
                                 handleUpdatePost(e, post.id)
                                 setMenu({

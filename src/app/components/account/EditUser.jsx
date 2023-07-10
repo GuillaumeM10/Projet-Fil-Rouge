@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { UserContext } from '../../../setup/contexts/UserContext';
 import Step2 from '../auth/signUp/Step2';
 import Step4 from '../auth/signUp/Step4';
@@ -9,6 +9,7 @@ import UserDetailService from '../../../setup/services/userDetail.service';
 import TokenService from '../../../setup/services/token.service';
 import FunctionsService from '../../../setup/services/functions.service';
 import UserService from '../../../setup/services/user.service';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const EditUser = () => {
   const { user } = useContext(UserContext);
@@ -16,6 +17,7 @@ const EditUser = () => {
   const [ displayedError, setDisplayedError ] = useState(null);
   const [ sending, setSending ] = useState(false);
   const [tabs, setTabs] = useState('');
+  const recaptchaRef = useRef(null);
 
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
@@ -35,9 +37,10 @@ const EditUser = () => {
         passwordConfirm: credentials.passwordConfirm
       };
       try{
+        const token = await recaptchaRef.current.executeAsync();
         let userId = TokenService.getUserInToken();
         userId = userId.id
-        await UserService.update(userId, userOnly)
+        await UserService.update(userId, {...userOnly, token})
       }catch(e){
         toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
         setDisplayedError(e.response.data.message);
@@ -53,9 +56,10 @@ const EditUser = () => {
 
     try{
       // get user from local storage
+      const token = await recaptchaRef.current.executeAsync();
       let userDetailId = TokenService.getUserInToken();
       userDetailId = userDetailId.userDetail
-      await UserDetailService.update(userDetailId, credentials.userDetail)
+      await UserDetailService.update(userDetailId, {...credentials.userDetail, token})
       toast.success("Votre profil a bien été mis à jour !");
       setTimeout(() => {
         // navigate('/account');
@@ -130,7 +134,11 @@ const EditUser = () => {
             <img className='loading' src="/img/loading.svg" alt="" />
           </div>
         )}
-
+        <ReCAPTCHA
+            ref={recaptchaRef}
+            size="invisible"
+            sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+        />
       </form>
 
       <Toaster />

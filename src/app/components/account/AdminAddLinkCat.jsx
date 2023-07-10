@@ -55,7 +55,10 @@ const AdminAddLinkCat = () => {
     >
       <p>ajouter des catégorie de liens</p>
   
-      <button onClick={e => addLinkCat(e)}>Ajouter</button>
+      <button
+        onClick={e => addLinkCat(e)}
+        type='button'
+      >Ajouter</button>
       {response && (
         <p>{response}</p>
       )}

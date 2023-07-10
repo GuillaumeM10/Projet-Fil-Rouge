@@ -66,7 +66,7 @@ const AccountPage = () => {
           <p>{user.email}</p>
 
           <button
-          className="btnPrimary"
+            className="btnPrimary"
             onClick={disconnect}
           >
             Déconnexion
@@ -74,6 +74,7 @@ const AccountPage = () => {
 
           <div className="tabs buttons">
             <button
+              type='button'
               onClick={() => setTabs("createPost")}
               className={"createPost " + (tabs === "createPost" ? "active" : "")}
             >
@@ -81,6 +82,7 @@ const AccountPage = () => {
             </button>
 
             <button
+              type='button'
               onClick={() => setTabs("editUser")}
               className={"editUser " + (tabs === "editUser" ? "active" : "")}
             >
@@ -88,6 +90,7 @@ const AccountPage = () => {
             </button>
 
             <button
+              type='button'
               onClick={() => setTabs("myPosts")}
               className={"myPosts " + (tabs === "myPosts" ? "active" : "")}
             >
@@ -96,6 +99,7 @@ const AccountPage = () => {
 
             {user.role === "admin" && (
               <button
+                type='button'
                 onClick={() => setTabs("admin")}
                 className={"admin " + (tabs === "admin" ? "active" : "")}
               >

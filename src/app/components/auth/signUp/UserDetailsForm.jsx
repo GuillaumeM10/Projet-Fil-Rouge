@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../../../setup/contexts/AuthContext';
 // import { UserContext } from '../../../../setup/contexts/UserContext';
 import UserDetailService from '../../../../setup/services/userDetail.service';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import TokenService from '../../../../setup/services/token.service';
 import FunctionsService from '../../../../setup/services/functions.service';
 import UserService from '../../../../setup/services/user.service';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
@@ -16,6 +17,7 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
   // const { user } = useContext(UserContext);
   const [ sending, setSending ] = useState(false);
   const navigate = useNavigate();
+  const recaptchaRef = useRef(null);
   
   const handleSubmitUserDetails = async (e) => {
     e.preventDefault();
@@ -35,9 +37,10 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
         passwordConfirm: credentials.passwordConfirm
       };
       try{
+        const token = await recaptchaRef.current.executeAsync();
         let userId = TokenService.getUserInToken();
         userId = userId.id
-        await UserService.update(userId, userOnly)
+        await UserService.update(userId, {...userOnly, token})
       }catch(e){
         toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
         console.log(e);
@@ -52,9 +55,10 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
 
     try{
       // get user from local storage
+      const token = await recaptchaRef.current.executeAsync();
       let userDetailId = TokenService.getUserInToken();
       userDetailId = userDetailId.userDetail
-      await UserDetailService.update(userDetailId, credentials.userDetail)
+      await UserDetailService.update(userDetailId, {...credentials.userDetail, token})
       toast.success("Votre profil a bien été mis à jour !");
       setTimeout(() => {
         setSending(false);
@@ -103,7 +107,14 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
             }
 
             {signUpStep === 4 &&
-              <button type="submit">Valider</button>
+              <>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  size="invisible"
+                  sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+                  />
+                <button type="submit">Valider</button>
+              </>
             }
 
             {signUpStep !== 4 &&

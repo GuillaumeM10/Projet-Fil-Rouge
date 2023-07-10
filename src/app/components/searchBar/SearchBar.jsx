@@ -104,12 +104,14 @@ const SearchBar = ({ burgerActive }) => {
         <div className="results" ref={resultsRef}>
           <div className="btns">
             <button 
+              type='button'
               className={type === "posts" ? "posts active" : "posts"}
               onClick={() => setType("posts")} 
             >
               Posts
             </button>
             <button 
+              type='button'
               className={type === "users" ? "users active" : "users"}
               onClick={() => setType("users")}
             >
