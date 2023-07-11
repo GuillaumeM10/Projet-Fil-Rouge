@@ -158,7 +158,7 @@ const reactSelectCustomStyles = () => {
         display: 'flex',
         color: '#ffffff',
         width: '100%',
-        fontSize: '14px',
+        fontSize: '12px',
         transition: 'background 0.3s',
         outline: state.isFocused ? 'none' : null,
         borderColor: state.isFocused ? '#22253A' : null,
@@ -171,6 +171,7 @@ const reactSelectCustomStyles = () => {
         backgroundColor: state.isSelected ? '#22253A' : null,
         color: state.isSelected ? '#ffffff' : null,
         cursor: 'pointer',
+        fontSize: '12px',
         ':hover': {
           backgroundColor: '#3b4064',
           color: '#ffffff',
@@ -183,21 +184,25 @@ const reactSelectCustomStyles = () => {
         color: '#ffffff',
         borderRadius: '10px',
         cursor: 'pointer',
+        fontSize: '12px',
       }),
       singleValue: (provided) => ({
         ...provided,
         color: '#ffffff',
         cursor: 'pointer',
+        fontSize: '12px',
       }),
       input: (provided) => ({
         ...provided,
         color: '#ffffff',
         cursor: 'pointer',
+        fontSize: '12px',
       }),
       placeholder: (provided) => ({
         ...provided,
         color: '#ffffffbe',
         cursor: 'pointer',
+        fontSize: '12px',
       }),
       dropdownIndicator: (provided) => ({
         ...provided,
@@ -227,11 +232,13 @@ const reactSelectCustomStyles = () => {
         borderRadius: '10px',
         padding: '5px 10px',
         margin: '5px',
+        fontSize: '12px',
         cursor: 'pointer',
       }),
       multiValueLabel: (provided) => ({
         ...provided,
         color: '#ffffff',
+        fontSize: '12px',
         cursor: 'pointer',
       }),
       multiValueRemove: (provided) => ({
