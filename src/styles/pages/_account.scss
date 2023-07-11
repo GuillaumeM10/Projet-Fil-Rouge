@@ -121,14 +121,6 @@
         }
       }
     }
-    // input{
-
-    //   &[disabled]{
-    //     background-color: transparent;
-    //     color: $black;
-    //     border: none;
-    //   }
-    // }
 
     button.updatePost{
       background-color: transparent;
@@ -205,5 +197,24 @@
       flex-direction: column;
       gap: 40px;
     }
+  }
+
+  @media screen and (max-width: $mobile) {
+    .tabs.buttons{
+      position: sticky;
+      top: 53px;
+      z-index: 1;
+      background: $background;
+      flex-wrap: wrap;
+
+      button{
+        width: calc(50% - 6px);
+        white-space: nowrap;
+
+        &.addButton{
+          width: 100%;
+        }
+      }
+    } 
   }
 }
