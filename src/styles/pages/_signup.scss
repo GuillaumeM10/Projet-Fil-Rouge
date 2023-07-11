@@ -91,6 +91,7 @@
     position: relative;
     display: flex;
     overflow: hidden;
+    margin-bottom: 40px;
   
     span.text {
       color: $primary;
@@ -149,8 +150,6 @@
     }
   }
   
-  // animation when one line end animation start the other line
-
   @keyframes line1 {
     0% {
       width: 0%;
@@ -184,6 +183,13 @@
     }
     100% {
       height: 0%;
+    }
+  }
+
+  @media screen and (max-width: $mobile){
+    h1,
+    h2{
+      margin-bottom: 20px;
     }
   }
 }
