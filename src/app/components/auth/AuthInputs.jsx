@@ -4,10 +4,16 @@ const AuthInputs = ({handleChange, signup}) => {
   let autoComplete = signup ? "new-password" : "on";
 
   return ( 
-    <div className="step step1">
+    <div className="step step1 reverseInput">
       {signup &&
       <>
-        <h1>Inscription</h1>
+        <h1>
+          <span className="text">Inscription</span>
+          <span className="hover-bar hover-1"></span>
+          <span className="hover-bar hover-2"></span>
+          <span className="hover-bar hover-3"></span>
+          <span className="hover-bar hover-4"></span>
+        </h1>
 
         <div className="formGroup">
           <label htmlFor="firstName">Prénom</label>

@@ -7,6 +7,12 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: $primary;
 }
 
 // ------- SCOLL BAR --------- //
@@ -45,9 +51,23 @@ h1, h2, h3, h4, h5, h6{
     padding: 0;
 }
 
+h1{
+    font-size: 36px;
+    line-height: 1.2;
+    color: $primary;
+
+    @media screen and (max-width: $tablette){
+        font-size: 28px;
+    }
+}
+
 .height100{
-    height: calc(100vh - 85px);
+    height: calc(100vh - 67px);
     display: flex;
+
+    @media screen and (max-width: $tablette){
+        height: 100vh;
+    }
 }
 
 // ------- ANIMATIONS - LOADING --------- //

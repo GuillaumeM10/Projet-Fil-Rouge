@@ -116,7 +116,13 @@ const Step3 = ({ handleChange, credentials }) => {
     
   return (
     <div className="step step3">
-      <h2>Professionnel</h2>
+      <h2>
+        <span className="text">Professionnel</span>
+        <span className="hover-bar hover-1"></span>
+        <span className="hover-bar hover-2"></span>
+        <span className="hover-bar hover-3"></span>
+        <span className="hover-bar hover-4"></span>
+      </h2>
       
       {/* formation */}
       <DefaultInput 

@@ -3,7 +3,8 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
 .searchBarContainer{
   width: 100%;
   position: relative;
-
+  max-height: 37px;
+  
   .searchBar{
     align-self: center;
     position: relative;

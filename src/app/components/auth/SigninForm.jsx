@@ -50,8 +50,14 @@ const SigninForm = () => {
     // }, [displayedError])
     
     return ( 
-        <form className="mainform" onSubmit={handleSubmit}>
-            <h1>Connexion</h1>
+        <form className="mainform reverseInput" onSubmit={handleSubmit}>
+            <h1>
+                <span className="text">Connexion</span>
+                <span className="hover-bar hover-1"></span>
+                <span className="hover-bar hover-2"></span>
+                <span className="hover-bar hover-3"></span>
+                <span className="hover-bar hover-4"></span>
+            </h1>
             <AuthInputs handleChange={handleChange} confirmPassword={false} />
             { displayedError && <div className="error">{ displayedError }</div> }
 
@@ -59,6 +65,7 @@ const SigninForm = () => {
                 ref={recaptchaRef}
                 size="invisible"
                 sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+                hidden="true"
             />
 
             <button type="submit">CONNEXION</button>

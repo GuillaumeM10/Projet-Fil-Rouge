@@ -4,7 +4,13 @@ import PreviewFiles from '../../PreviewFiles/PreviewFiles';
 const Step4 = ({ handleChange, credentials}) => {
   return (
     <div className="step step4">
-      <h2>Mes documents</h2>
+      <h2>
+        <span className="text">Mes documents</span>
+        <span className="hover-bar hover-1"></span>
+        <span className="hover-bar hover-2"></span>
+        <span className="hover-bar hover-3"></span>
+        <span className="hover-bar hover-4"></span>
+      </h2>
 
       {/* cv */}
       <div className="formGroup file">

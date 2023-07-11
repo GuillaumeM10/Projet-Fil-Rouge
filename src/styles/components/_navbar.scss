@@ -103,6 +103,9 @@ nav.mainNav{
     }
   }
 
+  @media screen and (min-width: $tablette){
+    max-height: 67px;
+  }
   @media screen and (max-width: $tablette) {
     width: calc(100% - 160px);
     position: fixed;

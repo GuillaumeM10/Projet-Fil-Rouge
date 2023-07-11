@@ -74,6 +74,41 @@ form.mainform{
     width: 100%;
   }
 
+  @media screen and (max-width: $tablette){
+    max-width: 100%;
+
+    input:not([type='checkbox']),
+    textarea,
+    select{
+      width: calc(100% - 20px);
+      font-size: 12px;
+      padding: 10px;
+      margin-top: 10px;
+
+    }
+
+    label{
+      font-size: 12px;
+    }
+
+    textarea{
+      height: 80px;
+    }
+
+  }
+}
+.reverseInput .formGroup:not(.formGroup.file){
+  input:not([type='checkbox']), 
+  textarea, 
+  select{
+    background: rgba($color: $primary, $alpha: 0.03);
+    color: $primary;
+    border: 1.5px solid $primary;
+
+    &::placeholder{
+      color: #000000be;
+    }
+  }
 }
 
 textarea{
@@ -93,5 +128,9 @@ textarea{
 
   &:last-of-type{
     border-bottom: none;
+  }
+
+  label{
+    width: calc(100% - 20px);
   }
 }

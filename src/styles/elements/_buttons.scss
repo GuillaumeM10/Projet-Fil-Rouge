@@ -113,3 +113,21 @@ input[type="file"]{
   }
 }
 
+@media screen and (max-width: $tablette){
+  .btnPrimary{
+    @include cta($primary, 10, 5, $white, 12);
+  }
+  .btnPrimarySmall{
+    @include cta($primary, 10, 5, $white, 12, $lineHeight: true);
+  }
+  .btnGreen,
+  button[type='submit']{
+    @include cta($green, 10, 5, $white, 12);
+  }
+
+  input[type="file"]{
+    & + label{
+      @include cta($green, 10, 5, $white, 12, $picto: $pictoUp, $width: 100%);
+    }
+  }
+}

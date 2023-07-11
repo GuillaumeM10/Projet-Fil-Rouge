@@ -103,7 +103,13 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
 
           <div className="btn">
             {signUpStep !== 2 &&
-              <button type="button" onClick={prevStep}>Précédent</button>
+              <button 
+                type="button" 
+                onClick={prevStep}
+                className='btnPrimary'
+              >
+                Précédent
+              </button>
             }
 
             {signUpStep === 4 &&
@@ -112,13 +118,20 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
                   ref={recaptchaRef}
                   size="invisible"
                   sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
-                  />
+                  hidden="true"
+                />
                 <button type="submit">Valider</button>
               </>
             }
 
             {signUpStep !== 4 &&
-              <button type="button" onClick={nextStep}>Suivant</button>
+              <button 
+                type="button" 
+                onClick={nextStep}
+                className='btnPrimary'
+              >
+                Suivant
+              </button>
             }
           </div>
 
