@@ -91,6 +91,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                     <PdfViewer uri={data} /> 
                   
                     ) : file.type === 'image/png' || file.type === 'png' ||
+                        file.type === 'image/jpg' || file.type === 'jpg' ||
                         file.type === 'image/jpeg' || file.type === 'jpeg' ? (
 
                     <img width={width} src={file.Location ? file.Location : data} alt={file.name} />
@@ -141,7 +142,6 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
           if (file.type === 'application/octet-stream') {
             file.type = file.Location.split('.').pop();
           }
-
           return (
             <div key={index} className={"previewFile swiper-card"}>
               {file?.name && (<p>{file?.name}</p>)} 
@@ -151,6 +151,7 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
                 <PdfViewer uri={data} /> 
               
                 ) : file.type === 'image/png' || file.type === 'png' ||
+                    file.type === 'image/jpg' || file.type === 'jpg' ||
                     file.type === 'image/jpeg' || file.type === 'jpeg' ? (
 
                 <img width={width} src={file.Location ? file.Location : data} alt={file.name} />

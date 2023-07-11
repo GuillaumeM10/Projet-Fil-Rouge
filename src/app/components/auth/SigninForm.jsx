@@ -65,7 +65,7 @@ const SigninForm = () => {
                 ref={recaptchaRef}
                 size="invisible"
                 sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
-                hidden="true"
+                hidden={true}
             />
 
             <button type="submit">CONNEXION</button>
