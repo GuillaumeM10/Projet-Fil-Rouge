@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import PostService from '../../../setup/services/post.service';
 import PostCard from '../../components/posts/PostCard';
+import Loading from '../../components/ui/Loading';
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const SinglePost = () => {
         console.log(error);
       }
     };
-    getPost();
+    getPost(); // eslint-disable-next-line
   }, []);
 
   return (
@@ -27,7 +28,7 @@ const SinglePost = () => {
         post.content ? (
           <PostCard post={post} index={post.id} isSinglePage={true} />
         ) : (
-          <p>Loading...</p>
+          <Loading />
         )
       }
     </div>

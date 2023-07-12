@@ -1,0 +1,31 @@
+.filters{
+  display: flex;
+  gap: 20px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  align-items: end;
+
+  label{
+    display: none;
+  }
+  > div{
+    width: calc(50% - 10px);
+  }
+
+  button{
+    height: fit-content;
+  }
+
+  @media screen and (max-width: $mobile){
+    flex-direction: column;
+    gap: 10px;
+
+    > div{
+      width: 100%;
+    }
+
+    button{
+      width: 100%;
+    }
+  }
+}

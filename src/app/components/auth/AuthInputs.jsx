@@ -1,10 +1,10 @@
 import FunctionsService from "../../../setup/services/functions.service";
 
-const AuthInputs = ({handleChange, signup}) => {
+const AuthInputs = ({handleChange, signup, isLoading = false}) => {
   let autoComplete = signup ? "new-password" : "on";
 
   return ( 
-    <div className="step step1 reverseInput">
+    <div className={`step step1 reverseInput ${isLoading ? "hidden" : ""}`}>
       {signup &&
       <>
         <h1>

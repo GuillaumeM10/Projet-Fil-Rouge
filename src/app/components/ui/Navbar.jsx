@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../setup/contexts/UserContext";
 import SearchBar from "../searchBar/SearchBar";
@@ -7,9 +7,17 @@ const Navbar = () => {
     const { user } = useContext(UserContext);
     const [burgerActive, setBurgerActive] = useState(false);
 
+    useEffect(() => {
+        setBurgerActive(false);
+    }, []); 
+
     return ( 
         <nav className="mainNav defaultPaddingX">
-            <Link to="/" className="logo">
+            <Link 
+                to="/" 
+                className="logo"
+                onClick={() => setBurgerActive(false)}
+            >
                 <img src="/img/logo.svg" alt="" />
             </Link>
 
@@ -31,16 +39,31 @@ const Navbar = () => {
             <ul className={`list ${burgerActive ? "active" : ""}`}>
                 {user.email && 
                     <li>
-                        <Link to="/account">Account</Link>
+                        <Link 
+                            to="/account"
+                            onClick={() => setBurgerActive(false)}
+                        >
+                            Account
+                        </Link>
                     </li>
                 }
                 {!user.email && 
                     <>
                         <li>
-                            <Link to="/auth/signin">Connexion</Link>
+                            <Link 
+                                to="/auth/signin"
+                                onClick={() => setBurgerActive(false)}
+                            >
+                                Connexion
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/auth/signup">Inscription</Link>
+                            <Link 
+                                to="/auth/signup"
+                                onClick={() => setBurgerActive(false)}
+                            >
+                                Inscription
+                            </Link>
                         </li>
                     </>
                 }

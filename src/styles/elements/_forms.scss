@@ -134,3 +134,13 @@ textarea{
     width: calc(100% - 20px);
   }
 }
+
+.formGroupHidden .formGroup,
+.formGroupHidden button[type='submit'],
+.formGroupHidden .fHidden,
+.formGroupHidden .checkboxContainer,
+.formGroupHidden h1,
+.formGroupHidden h2,
+.formGroupHidden h3{
+  display: none!important;
+}

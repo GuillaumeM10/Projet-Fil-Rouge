@@ -10,6 +10,7 @@ import TokenService from '../../../../setup/services/token.service';
 import FunctionsService from '../../../../setup/services/functions.service';
 import UserService from '../../../../setup/services/user.service';
 import ReCAPTCHA from "react-google-recaptcha";
+import Loading from '../../ui/Loading';
 
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
   // get user from context
@@ -41,17 +42,30 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
         let userId = TokenService.getUserInToken();
         userId = userId.id
         await UserService.update(userId, {...userOnly, token})
+        setSending(false);
       }catch(e){
+        setSending(false);
         toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
         console.log(e);
-        setSending(false);
       }
     }
 
-    if(credentials.userDetail.files && FunctionsService.filesSizeCheck(credentials.userDetail.files, false, 10000000, setSending) === false) return
-    if(credentials.userDetail.banner && FunctionsService.filesSizeCheck(credentials.userDetail.banner, false, 2000000, setSending, `La taille totale de la banner ne doit pas dépasser 2mo`) === false) return
-    if(credentials.userDetail.cv && FunctionsService.filesSizeCheck(credentials.userDetail.cv, false, 2000000, setSending, `La taille totale du cv ne doit pas dépasser 2mo`) === false) return
-    if(credentials.userDetail.personalPicture && FunctionsService.filesSizeCheck(credentials.userDetail.personalPicture, false, 2000000, setSending, `La taille totale de la photo de profile ne doit pas dépasser 2mo`) === false) return
+    if(credentials.userDetail.files && FunctionsService.filesSizeCheck(credentials.userDetail.files, false, 10000000, setSending) === false) {
+      setSending(false)
+      return
+    }
+    if(credentials.userDetail.banner && FunctionsService.filesSizeCheck(credentials.userDetail.banner, false, 2000000, setSending, `La taille totale de la banner ne doit pas dépasser 2mo`) === false) {
+      setSending(false)
+      return
+    }
+    if(credentials.userDetail.cv && FunctionsService.filesSizeCheck(credentials.userDetail.cv, false, 2000000, setSending, `La taille totale du cv ne doit pas dépasser 2mo`) === false) {
+      setSending(false)
+      return
+    }
+    if(credentials.userDetail.personalPicture && FunctionsService.filesSizeCheck(credentials.userDetail.personalPicture, false, 2000000, setSending, `La taille totale de la photo de profile ne doit pas dépasser 2mo`) === false) {
+      setSending(false)
+      return
+    }
 
     try{
       // get user from local storage
@@ -60,10 +74,8 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
       userDetailId = userDetailId.userDetail
       await UserDetailService.update(userDetailId, {...credentials.userDetail, token})
       toast.success("Votre profil a bien été mis à jour !");
-      setTimeout(() => {
-        setSending(false);
-        navigate('/account');
-      }, 1000);
+      setSending(false);
+      navigate('/account');
     }catch(e){
       toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
       console.log(e);
@@ -83,9 +95,23 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
   return (
     <>
     {loggedIn ? (
-      !sending ? (
-        <form 
-          className="mainform"
+      <>
+      {sending && (
+        <div 
+          className="loading"
+          style={{
+            height: "50vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Loading />
+        </div>
+      )}
+
+      <form 
+          className={`mainform ${sending ? "formGroupHidden" : ""}`}
           onSubmit={handleSubmitUserDetails}
         >
 
@@ -101,7 +127,9 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
             <Step4 handleChange={handleChange} credentials={credentials} />
           }
 
-          <div className="btn">
+          <div 
+            className={`btn ${sending ? "hidden" : ""}`}
+          >
             {signUpStep !== 2 &&
               <button 
                 type="button" 
@@ -136,15 +164,11 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
           </div>
 
         </form>
-      ): (
-        <div>
-          <img className='loading' src="/img/loading.svg" alt="" />
-        </div>
-      )
       
+      </>
     ) : (
-      <div>
-        <img className='loading' src="/img/loading.svg" alt="" />
+      <div className="loading">
+        <Loading />
       </div>
     )}
 

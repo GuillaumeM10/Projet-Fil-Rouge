@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import UserService from '../../../setup/services/user.service';
 import PostService from '../../../setup/services/post.service';
+import Loading from '../ui/Loading';
 
 const SearchBar = ({ burgerActive }) => {
   const [search, setSearch] = useState("");
@@ -147,7 +148,7 @@ const SearchBar = ({ burgerActive }) => {
               </li>
             ))) : (() => {
               if(error) return <li><p className='error'>{error}</p></li>;
-              if(loading) return <li><p className='error'>Chargement...</p></li>;
+              if(loading) return <Loading />;
             })()}
           </ul>
         </div>

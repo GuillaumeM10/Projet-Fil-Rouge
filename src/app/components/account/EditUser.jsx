@@ -10,6 +10,7 @@ import TokenService from '../../../setup/services/token.service';
 import FunctionsService from '../../../setup/services/functions.service';
 import UserService from '../../../setup/services/user.service';
 import ReCAPTCHA from "react-google-recaptcha";
+import Loading from '../ui/Loading';
 
 const EditUser = () => {
   const { user } = useContext(UserContext);
@@ -134,7 +135,7 @@ const EditUser = () => {
           </>
         ) : (
           <div>
-            <img className='loading' src="/img/loading.svg" alt="" />
+            <Loading />
           </div>
         )}
         <ReCAPTCHA

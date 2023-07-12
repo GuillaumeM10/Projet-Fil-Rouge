@@ -1,66 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import PostService from '../../../setup/services/post.service';
+import React from 'react';
 import PostCard from './PostCard';
+import { Player } from '@lottiefiles/react-lottie-player';
+import Loading from '../ui/Loading';
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [endPost, setEndPost] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      setIsLoading(true);
-      const newPosts = await PostService.getAll(`limit=5&page=${page}`)
-      if(newPosts.length === 0){
-        setEndPost(true);
-      }else{
-        const prevPosts = posts;
-        setPosts([...prevPosts, ...newPosts]);
-      }
-
-      setIsLoading(false);
-    }
-
-    getPosts();
-  }, [page]);
-
-  useEffect(() => {
-    if (!endPost && !isLoading) {
-      const handleScroll = () => {
-        if (
-          window.innerHeight + window.scrollY >=
-          document.body.offsetHeight - 100 &&
-          !endPost &&
-          !isLoading
-        ) {
-          const nextPage = page + 1;
-          setPage(nextPage);
-        }
-      };
-
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, [endPost, isLoading, page]);
+const PostList = ({ 
+  posts,
+  endPost,
+  isLoading,
+}) => {
 
   return (
     <div className='main'>
-      {posts.length > 0 && (
-        <div className="posts">
-          {posts.map((post, index) => (
-            <PostCard
+
+      {isLoading && (
+        <div 
+          className="loading"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '62vh'
+          }}
+        >
+          <Loading />
+        </div>
+      )}
+      {posts.length > 0 ? (
+          <div className={`posts ${isLoading ? 'hidden' : ''}`}>
+            {posts.map((post, index) => (
+              <PostCard
               key={post.id}
               post={post}
               index={index}
-            />
-          ))}
+              />
+              ))}
 
-          {isLoading && <p>Chargement...</p>}
-          {endPost && <p>Fin des posts</p>}
-        </div>
+            {endPost && 
+              <Player
+                autoplay
+                loop
+                src="/not_found.json"
+                style={{ height: '300px', width: '300px' }}
+              />
+            }
+          </div>
+      ): !isLoading && (
+        <>
+          <Player
+            autoplay
+            loop
+            src="/not_found.json"
+            style={{ height: '300px', width: '300px' }}
+          />
+        </>
       )}
     </div>
   );

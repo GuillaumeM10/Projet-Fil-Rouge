@@ -8,6 +8,7 @@ import Select, { components } from 'react-select';
 import { Toaster, toast } from 'react-hot-toast';
 import SkillService from '../../../setup/services/skill.service';
 import ReCAPTCHA from "react-google-recaptcha";
+import Loading from '../ui/Loading';
 
 const CreatePostForm = ({ setPosts }) => {
   const [ displayedError, setDisplayedError ] = useState(null);
@@ -16,6 +17,7 @@ const CreatePostForm = ({ setPosts }) => {
   const [cca2, setCca2] = useState({});
   const [cities, setCities] = useState({})
   const [toggleFilesTypes, setToggleFilesTypes] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [skills, setSkills] = useState([]);
   const recaptchaRef = useRef(null);
@@ -126,36 +128,49 @@ const CreatePostForm = ({ setPosts }) => {
   }
 
   // useEffect(() => {
-  //   console.log(credentials);
-  // }, [credentials])
-
-  // useEffect(() => {
   //   console.log({skills});
   // }, [skills])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if(credentials.files && FunctionsService.filesSizeCheck(credentials.files, setDisplayedError) === false) return
     
     try {
-      // console.log(credentials);
       const token = await recaptchaRef.current.executeAsync();
       await PostService.create({...credentials, token});
       toast.success('Votre post a bien été créé');
       setPosts(true);
+      setIsLoading(false);
     } catch (error) {
       setDisplayedError(error.response.data.message);
       toast.error(error.response.data.message);
       console.log(error);
+      setIsLoading(false);
     }
   }
 
   return (
-    <form className="creatPost" onSubmit={handleSubmit}>
-
+    <form className={`creatPost ${isLoading ? "formGroupHidden" : ""}`} onSubmit={handleSubmit}>
+      {isLoading && (
+        <div 
+          className="loading"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "534px"
+          }}
+        >
+          <Loading />
+        </div>
+      )}
+      
       {/* content */}
-      <div className="formGroup">
+      <div 
+        className="formGroup"
+      >
         <label htmlFor="content">Contenu</label>
         <textarea
           type="text"
@@ -174,7 +189,9 @@ const CreatePostForm = ({ setPosts }) => {
       </div>
 
       {/* skills */}
-      <div className="formGroup">
+      <div 
+        className="formGroup"
+      >
         <label htmlFor="skills">Compétences</label>
         <Select
           name="skills"
@@ -186,8 +203,8 @@ const CreatePostForm = ({ setPosts }) => {
           onInputChange={handleSearchChange}
           styles={FunctionsService.reactSelectCustomStyles()}
           options={
+            searchValue && (!skills.some((skill) => skill.name === searchValue) || skills.length === 0) ? [{ value: searchValue, label: searchValue }] : 
             skills.map((skill, index) => {
-              if(searchValue && !skills.some((skill) => skill.name === searchValue)) return { value: searchValue, label: searchValue }
               return { value: skill.name, label: skill.name }
             })
           }
@@ -195,7 +212,9 @@ const CreatePostForm = ({ setPosts }) => {
       </div>
 
       {/* country */}
-      <div className="formGroup">
+      <div 
+        className="formGroup"
+      >
         <label 
           htmlFor="country"
           className={credentials?.userDetail?.country ? "active" : ""}
@@ -254,7 +273,9 @@ const CreatePostForm = ({ setPosts }) => {
       )}
 
       {/* files */}
-      <div className="formGroup file">
+      <div 
+        className="formGroup file"
+      >
         
         <input
           type="file"
@@ -304,10 +325,13 @@ const CreatePostForm = ({ setPosts }) => {
       </div>
 
       {/* displayOnFeed */}
-      <div style={{ 
+      <div
+        className="fHidden"
+        style={{ 
           display: 'flex', 
           flexDirection: 'column'
-        }}>
+        }}
+      >
         <label htmlFor="published">Etre affiché dans le feed (oui par défaut)</label>
         <input
           type="checkbox"
@@ -323,10 +347,10 @@ const CreatePostForm = ({ setPosts }) => {
       { displayedError && <div className="error">{ displayedError }</div> }
       
       <ReCAPTCHA
-          ref={recaptchaRef}
-          size="invisible"
-          sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
-          hidden={true}
+        ref={recaptchaRef}
+        size="invisible"
+        sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
+        hidden={true}
       />
 
       <button type="submit">Créer</button>

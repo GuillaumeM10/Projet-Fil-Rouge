@@ -85,8 +85,19 @@ $pictoUp: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1
     transition: all 0.2s ease-in-out;
 
   }
-  &:hover:before, &:focus:before{
+  &:hover:before, 
+  &:focus:before{
     opacity: 1;
+  }
+
+  &[disabled]{
+    background-color: lighten($bg, 10%);
+    user-select: none;
+  }
+  &[disabled]:before,
+  &[disabled]:hover:before,
+  &[disabled]:focus:before{
+    opacity: 0;
   }
 }
 

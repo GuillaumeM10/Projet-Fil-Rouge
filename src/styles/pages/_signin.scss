@@ -63,8 +63,8 @@
       max-height: calc(100% - 100px);
       width: calc(100% - 40px);
       max-width: 400px;
-      background-color: #ffffffbf;
-      backdrop-filter: blur(2px) brightness(0.7) saturate(120%);
+      background-color: rgba($white, 0.85);
+      backdrop-filter: blur(2px);
     }
   }
 }

@@ -2,6 +2,7 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
 
 .searchBarContainer{
   width: 100%;
+  max-width: 356px;
   position: relative;
   max-height: 37px;
   
@@ -13,7 +14,7 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
 
     input[type='search']{
       font-size: 18px;
-      line-height: 32px;
+      line-height: 24px;
       text-align: center;
       border: solid 3px $green;
       background-color: $white;
@@ -24,6 +25,8 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
       &::placeholder{
         color: $black;
         opacity: 0.5;
+        font-size: 16px;
+        line-height: 22px;
       }
       
       &::-webkit-search-cancel-button{
@@ -183,5 +186,9 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
         background-color: $green;
       }
     }
+  }
+
+  @media (max-width: $tablette){
+    max-width: 100%;
   }
 }

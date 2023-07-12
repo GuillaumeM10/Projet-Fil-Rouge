@@ -128,6 +128,7 @@ const Step3 = ({ handleChange, credentials }) => {
       <DefaultInput 
         name="formation"
         handleChange={handleChange}
+        required={false}
         credentials={credentials?.userDetail?.formation}
       />
 
@@ -136,6 +137,7 @@ const Step3 = ({ handleChange, credentials }) => {
         name="description"
         handleChange={handleChange}
         credentials={credentials?.userDetail?.description}
+        required={false}
         textarea={true}
       />
 
@@ -143,6 +145,7 @@ const Step3 = ({ handleChange, credentials }) => {
       <DefaultInput 
         name="range"
         handleChange={handleChange}
+        required={false}
         credentials={credentials?.userDetail?.range}
         placeholder={"Distance maximal de déplacement (en kilomètres)"}
         type={"number"}
@@ -153,6 +156,7 @@ const Step3 = ({ handleChange, credentials }) => {
         name="school"
         handleChange={handleChange}
         credentials={credentials?.userDetail?.school}
+        required={false}
         placeholder={"Ecole"}
       />
 

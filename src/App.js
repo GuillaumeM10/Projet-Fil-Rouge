@@ -34,9 +34,9 @@ function App() {
     // eslint-disable-next-line
   }, [])
 
-  useEffect(() => {
-    console.log(isAPIOnline);
-  }, [isAPIOnline])
+  // useEffect(() => {
+  //   console.log(isAPIOnline);
+  // }, [isAPIOnline])
 
   return (
     isAPIOnline ? (

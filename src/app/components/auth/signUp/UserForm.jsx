@@ -1,9 +1,10 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { UserContext } from '../../../../setup/contexts/UserContext';
 import AuthService from '../../../../setup/services/auth.service';
 import TokenService from '../../../../setup/services/token.service';
 import AuthInputs from '../AuthInputs';
 import ReCAPTCHA from "react-google-recaptcha";
+import Loading from '../../ui/Loading';
 
 const UserForm = ({
     credentials, 
@@ -15,6 +16,7 @@ const UserForm = ({
   }) => {
   const { setUser } = useContext(UserContext);
   const recaptchaRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const checkConfirmPassword = () => {
     if (credentials.password !== credentials.confirmPassword) {
@@ -28,7 +30,7 @@ const UserForm = ({
 
   const handleSubmitUser = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     if (checkConfirmPassword()) { 
         let newCredentials
         if(credentials.userDetail === undefined){
@@ -53,16 +55,16 @@ const UserForm = ({
 
               setUser(user)
               setLoggedIn(true)
-              
+              setIsLoading(false)
               //message
               toast.success("Votre compte a bien été créé !");
               setSignUpStep(2);
             });
             
           } catch (error) {
+            setIsLoading(false)
             console.log(error);
             setDisplayedError(error.response.data.message);
-
             toast.error(error.response.data.message);
           }
         }else{
@@ -77,7 +79,7 @@ const UserForm = ({
 
               setUser(user)
               setLoggedIn(true)
-              
+              setIsLoading(false)
               //message
               toast.success("Votre compte a bien été créé !");
               setSignUpStep(2);
@@ -86,7 +88,7 @@ const UserForm = ({
           } catch (error) {
             console.log(error);
             setDisplayedError(error.response.data.message);
-
+            setIsLoading(false)
             toast.error(error.response.data.message);
           }
         }
@@ -95,10 +97,32 @@ const UserForm = ({
   }
 
   return (
-    <form className='mainform signUpForm' onSubmit={handleSubmitUser}>
-      <AuthInputs handleChange={handleChange} signup={true} />
+    <form className={`mainform signUpForm ${isLoading ? "formGroupHidden" : ""}`} onSubmit={handleSubmitUser}>
+      {isLoading && (
+        <div 
+          className="loading"
+          style={{
+            height: "50vh",
+            margin: "auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Loading />
+        </div>
+      )}
+      
+      <AuthInputs 
+        handleChange={handleChange} 
+        signup={true}
+        isLoading={isLoading}
+      />
 
-      <label className="checkboxContainer" htmlFor="displayedOnFeed">
+      <label 
+        className={`checkboxContainer ${isLoading ? "hidden" : ""}`} 
+        htmlFor="displayedOnFeed"
+      >
         <span>
           Etre affiché dans le feed (oui par défaut)
         </span>
@@ -124,7 +148,10 @@ const UserForm = ({
           sitekey="6Le63w8nAAAAAHU3HO5ks3Cg-6rGg4_T6_L4T6bF"
           hidden={true}
       />
-      <button type="submit">INSCRIPTION</button>
+      <button 
+        type="submit"
+        className={`${isLoading ? "hidden" : ""}`}
+      >INSCRIPTION</button>
     </form>
   );
 };

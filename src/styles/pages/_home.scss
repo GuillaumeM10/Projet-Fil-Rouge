@@ -1,5 +1,5 @@
-.home{
-  min-height: 100vh;
+.homePage{
+  min-height: calc(100vh - 400px);
 
   .main{
     .posts{
@@ -7,7 +7,14 @@
       flex-direction: column;
       gap: 20px;
 
-      
+      .endPosts{
+        text-align: center;
+        color: $primary;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 16px;
+        margin-top: 20px;
+      }
 
       .swiper-slide{
         
