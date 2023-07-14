@@ -74,6 +74,13 @@ form.mainform{
     width: 100%;
   }
 
+  small.maxLength{
+    position: absolute;
+    color: white;
+    bottom: 10px;
+    right: 20px;
+  }
+
   @media screen and (max-width: $tablette){
     max-width: 100%;
 
@@ -96,6 +103,10 @@ form.mainform{
     }
 
   }
+
+  div > div.css-qz74xj-menu{
+    z-index: 5!important;
+  }
 }
 .reverseInput .formGroup:not(.formGroup.file){
   input:not([type='checkbox']), 
@@ -109,6 +120,10 @@ form.mainform{
       color: #000000be;
     }
   }
+
+  small.maxLength{
+    color: $primary;
+  }
 }
 
 textarea{
@@ -118,6 +133,10 @@ textarea{
   &:focus{
     outline: none;
     border-color: $primary;
+  }
+  
+  @media screen and (max-width: $mobile) {
+    max-width: calc(100% - 20px);
   }
 }
 
@@ -131,7 +150,7 @@ textarea{
   }
 
   label{
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
   }
 }
 

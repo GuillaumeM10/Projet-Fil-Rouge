@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useContext, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../setup/contexts/AuthContext";
 import UserDetailsForm from "./signUp/UserDetailsForm";
 import UserForm from "./signUp/UserForm";
@@ -42,7 +42,6 @@ const SignupForm = () => {
     }
 
     { displayedError && <div className="error">{ displayedError }</div> }
-    <Toaster />
     </div>
   );
 }

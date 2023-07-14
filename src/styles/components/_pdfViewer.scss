@@ -1,12 +1,31 @@
 .pdfViewer{
-  border: solid 1px $black;
+  display: flex;
+  flex-direction: column;
+  border: solid 2px $primary;
+  border-radius: 10px;
   padding: 5px;
-  width: calc(100% - 12px);
+  margin: auto;
+  height: calc(100% - 10px);
+  max-height: 530px;
+  max-width: calc(100% - 10px);
+  width: fit-content;
+
+  .react-pdf__Document,
+  .react-pdf__Page,
+  canvas,
+  .react-pdf__Page__textContent.textLayer,
+  .react-pdf__Page__annotations.annotationLayer{
+    max-height: 430px;
+    height: auto!important;
+    max-width: 100%;
+    width: fit-content!important;
+  }
 
   canvas,
   .react-pdf__Page > div{
-    width: 100%!important;
-    height: auto!important;
+    // width: fit-content!important;
+    // height: 100%!important;
+    margin: 0 auto;
   }
 
   .controls{

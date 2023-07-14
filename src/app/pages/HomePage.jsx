@@ -1,58 +1,73 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import Filters from "../components/posts/Filters";
 import PostList from "../components/posts/PostList";
 import PostService from "../../setup/services/post.service";
+import { UserContext } from "../../setup/contexts/UserContext";
+import CreatePostForm from "../components/posts/CreatePostForm";
 
 const HomePage = () => {
   const [endPost, setEndPost] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [modale, setModale] = useState(false);
   const [filters, setFilters] = useState('');
+  const { user } = useContext(UserContext);
 
-  const getPosts = async () => {
-    setIsLoading(true);
-    const newPosts = await PostService.getAll(`limit=5&page=${page}${filters ? filters : ''}`)
-    if(newPosts.length === 0){
-      setEndPost(true);
-
-      if(page === 1){
+  const getPosts = useCallback(async (createPost = false) => {
+    if (createPost) {
+      try {
+        setIsLoading(true);
+        const newPosts = await PostService.getAll(`limit=5&page=1`)
+        setPage(1);
         setPosts(newPosts);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
       }
-    }else{
-      setEndPost(false);
-      if(page === 1){
-        setPosts(newPosts);
-      }else{
-        const prevPosts = posts;
-        setPosts([...prevPosts, ...newPosts]);
+    } else {
+      try {
+        setIsLoading(true);
+        const newPosts = await PostService.getAll(`limit=5&page=${page}${filters ? filters : ''}`)
+
+        if (newPosts.length === 0 && page === 1) {
+          setPosts([]);
+          setIsLoading(false);
+        } else if (newPosts.length === 0) {
+          setEndPost(true);
+          setIsLoading(false);
+        } else if (page === 1) {
+          setEndPost(false);
+          setPosts(newPosts);
+          setIsLoading(false);
+        } else {
+          setPosts(prevPosts => [...prevPosts, ...newPosts]);
+          setTimeout(() => {
+            setIsLoading(false)
+          }, 1000);
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
+  }, [filters, page]);
 
+  useEffect(() => {
+    setPage(1);
     setIsLoading(false);
-  }
+  }, []);
 
   useEffect(() => {
-    getPosts(); // eslint-disable-next-line
-  }, [page]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setIsLoading(true); // Set loading flag to true before API call
+    if (!isLoading && !endPost) {
       getPosts();
-      setIsLoading(false); // Set loading flag back to false after API call
-    } // eslint-disable-next-line
-  }, [filters, page, isLoading]); // Add loading as a dependency
+      setIsLoading(false);
+    }
+  }, [filters, isLoading, page, endPost, getPosts]);
 
   useEffect(() => {
     if (!endPost && !isLoading) {
       const handleScroll = () => {
-        if (
-          window.innerHeight + window.scrollY >=
-          document.body.offsetHeight - 100 &&
-          !endPost &&
-          !isLoading
-        ) {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
           const nextPage = page + 1;
           setPage(nextPage);
         }
@@ -65,21 +80,60 @@ const HomePage = () => {
     }
   }, [endPost, isLoading, page]);
 
-  return ( 
-      <div className="homePage defaultPaddingX defaultPaddingY">
-          <h1 style={{display: "none"}}>Home page</h1>
+  useEffect(() => {
+    if (modale) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [modale]);
 
-          <Filters
-            setFilters={setFilters}
-            setPage={setPage}
-          />
+  return (
+    <div className="homePage defaultPaddingX defaultPaddingY">
+      <h1 style={{ display: "none" }}>Home page</h1>
 
-          <PostList 
-            posts={posts}
-            endPost={endPost}
-            isLoading={isLoading}
-          />
-      </div>
+      {user?.id && (
+        <>
+          <button
+            className="btnGreen"
+            style={{
+              width: "100%",
+            }}
+            onClick={() => setModale(true)}
+          >
+            Créer un post
+          </button>
+          {modale && (
+            <div className="modale">
+              <div
+                className="bg"
+                onClick={() => setModale(false)}
+              ></div>
+              <button
+                className="cross btnGreen"
+                onClick={() => setModale(false)}
+              >
+                x
+              </button>
+              <CreatePostForm setPosts={getPosts} />
+            </div>
+          )}
+        </>
+      )}
+
+      <Filters
+        setFilters={setFilters}
+        setPage={setPage}
+        isLoading={isLoading}
+        endPost={endPost}
+      />
+
+      <PostList
+        posts={posts}
+        endPost={endPost}
+        isLoading={isLoading}
+      />
+    </div>
   );
 }
 

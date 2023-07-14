@@ -92,7 +92,6 @@ const Step2 = ({ handleChange, credentials }) => {
     setupCountries(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   // Fetch user data on component mount
   useEffect(() => {
     const getUser = async () => {
@@ -143,6 +142,7 @@ const Step2 = ({ handleChange, credentials }) => {
       <DefaultInput
         name="contactEmail"
         placeholder="Email de contact"
+        required={false}
         credentials={ credentials?.userDetail?.contactEmail ? credentials?.userDetail?.contactEmail : "" }
         handleChange={handleChange}
       />
@@ -176,6 +176,11 @@ const Step2 = ({ handleChange, credentials }) => {
             handleChange({target : {name: "country", value: e.value}})
           }}
         />
+        {newUser?.userDetail?.country && (
+          <small>Mon pays actuel : 
+            <span> {newUser?.userDetail?.country}</span>
+          </small>
+        )}
       </div>
 
       {/* cities */}
@@ -212,6 +217,19 @@ const Step2 = ({ handleChange, credentials }) => {
             components={{ Option }} // Use the custom Option component
             onInputChange={handleSearchChange}
           />
+
+          {newUser?.userDetail?.cities.length > 0 && (
+            <small className="citiesList">Mes villes actuelles : <span>
+              {newUser?.userDetail?.cities.map((city, index) => {
+                if(newUser?.userDetail?.cities.length !== index + 1){
+                  return city.name + ', '
+                }else{
+                  return city.name
+                }
+              })}
+              </span>
+            </small>
+          )}
         </div>
       )}
 
@@ -235,7 +253,6 @@ const Step2 = ({ handleChange, credentials }) => {
                 }
               : null
           }
-          required
           onChange={(selectedOption) => {
             handleChange({target : {name: "status", value: selectedOption.value}});
           }}

@@ -9,6 +9,7 @@ import SinglePost from '../pages/post/SinglePost';
 import ProfilePage from '../pages/profile/ProfilePage';
 import AccountPage from '../pages/user/AccountPage';
 import ProtectedRoute from './ProtectedRoute';
+import Legals from '../pages/Legals';
 
 const MainRouter = () => {
   const location = useLocation();
@@ -26,6 +27,9 @@ const MainRouter = () => {
 
       {/* Post */}
       <Route path="/posts/:id" element={<SinglePost />} />
+
+      {/* Legals */}
+      <Route path="/mentions-legales" element={<Legals />} />
 
       <Route path="/account" element={
         <ProtectedRoute to="/auth/signin" bool={false} >

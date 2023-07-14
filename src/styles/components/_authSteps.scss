@@ -1,6 +1,32 @@
-.signUpContainer .step{
-  
+.step4{
+  .btnPrimary{
+    width: 100%;
+  }
 
+  .containerPp{
+    .previewFile{
+      display: flex;
+    }
+    img{
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: solid 2px $green;
+      margin: auto;
+    }
+  }
+
+  .containerCv,
+  .containerPp,
+  .containerBanner{
+    .previewFile{
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.signUpContainer .step{
   &.step4{
     .formGroup{
       padding-bottom: 30px;
@@ -8,10 +34,10 @@
       
       .previewFiles{
         max-width: 270px;
+        margin: auto;
       }
     }
   }
- 
 }
 
 .signUpContainer form{
@@ -33,6 +59,10 @@
 .step3{
   .tabs.buttons{
     max-width: 400px;
+
+    @media screen and (max-width: $mobile) {
+      margin-left: 0;
+    }
   }
 
   .skills,
@@ -40,9 +70,18 @@
   .links{
     width: 100%;
     max-width: 400px;
+    position: relative;
+
+    > button{
+      margin-top: 20px;
+    }
 
     .formGroup{
       padding-bottom: 20px;
+
+      &:last-of-type{
+        padding-bottom: 0;
+      }
     }
 
     .cards{
@@ -51,6 +90,8 @@
       gap: 10px;
       margin-top: 10px;
     }
+
+    .formGroup.description{padding-bottom: 0;}
     
     .skill,
     .experience,
@@ -61,13 +102,22 @@
       gap: 10px;
       flex-grow: 1;
       flex-wrap: wrap;
-      border: 1px solid $primary;
-      justify-content: center;
+      border: 2px solid $primary;
+      border-radius: 5px;
+      justify-content: flex-start;
       width: calc(50% - 27px);
       position: relative;
-      padding: 10px;
+      padding: 0 0 10px 0;
 
       p{padding: 0;margin: 0;}
+
+      > p:first-child{
+        padding: 10px 10px 10px 10px;
+        background: $primary;
+        color: $white;
+        width: calc(100% - 20px);
+        text-align: center;
+      }
 
       svg{
         width: 20px;
@@ -91,27 +141,134 @@
         }
       }
 
-      .name{
-        font-size: 14px;
-        font-weight: 600;
-        color: $black;
+      @media screen and (max-width: $mobile) {
+        width: calc(100% - 20px);
+      }
+    }
+
+    .checkboxContainer{
+      margin-top: 20px;
+    }
+
+    .skill,
+    .link{
+      .moreInfo{
+        position: absolute;
+        top: 10px;
+        left: 0px;
+        height: fit-content;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 10px;
+        // width: calc(100% - 20px);
+
+        button.moreInfoButton{
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          border-color: $green;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 3px;
+          appearance: none;
+          border-style: solid;
+          cursor: pointer;
+
+          svg{
+            height: fit-content;
+            width: 15px;
+          }
+        }
+
+        .description{
+          display: none;
+          position: absolute;
+          bottom: calc(100% + 10px);
+          left: 0;
+          background-color: $white;
+          border: 2px solid $primary;
+          border-radius: 5px;
+          padding: 10px;
+          width: 200px;
+          z-index: 1;
+
+
+          &.active{
+            display: block;
+          }
+        }
+      }
+    }
+
+    .experience{
+      gap: 0;
+      position: relative;
+
+      .dates{
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        border-bottom: solid 1px $primary;
+        font-size: 10px;
+        gap: 5px;
+        background: $green;
+
+        p:not(:only-child):after{
+          content: '';
+          display: inline-block;
+          height: 100%;
+          width: 1px;
+          background-color: $primary;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+        }
       }
 
-      .level{
-        font-size: 14px;
-        font-weight: 600;
-        color: $black;
-        background-color: $primary;
-        padding: 5px 10px;
-        border-radius: 5px;
+      .actualyIn{
+        display: inline-block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: red;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+
+        &.green{
+          background-color: $green;
+        }
+
+        &Small{
+          display: flex;
+          font-size: 10px;
+
+          .color{
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: red;
+            align-self: center;
+            margin: 0 2px;
+
+            &.green{
+              background-color: $green;
+            }
+          }
+        }
       }
-      .description{
-        font-size: 14px;
-        font-weight: 600;
-        color: $black;
-        background-color: $primary;
-        padding: 5px 10px;
-        border-radius: 5px;
+
+      .jobName{
+        margin-top: 5px;
+      }
+
+      .type{
+        margin: 5px 0;
       }
     }
 
@@ -119,7 +276,7 @@
       position: absolute;
       top: 5px;
       right: 5px;
-      background-color: red;
+      background-color: $green;
       color: $white;
       border: none;
       text-align: center;

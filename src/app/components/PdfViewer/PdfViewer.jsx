@@ -1,11 +1,12 @@
 import { Document, Page, pdfjs } from 'react-pdf';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 const PdfViewer = ({ uri }) => {
   const [numPages, setNumPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const pdfViewer = useRef(null);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -15,17 +16,36 @@ const PdfViewer = ({ uri }) => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   });
 
+  const getPageWidth = () => {
+    const el = pdfViewer.current.querySelector('.react-pdf__Page__canvas');
+    
+    let width = el.style.width;
+    width = width.replace('px', '');
+
+    let height = el.style.height;
+    height = height.replace('px', '');
+
+    el.style.aspectRatio = `${width} / ${height}`;
+    pdfViewer.current.style.width = `${width}px`;
+  }
+
   return (
-    <div className="pdfViewer">
+    <div 
+      className="pdfViewer"
+      ref={pdfViewer}
+    >
         <Document
           file={uri}
           onLoadSuccess={onDocumentLoadSuccess}
-          // options={{
-          //   cMapUrl: 'cmaps/',
-          //   cMapPacked: true,
-          // }}
         >
-          <Page pageNumber={currentPage} />
+          <Page 
+            pageNumber={currentPage} 
+            height={430}
+            onLoadSuccess={getPageWidth}
+            renderAnnotationLayer={false}
+            renderInteractiveForms={false}
+            renderTextLayer={false}
+          />
         </Document>
 
         <div className='controls'>

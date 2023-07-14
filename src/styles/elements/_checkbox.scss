@@ -18,6 +18,16 @@ $off-on-right: false; // initial position of handle
   gap: 20px;
   flex-direction: column;
   align-items: center;
+
+  span{
+    font-size: 16px;
+    line-height: 1.5;
+
+    @media screen and (max-width: $tablette) {
+      font-size: 14px;
+      text-align: center;
+    }
+  }
 }
 .animation{
   position: relative;

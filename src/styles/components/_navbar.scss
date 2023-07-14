@@ -108,6 +108,17 @@ nav.mainNav{
           border: solid 1.5px $green;
         }
       }
+
+      &.account{
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        white-space: nowrap;
+        
+        img{
+          border: solid 1.5px $green;
+        }
+      }
     }
   }
 
@@ -136,7 +147,7 @@ nav.mainNav{
     }
     .list.active{
       padding-top: 10px;
-      height: 30px;
+      height: 40px;
     }
     .searchBarContainer.active{
       height: 35px;

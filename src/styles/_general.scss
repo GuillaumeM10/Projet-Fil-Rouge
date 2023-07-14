@@ -14,6 +14,19 @@ a{
     text-decoration: none;
     color: $primary;
 }
+.swiper-pagination-bullet-active{
+    background-color: $green !important;
+}
+
+.toast-container{
+    z-index: 99999999!important;
+}
+
+.pp{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
 // ------- SCOLL BAR --------- //
 ::-webkit-scrollbar{
@@ -114,27 +127,71 @@ h1{
     gap: 10px;
     margin-top: 10px;
     width: 100%;
+
+    @media screen and (max-width: $mobile) {
+        max-width: calc(100% + 40px);
+        width: calc(100% + 40px);
+        margin-bottom: 0;
+        margin-left: -20px;
+        position: sticky;
+        top: 46px;
+        z-index: 1;
+        background: $background;
+        flex-direction: row;
+        gap: 0;
+    }
+}
+.signUpContainer .step3 .tabs.buttons{
+    @media screen and (max-width: $mobile) {
+        top: -40px;
+        max-width: calc(100% + 40px);
+        width: calc(100% + 60px);
+        background: rgba($white, 0.8);
+        backdrop-filter: blur(2px);
+    }
 }
 .tabs.buttons button,
-    .addButton{
-        background-color: transparent;
-        color: $black;
-        border: none;
-        border-bottom: 2px solid $primary;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: 100%;
-        border-radius: 0;
+.addButton{
+    background-color: transparent;
+    color: $black;
+    border: none;
+    border-bottom: 2px solid $primary;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+    border-radius: 0;
+    white-space: nowrap;
 
-        &:hover,
+    &:hover,
+    &.active{
+        background-color: $primary;
+        color: $white;
+    }
+}
+
+.tabs.buttons button{
+    @media screen and (max-width: $mobile) {
+        border-top: solid 2px;
+        border-right: solid 1px;
+        border-left: solid 2px;
+        border-color: $primary;
+        padding: 10px 5px;
+
         &.active{
             background-color: $primary;
-            color: $white;
+        }
+
+        &:first-child{
+            border-left: none;
+        }
+        &:last-child{
+            border-right: none;
         }
     }
+}
 
 
 .hidden{
@@ -181,5 +238,37 @@ h1{
             white-space: nowrap;
             padding: 15px 30px;
         }
+    }
+}
+
+.legals{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem;
+    width: calc(100% - 4rem);
+    max-width: 790px;
+    margin: 0 auto;
+
+    h1{
+        text-align: center;
+        margin: auto;
+        margin-bottom: 40px!important;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    @media screen and (max-width: $tablette){
+        h1{
+            margin-top: 50px;
+        }
+    }
+
+    @media screen and (max-width: $mobile){
+        align-items: center;
+
+        h2{
+            text-align: center;
+        }        
     }
 }

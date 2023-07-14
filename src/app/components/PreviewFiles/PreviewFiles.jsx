@@ -9,7 +9,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const PreviewFiles = ({ files, location, isSwiper=false }) => {
+const PreviewFiles = ({ 
+  files, 
+  location, 
+  isSwiper=false 
+}) => {
   const [previewData, setPreviewData] = useState([]); // State to store the preview data
   const width = location || isSwiper ? '' : '500';
 
@@ -84,8 +88,6 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
             return (
               <SwiperSlide key={index}>
                 <div className={`previewFile swiper-card" ${file.type}`}>
-                  {file?.name && (<p>{file?.name}</p>)} 
-
                   {file.type === 'application/pdf' || file.type === 'pdf' ? (
                     
                     <PdfViewer uri={data} /> 
@@ -144,8 +146,6 @@ const PreviewFiles = ({ files, location, isSwiper=false }) => {
           }
           return (
             <div key={index} className={"previewFile swiper-card"}>
-              {file?.name && (<p>{file?.name}</p>)} 
-              
               { file.type === 'application/pdf' || file.type === 'pdf' ? (
                 
                 <PdfViewer uri={data} /> 

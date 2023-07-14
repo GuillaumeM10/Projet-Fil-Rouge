@@ -4,7 +4,7 @@ import Step2 from '../auth/signUp/Step2';
 import Step4 from '../auth/signUp/Step4';
 import Step3 from '../auth/signUp/Step3';
 import { AuthContext } from '../../../setup/contexts/AuthContext';
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import UserDetailService from '../../../setup/services/userDetail.service';
 import TokenService from '../../../setup/services/token.service';
 import FunctionsService from '../../../setup/services/functions.service';
@@ -17,7 +17,7 @@ const EditUser = () => {
   const { setCredentials, credentials, handleChange } = useContext(AuthContext);
   const [ displayedError, setDisplayedError ] = useState(null);
   const [ sending, setSending ] = useState(false);
-  const [tabs, setTabs] = useState('');
+  const [tabs, setTabs] = useState('personnal');
   const recaptchaRef = useRef(null);
 
   const handleSubmitUserDetails = async (e) => {
@@ -68,7 +68,7 @@ const EditUser = () => {
       }, 1000);
     }catch(e){
       toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
-      setDisplayedError(e.response.data.message);
+      setDisplayedError(e);
       console.log(e);
       setSending(false);
 
@@ -81,8 +81,6 @@ const EditUser = () => {
 
   return (
     <div className="editUser">
-      <p>Edit profil</p>
-
       <div className="tabs buttons">
           <button
             type='button'
@@ -145,8 +143,6 @@ const EditUser = () => {
             hidden={true}
         />
       </form>
-
-      <Toaster />
     </div>
   );
 };

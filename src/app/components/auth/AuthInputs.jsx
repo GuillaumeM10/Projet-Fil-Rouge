@@ -1,6 +1,10 @@
 import FunctionsService from "../../../setup/services/functions.service";
 
-const AuthInputs = ({handleChange, signup, isLoading = false}) => {
+const AuthInputs = ({
+  handleChange, 
+  signup, 
+  isLoading = false,
+}) => {
   let autoComplete = signup ? "new-password" : "on";
 
   return ( 
@@ -89,6 +93,15 @@ const AuthInputs = ({handleChange, signup, isLoading = false}) => {
             FunctionsService.labelDisplay(e)
           }}
           />
+          <small 
+            className="passwordCheck"
+            style={{
+              fontSize: "10px",
+              fontStyle: "italic"
+            }}
+          >
+            Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécialLe mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.
+          </small>
         </div>
       }
 

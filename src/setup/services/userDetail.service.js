@@ -35,10 +35,23 @@ const update = async (id, userDetail) => {
       formData.append(name, file)
     })
   }
-  if(userDetail.files) fileType('files', userDetail.files)
-  if(userDetail.cv) fileType('cv', userDetail.cv)
-  if(userDetail.banner) fileType('banner', userDetail.banner)
-  if(userDetail.personalPicture) fileType('personalPicture', userDetail.personalPicture)
+  if(userDetail.files === null) {
+    formData.append('files', null)
+  }else if(userDetail.files) fileType('files', userDetail.files)
+  
+  if(userDetail.cv === null) {
+    formData.append('cv', null)
+  }else if(userDetail.cv) fileType('cv', userDetail.cv)
+
+  if(userDetail.banner === null) {
+    formData.append('banner', null)
+  }else if(userDetail.banner) fileType('banner', userDetail.banner)
+
+  if(userDetail.personalPicture === null) {
+    formData.append('personalPicture', null)
+  }else if(userDetail.personalPicture) {
+    fileType('personalPicture', userDetail.personalPicture)
+  }
 
   const response = await api.put(`${ENDPOINT}/${id}`, formData, { formData: true })
 

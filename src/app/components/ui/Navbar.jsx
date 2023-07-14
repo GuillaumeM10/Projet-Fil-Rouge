@@ -2,14 +2,29 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../setup/contexts/UserContext";
 import SearchBar from "../searchBar/SearchBar";
+import UserService from "../../../setup/services/user.service";
 
 const Navbar = () => {
     const { user } = useContext(UserContext);
+    const [newUser, setNewUser] = useState({});
     const [burgerActive, setBurgerActive] = useState(false);
 
     useEffect(() => {
         setBurgerActive(false);
     }, []); 
+
+    useEffect(() => {
+        const getUser = async () => {
+            if(isNaN(user.id)) return
+            try {
+                const data = await UserService.getOneById(user.id);
+                setNewUser(data);
+            } catch (error) {
+                console.log({ type: 'error', message: error.response.data.message });
+            }
+        };
+        getUser(); 
+    }, [user.id]);
 
     return ( 
         <nav className="mainNav defaultPaddingX">
@@ -38,13 +53,18 @@ const Navbar = () => {
             
             <ul className={`list ${burgerActive ? "active" : ""}`}>
                 {user.email && 
-                    <li>
+                    <li className="account">
                         <Link 
                             to="/account"
                             onClick={() => setBurgerActive(false)}
                         >
-                            Account
+                            Mon compte
                         </Link>
+                        {newUser.userDetail?.personalPicture ? (
+                            <img className='pp' height="30 "width="30" src={newUser.userDetail?.personalPicture?.Location} alt="profile" />
+                        ): (
+                            <img className='pp' height="30 "width="30" src="/img/default_pp.webp" alt="profile" />
+                        )}
                     </li>
                 }
                 {!user.email && 

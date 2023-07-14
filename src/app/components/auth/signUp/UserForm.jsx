@@ -18,8 +18,33 @@ const UserForm = ({
   const recaptchaRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const checkPassword = () => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+    if (credentials?.password === "" || !credentials?.password) {
+      setIsLoading(false)
+      toast.error("Veuillez renseigner un mot de passe");
+      setDisplayedError("Veuillez renseigner un mot de passe");
+      return false;
+    } else if (credentials?.password?.length < 6) {
+      setIsLoading(false)
+      toast.error("Le mot de passe doit contenir au moins 6 caractères", true);
+      // setDisplayedError("Le mot de passe doit contenir au moins 6 caractères");
+      return false;
+    } else if(credentials?.password?.length >= 6 && !regex.test(credentials?.password)){
+      setIsLoading(false)
+      toast.error("Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial");
+      setDisplayedError("Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial");
+      return false;
+    }else {
+      setDisplayedError(null);
+      return true;
+    }
+  }
+
   const checkConfirmPassword = () => {
-    if (credentials.password !== credentials.confirmPassword) {
+    if (credentials?.password !== credentials?.confirmPassword) {
+      setIsLoading(false)
+      toast.error("Les mots de passe ne correspondent pas");
       setDisplayedError("Les mots de passe ne correspondent pas");
       return false;
     } else {
@@ -28,10 +53,31 @@ const UserForm = ({
     }
   }
 
+  const checkEmail = () => {
+    if (credentials?.email === "" || !credentials?.email) {
+      setIsLoading(false)
+      toast.error("Veuillez renseigner votre email");
+      setDisplayedError("Veuillez renseigner votre email");
+      return false;
+    } else if (credentials?.email?.indexOf("@") === -1) {
+      setIsLoading(false)
+      toast.error("Veuillez renseigner un email valide");
+      setDisplayedError("Veuillez renseigner un email valide");
+      return false;
+    }else {
+      setDisplayedError(null);
+      return true;
+    }
+  }
+
   const handleSubmitUser = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    if (checkConfirmPassword()) { 
+    if (
+      checkEmail()
+      && checkConfirmPassword()
+      && checkPassword()
+    ) { 
         let newCredentials
         if(credentials.userDetail === undefined){
           newCredentials = {
@@ -93,6 +139,8 @@ const UserForm = ({
           }
         }
       
+    }else{
+      setIsLoading(false)
     }
   }
 

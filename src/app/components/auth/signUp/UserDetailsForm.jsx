@@ -13,9 +13,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Loading from '../../ui/Loading';
 
 const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, toast}) => {
-  // get user from context
   const { credentials } = useContext(AuthContext);
-  // const { user } = useContext(UserContext);
   const [ sending, setSending ] = useState(false);
   const navigate = useNavigate();
   const recaptchaRef = useRef(null);
@@ -74,8 +72,8 @@ const UserDetailsForm = ({ handleChange, signUpStep, setSignUpStep, loggedIn, to
       userDetailId = userDetailId.userDetail
       await UserDetailService.update(userDetailId, {...credentials.userDetail, token})
       toast.success("Votre profil a bien été mis à jour !");
-      setSending(false);
       navigate('/account');
+      setSending(false);
     }catch(e){
       toast.error("Une erreur est survenue lors de la mise à jour de votre profil.");
       console.log(e);

@@ -1,4 +1,56 @@
-.account{
+.accountPage{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 100px;
+
+  aside{
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    position: sticky;
+    top: 50px;
+  }
+
+  > .content{
+    width: calc(100% - 350px);
+    max-width: 700px;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    > .row{
+      justify-content: space-between;
+      align-items: center;
+
+      button{
+        height: fit-content;
+      }
+    }
+
+    .step{
+      margin-top: 30px;
+
+      h2{
+        display: none;
+      } 
+    }
+
+    .addLinkCat{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 5px 20px;
+      border: solid 2px $green;
+      border-radius: 50px;
+
+      button{
+        height: fit-content;
+      }
+    }
+  }
 
   .userPosts{
     display: flex;
@@ -18,7 +70,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-
+      z-index: 1;
 
       .menuContainer{
         position: relative;
@@ -36,8 +88,10 @@
           background: transparent;
           padding: 5px;
           width: 35px;
-          border: solid 1px rgba($black, 0);
+          height: 35px;
+          border: solid 2px rgba($black, 0);
           border-radius: 50px;
+          transition: all 0.2s ease-out;
           cursor: pointer;
 
           span{
@@ -52,8 +106,7 @@
           }
 
           &:hover{
-          border: solid 1px rgba($black, 0.2);
-          background-color: rgba($black, 0.1);
+            border: solid 2px $primary;
           }
         }
         
@@ -63,24 +116,25 @@
           flex-wrap: nowrap;
           justify-content: space-between  ;
           align-items: center;
-          background-color: rgba($black, 0.1);
-          border: solid 1px rgba($black, 0.2);
+          background-color: $primary;
+          border: solid 2px $green;
           padding: 5px 0;
           z-index: 1;
+          border-radius: 5px;
 
           button:not(.menu),
           a{
             display: inline-block;
             background-color: transparent;
             border: none;
-            color: $black;
+            color: $white;
             font-size: 12px;
             cursor: pointer;
             text-decoration: none;
             padding: 5px 10px;
 
             &:hover{
-              color: $primary;
+              color: darken($white, 20%);
               background-color: rgba($black, 0.2);
             }
           }
@@ -96,11 +150,11 @@
   
 
     .userPost{
-      width: calc(100% / 3 - 29px);
+      width: calc(100% - 20px);
       height: auto;
       min-height: 100px;
       position: relative;
-      border: 1px solid $black;
+      border: 2px solid $primary;
       border-radius: 5px;
       padding: 10px;
       display: flex;
@@ -160,18 +214,12 @@
 
   }
 
-  form.creatPost{
-    background-color: $white;
-    border-radius: 5px;
-    border: 1px solid $black;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
+  .formGroup:not(.formGroup.file),
+  .formGroup{
+    max-width: 100%;
   }
+
+  
   
   .loadMore{
     display: flex;
@@ -197,24 +245,76 @@
       flex-direction: column;
       gap: 40px;
     }
+    .tabs.buttons{
+      position: sticky;
+      top: 0px;
+      background: $background;
+      z-index: 1;
+    }
+  }
+  @media screen and (max-width: $tablette) {
+    gap: 20px;
+
+    aside.tabs.buttons{
+      max-width: 200px;
+      width: 200px;
+    }
+
+    > .content{
+      flex-shrink: 1000;
+      flex-basis: content;
+    }
+
+    .editUser .tabs.buttons{
+      top: 46px;
+    }
   }
 
   @media screen and (max-width: $mobile) {
-    .tabs.buttons{
+    flex-direction: column-reverse;
+    gap: 20px;
+
+    > aside.tabs.buttons{
+      max-width: calc(100% + 40px);
+      width: calc(100% + 40px);
+      margin-bottom: 0;
+      margin-left: -20px;
       position: sticky;
-      top: 53px;
+      bottom: 0;
       z-index: 1;
       background: $background;
-      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 0;
+      z-index: 4;
 
       button{
-        width: calc(50% - 6px);
-        white-space: nowrap;
+        border-top: solid 2px;
+        border-right: solid 1px;
+        border-left: solid 2px;
+        border-color: $green;
+        padding: 10px 5px;
 
-        &.addButton{
-          width: 100%;
+        &.active{
+          background-color: $green;
+        }
+
+        &:first-child{
+          border-left: none;
+        }
+        &:last-child{
+          border-right: none;
         }
       }
-    } 
+    }
+
+    > .content{
+      width: 100%;
+      max-width: 100%;
+      margin-top: 20px;
+
+      .step3 .tabs.buttons{
+        max-width: none;
+      }
+    }
   }
 }

@@ -18,20 +18,25 @@ const DefaultInput = ({
           {placeholder ? placeholder : name}
         </label>
         {textarea ? (
-          <textarea
-            name={name}
-            placeholder={placeholder ? placeholder : name}
-            defaultValue={credentials}
-            required={required}
-            maxLength={500}
-            onChange={(e) => {
-              handleChange(e)
-              FunctionsService.labelDisplay(e)
-            }}
-            onLoad={(e) => {
-              FunctionsService.labelDisplay(e)
-            }}
-          />
+          <>
+            <textarea
+              name={name}
+              placeholder={placeholder ? placeholder : name}
+              defaultValue={credentials}
+              required={required}
+              maxLength={500}
+              onChange={(e) => {
+                handleChange(e)
+                FunctionsService.labelDisplay(e)
+              }}
+              onLoad={(e) => {
+                FunctionsService.labelDisplay(e)
+              }}
+            />
+            <small className="maxLength">
+              {credentials?.length ? credentials.length : 0}/500
+            </small>
+          </>
         ) : (
           <input
             type={type ? type : "text"}

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../../setup/contexts/UserContext';
 
 const Footer = () => {
+  const { user } = useContext(UserContext)
   return (
     <footer>
       <div className="">
@@ -13,8 +15,8 @@ const Footer = () => {
             </div>
             <div className="footerContent__left__text">
               <p>
-                Que vous soyez un particulier, un chasseur de tête, un patron d'entreprise ou un DRH, vous trouverez sur ce site des le candidat idéal pour votre poste.
-                N'attendez plus et contactez-le dès maintenant !
+                Que vous soyez une personne intéressée, un recruteur, une personne en charge de l'embauche ou une personne responsable des ressources humaines, vous trouverez sur ce site la candidate ou le candidat idéal pour votre poste.
+                N'attendez plus et entrez en contact dès maintenant !
               </p>
             </div>
           </div>
@@ -25,14 +27,19 @@ const Footer = () => {
                 <li>
                   <a href="/">Accueil</a>
                 </li>
-                <li>
+                {user.id && (
+                  <li>
+                    <a href="/account">Mon compte</a>
+                  </li>
+                )}
+                {/* <li>
                   <a href="/a-propos">A propos</a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <a href="/contact">Contact</a>
-                </li>
+                </li> */}
                 <li>
-                  <a href="/mensions-legales">Mentions légales</a>
+                  <a href="/mentions-legales">Mentions légales</a>
                 </li>
               </ul>
             </div>

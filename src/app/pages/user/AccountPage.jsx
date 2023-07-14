@@ -7,6 +7,7 @@ import CreatePostForm from "../../components/posts/CreatePostForm";
 import AccountPosts from "../../components/account/AccountPosts";
 import EditUser from "../../components/account/EditUser";
 import AdminControls from "../../components/account/AdminControls";
+import UserService from "../../../setup/services/user.service";
 
 const AccountPage = () => {
   const [ userPosts, setUserPosts ] = useState([]);
@@ -14,6 +15,7 @@ const AccountPage = () => {
   const [ page, setPage ] = useState(1); // eslint-disable-line no-unused-vars
   const [ noMorePosts, setNoMorePosts ] = useState(false);
   const [tabs, setTabs] = useState('createPost');
+  const [ connectedUsers, setConnectedUsers ] = useState([])
   const navigate = useNavigate();
   
   const disconnect = async() => {
@@ -56,23 +58,24 @@ const AccountPage = () => {
 
   useEffect(() => {
     setPosts();
-    // console.log(user);
+    const getUser = async() => {
+      if(user.id === undefined) return;
+      const getuser = await UserService.getOneById(user.id)
+      setConnectedUsers(getuser)
+    }
+    getUser()
   }, [user.id, page]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // useEffect(() => {
+  //   console.log(connectedUsers);
+  // }, [connectedUsers]) // eslint-disable-line react-hooks/exhaustive-deps
+
+
   return ( 
-      <div className="account defaultPaddingX defaultPaddingY">
-          <h1>Compte</h1>
+      <div className="accountPage defaultPaddingX defaultPaddingY">
+          
 
-          <p>{user.email}</p>
-
-          <button
-            className="btnPrimary"
-            onClick={disconnect}
-          >
-            Déconnexion
-          </button>
-
-          <div className="tabs buttons">
+          <aside className="tabs buttons sidebar">
             <button
               type='button'
               onClick={() => setTabs("createPost")}
@@ -83,18 +86,18 @@ const AccountPage = () => {
 
             <button
               type='button'
-              onClick={() => setTabs("editUser")}
-              className={"editUser " + (tabs === "editUser" ? "active" : "")}
-            >
-              Editer le profil
-            </button>
-
-            <button
-              type='button'
               onClick={() => setTabs("myPosts")}
               className={"myPosts " + (tabs === "myPosts" ? "active" : "")}
             >
               Mes posts
+            </button>
+
+            <button
+              type='button'
+              onClick={() => setTabs("editUser")}
+              className={"editUser " + (tabs === "editUser" ? "active" : "")}
+            >
+              Editer le profil
             </button>
 
             {user.role === "admin" && (
@@ -107,27 +110,46 @@ const AccountPage = () => {
               </button>
             )}
 
-          </div>
+          </aside>
 
-          {/* createPost */}
-          {tabs === "createPost" && (
-            <CreatePostForm setPosts={setPosts} user={user} />
+          <div className="content">
+            <h1>Mon compte</h1>
+
+            <div className="row">
+
+              <p>
+                Bienvenue <strong>{connectedUsers?.firstName} {connectedUsers?.lastName} </strong> !
+              </p>
+
+              <button
+                className="btnPrimary"
+                onClick={disconnect}
+                >
+                Déconnexion
+              </button>
+
+            </div>
+            
+            {/* createPost */}
+            {tabs === "createPost" && (
+              <CreatePostForm setPosts={setPosts} user={user} />
             )}
 
-          {/* editUser */}
-          {tabs === "editUser" && (
-            <EditUser />
-          )}
+            {/* myPosts */}
+            {tabs === "myPosts" && (
+              <AccountPosts userPosts={userPosts} setPosts={setPosts} setPage={setPage} page={page} noMorePosts={noMorePosts} />
+            )}
 
-          {/* myPosts */}
-          {tabs === "myPosts" && (
-            <AccountPosts userPosts={userPosts} setPosts={setPosts} setPage={setPage} page={page} noMorePosts={noMorePosts} />
-          )}
+            {/* editUser */}
+            {tabs === "editUser" && (
+              <EditUser />
+            )}
 
-          {/* admin */}
-          {tabs === "admin" && (
-            <AdminControls />
-          )}
+            {/* admin */}
+            {tabs === "admin" && (
+              <AdminControls />
+            )}
+          </div>
 
       </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LinkCategoriesService from '../../../setup/services/linkCategory.service';
+import { toast } from 'react-hot-toast';
 
 const AdminAddLinkCat = () => {
   const [response, setResponse] = useState(null);
@@ -38,7 +39,8 @@ const AdminAddLinkCat = () => {
   const addLinkCat = async (e) => {
     try {
       let response = await LinkCategoriesService.create(linkCats)
-      setResponse(typeof response === 'object' ? 'catégorie de liens ajouté' : response)
+      setResponse(typeof response === 'object' ? toast.success('catégorie de liens ajouté') : toast.error(response))
+      
     } catch (error) {
       setResponse(error)
     }
@@ -47,21 +49,14 @@ const AdminAddLinkCat = () => {
   return (
     <div 
       className='addLinkCat'
-      style={{
-        border: '1px solid black',
-        padding: '1rem',
-        margin: '1rem 0'
-      }}
     >
       <p>ajouter des catégorie de liens</p>
   
       <button
         onClick={e => addLinkCat(e)}
+        className='btnPrimary'
         type='button'
       >Ajouter</button>
-      {response && (
-        <p>{response}</p>
-      )}
     </div>
   );
 };

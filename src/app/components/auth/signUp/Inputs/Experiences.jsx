@@ -9,8 +9,8 @@ const Experiences = ({
   const [currentExperience, setCurrentExperience] = useState({
     "actualyIn": false,
     "type": "stage",
-    "startDate": new Date(),
-    "endDate": new Date(),
+    "startDate": null,
+    "endDate": null,
   });
 
   const handleChangeExperiences = (e) => {
@@ -98,8 +98,6 @@ const Experiences = ({
 
   return (
     <div className="experiences">
-      <p>Expériences</p>
-      
       {/* companieName */}
       <div className="formGroup companieName">
 
@@ -108,7 +106,6 @@ const Experiences = ({
           type="text"
           name="companieName"
           placeholder="Nom de l'entreprise"
-          required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeExperiences(e)
@@ -125,7 +122,6 @@ const Experiences = ({
           type="text"
           name="jobName"
           placeholder="Nom du poste"
-          required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeExperiences(e)
@@ -142,7 +138,6 @@ const Experiences = ({
           type="date"
           name="startDate"
           placeholder="Date de début"
-          required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeExperiences(e)
@@ -159,7 +154,6 @@ const Experiences = ({
           type="date"
           name="endDate"
           placeholder="Date de fin"
-          required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeExperiences(e)
@@ -173,7 +167,6 @@ const Experiences = ({
         <label htmlFor="type">Type du poste</label>
         <Select 
           name="type"
-          required
           placeholder="Type du poste"
           onChange={(e) => {
             handleChangeExperiences({ target : { name: "type", value: e.value }})
@@ -228,12 +221,39 @@ const Experiences = ({
         {experiences.target.value.map((experience, index) => {
             return (
               <div className='experience' key={index}>
-                <p>{experience.companieName}</p>
-                <p>{experience.jobName}</p>
-                <p>{FunctionsService.dateFormater(experience.startDate)}</p>
-                <p>{FunctionsService.dateFormater(experience.endDate)}</p>
-                <p>{experience.type}</p>
-                <p className='actualyIn'>{experience.actualyIn ? "j'occupe actuellment le post" : "je n'occupe pas actuellement ce post"}</p>
+                <p className='companieName'>{experience.companieName}</p>
+                {(experience.startDate || experience.endDate) && (
+                  <div className="dates">
+                    {experience.startDate && !(experience.startDate instanceof Date && !isNaN(experience.startDate)) &&(
+                      <p className='date startDate'>Début : <span>{FunctionsService.dateFormater(experience.startDate)}</span></p>
+                    )}
+                    {experience.endDate && !(experience.endDate instanceof Date && !isNaN(experience.endDate)) &&(
+                      <p className='date endDate'>Fin : <span>{FunctionsService.dateFormater(experience.endDate)}</span></p>
+                    )}
+                  </div>
+                )}
+                <p className='jobName'>{experience.jobName}</p>
+
+                {(experience.type && (
+                  <p className='type'>{experience.type}</p>
+                ))}
+                <p className={`actualyIn ${experience.actualyIn ? " green" : "" }`}></p>
+
+                <small className='actualyInSmall'>
+                  {experience.actualyIn ? (
+                    <>
+                      <span>*</span>
+                      <span className='color green'></span>
+                      <span>: Occupe actuellement le post.</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>*</span>
+                      <span className='color red'></span>
+                      <span>: N'occupe plus le post.</span>
+                    </>
+                  ) }
+                </small>
                 
                 <button 
                   type="button"

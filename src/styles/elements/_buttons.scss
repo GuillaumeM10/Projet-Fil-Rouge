@@ -112,7 +112,7 @@ $pictoUp: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1
 
 .btnGreen,
 button[type='submit']{
-  @include cta($green, 20, 10, $white, 14);
+  @include cta($darkGreen, 20, 10, $white, 14);
 }
 
 input[type="file"]{
@@ -133,7 +133,7 @@ input[type="file"]{
   }
   .btnGreen,
   button[type='submit']{
-    @include cta($green, 10, 5, $white, 12);
+    @include cta($darkGreen, 10, 5, $white, 12);
   }
 
   input[type="file"]{

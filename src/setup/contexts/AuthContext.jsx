@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
 
     const handleChange = (e) => {
         let { name, value } = e.target;
+        console.log(name, value);
         
         if([
             "status", 
@@ -38,7 +39,11 @@ const AuthProvider = ({ children }) => {
                 value = cities;
             }
             if(name === "files"){
-                value = e.target.files;
+                if(!e?.target?.files[0]){
+                    value = null;
+                }else{
+                    value = e.target.files;
+                }
             };
             if(
                 name === "cv"

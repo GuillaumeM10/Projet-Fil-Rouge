@@ -3,7 +3,6 @@ import PreviewFiles from '../PreviewFiles/PreviewFiles';
 
 const PostCard = ({ 
   post,
-  index,
   isSinglePage = false
 }) => {
   return (
@@ -13,10 +12,10 @@ const PostCard = ({
           {post.skills || post.cities ? (
             <div className="tags">
               {post.skills?.map((skill, index) => (
-                <span key={index} className="tag">{skill.name}</span>
+                <span key={index} className="tag skill">{skill.name}</span>
               ))}
               {post.cities?.map((city, index) => (
-                <span key={index} className="tag">{city.name}</span>
+                <span key={index} className="tag city">{city.name}</span>
               ))}
             </div>
           ): null}
@@ -39,15 +38,14 @@ const PostCard = ({
               </>
             )}
           </div>
-          <h5>index : {index + 1}</h5>
-          <h5>id : {post.id}</h5>
+
           <h2>{post.title}</h2>
           <p
             dangerouslySetInnerHTML={{__html: post.content}}
           >
           </p>
           {post.uploadFiles?.length > 0 && 
-            <PreviewFiles files={post.uploadFiles} location={true} />
+            <PreviewFiles files={post.uploadFiles} location={true} isSwiper={true} />
           }
 
           {!isSinglePage && (

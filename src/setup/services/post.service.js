@@ -29,6 +29,7 @@ const create = async (post) => {
   formData.append('content', post.content)
 
   if(post.cities) formData.append('cities', JSON.stringify(post.cities))
+  if(post.skills) formData.append('skills', JSON.stringify(post.skills))
 
   if(post.published === true) formData.append('published', "true")
   if(post.published === false) formData.append('published', "false")
@@ -54,6 +55,7 @@ const update = async (id, post) => {
   formData.append('content', post.content)
 
   if(post.cities) formData.append('cities', JSON.stringify(post.cities))
+  if(post.skills) formData.append('skills', JSON.stringify(post.skills))
 
   if(post.published === true) formData.append('published', "true")
   if(post.published === false) formData.append('published', "false")

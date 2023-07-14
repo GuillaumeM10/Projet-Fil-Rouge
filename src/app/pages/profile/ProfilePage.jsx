@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserService from '../../../setup/services/user.service';
-import { Toaster, toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -31,8 +31,8 @@ const ProfilePage = () => {
     <div>
       {user ? (
         <>
-          {user.profilePicture ? (
-            <img src={user.profilePicture.url} alt="profile" />
+          {user.userDetail?.personalPicture?.Location ? (
+            <img src={user.userDetail?.personalPicture?.Location} alt="profile" />
           ): (
             <img width="100" src="/img/default_pp.webp" alt="profile" />
           )}
@@ -43,7 +43,6 @@ const ProfilePage = () => {
       ) : (
         <p>Loading...</p>
       )}
-      <Toaster />
     </div>
   );
 };

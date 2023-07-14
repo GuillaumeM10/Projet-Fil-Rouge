@@ -6,7 +6,9 @@ import FunctionsService from '../../../setup/services/functions.service';
 
 const Filters = ({
   setFilters,
-  setPage
+  setPage,
+  isLoading,
+  endPost
 }) => {
   const [selectedCities, setSelectedCities] = useState([]);
   const [cities, setCities] = useState([]);
@@ -28,9 +30,6 @@ const Filters = ({
     setPage(1);
     setFilters(filters);
   }
-
-
-
 
   useEffect(() => {
     const getCities = async () => {
@@ -116,11 +115,16 @@ const Filters = ({
         </div>
       )}
 
-      <button 
+      {/* submit */}
+      {(skills.length > 0 || cities.length > 0 ) && (
+
+        <button 
         type="submit" 
-        className="btnPrimary"
+        className={`btnPrimary ${isLoading ? 'hidden' : ''}`}
         {...btnState ? {disabled: false} : {disabled: true}}
-      >Rechercher</button>
+        >Rechercher</button>
+
+      )}
       
     </form>
   );

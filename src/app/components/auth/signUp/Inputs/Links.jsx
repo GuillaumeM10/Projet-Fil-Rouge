@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FunctionsService from '../../../../../setup/services/functions.service';
 import Select from 'react-select';
 import LinkCategoriesService from '../../../../../setup/services/linkCategory.service';
+import DefaultInput from './DefaultInput';
 
 const Links = ({
   setLinks,
@@ -24,6 +25,7 @@ const Links = ({
   
     if(
       !currentLink.name
+      || !currentLink.linkCategory
       || (
         links.target.value.find((link) => link.name === currentLink.name)
         && links.target.value.find((link) => link.url === currentLink.url)
@@ -107,8 +109,6 @@ const Links = ({
 
   return (
     <div className='links'>
-      <h3>Liens</h3>
-
       {/* name */}
       <div className="formGroup">
         <label htmlFor="name">Nom</label>
@@ -142,15 +142,12 @@ const Links = ({
       {/* description */}
       <div className="formGroup">
         <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          required
-          onChange={(e) => {
-            FunctionsService.labelDisplay(e)
-            handleChangeLinks(e)
-          }}
+          <DefaultInput 
+            name="description"
+            handleChange={handleChangeLinks}
+            credentials={currentLink?.description}
+            required={false}
+            textarea={true}
           />
       </div>
 
@@ -181,8 +178,8 @@ const Links = ({
         <div className="cards">
         {links.target.value.map((link, index) => {
             return (
-              <div className='experience' key={index}>
-                <a href={link.url} className="row" target='_blank' rel="noreferrer">
+              <div className='link' key={index}>
+                <a href={link.url} className="row button" target='_blank' rel="noreferrer">
                   {link.linkCategory && linkCategories.length > 2 && (() => {
                     let cat = linkCategories.find((linkCategory) => (linkCategory.id === +link.linkCategory));
                     return (
@@ -192,7 +189,7 @@ const Links = ({
                   {link.name}
                 </a>
                 
-                <p>{link.description}</p>
+                <p className='description'>{link.description}</p>
                 
                 
                 <button 

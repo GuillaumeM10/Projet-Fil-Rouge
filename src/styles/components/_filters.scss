@@ -2,25 +2,31 @@
   display: flex;
   gap: 20px;
   margin-bottom: 50px;
-  margin-top: 50px;
-  align-items: end;
+  margin-top: 20px;
+  align-items: flex-end;
+  justify-content: space-between;
 
   label{
     display: none;
   }
-  > div{
+  > .formGroup:not(.formGroup.file){
     width: calc(50% - 10px);
+    max-width: none;
   }
 
   button{
     height: fit-content;
   }
 
+  @media screen and (max-width: $tablette){
+    gap: 2px;
+  }
+
   @media screen and (max-width: $mobile){
     flex-direction: column;
     gap: 10px;
 
-    > div{
+    > .formGroup:not(.formGroup.file){
       width: 100%;
     }
 

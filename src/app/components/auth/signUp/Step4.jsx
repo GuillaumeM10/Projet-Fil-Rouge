@@ -13,7 +13,7 @@ const Step4 = ({ handleChange, credentials}) => {
       </h2>
 
       {/* cv */}
-      <div className="formGroup file">
+      <div className="formGroup file containerCv">
         <input
           type="file"
           name="cv"
@@ -30,6 +30,19 @@ const Step4 = ({ handleChange, credentials}) => {
             e.target.parentNode.querySelector('input').click()
           }}  
         >CV</label>
+
+        {credentials?.userDetail?.cv && (
+          <button 
+            className='btnPrimary'
+            onClick={(e) => {
+              e.preventDefault()
+              handleChange({target: {name: 'cv', files: [null]}})
+            }}
+            >
+            Supprimer
+          </button>
+        )}
+
         <p>
           <small>Formats acceptés : pdf, png, jpg, jpeg</small>
         </p>
@@ -45,7 +58,7 @@ const Step4 = ({ handleChange, credentials}) => {
       </div>
 
       {/* personalPicture */}
-      <div className="formGroup file">
+      <div className="formGroup file containerPp">
         <input
           type="file"
           name="personalPicture"
@@ -62,6 +75,19 @@ const Step4 = ({ handleChange, credentials}) => {
             e.target.parentNode.querySelector('input').click()
           }}
         >Photo de profil</label>
+
+        {credentials?.userDetail?.personalPicture && (
+          <button 
+            className='btnPrimary'
+            onClick={(e) => {
+              e.preventDefault()
+              handleChange({target: {name: 'personalPicture', files: [null]}})
+            }}
+            >
+            Supprimer
+          </button>
+        )}
+
         <p>
           <small>Formats acceptés : png, jpg, jpeg</small>
         </p>
@@ -77,7 +103,7 @@ const Step4 = ({ handleChange, credentials}) => {
       </div>
 
       {/* banner */}
-      <div className="formGroup file">
+      <div className="formGroup file containerBanner">
         <input
           type="file"
           name="banner"
@@ -94,6 +120,19 @@ const Step4 = ({ handleChange, credentials}) => {
             e.target.parentNode.querySelector('input').click()
           }}
         >Bannière</label>
+
+        {credentials?.userDetail?.banner && (
+          <button 
+            className='btnPrimary'
+            onClick={(e) => {
+              e.preventDefault()
+              handleChange({target: {name: 'banner', files: [null]}})
+            }}
+            >
+            Supprimer
+          </button>
+        )}
+
         <p>
           <small>Formats acceptés : png, jpg, jpeg</small>
         </p>
@@ -109,7 +148,7 @@ const Step4 = ({ handleChange, credentials}) => {
       </div>
 
       {/* files */}
-      <div className="formGroup file">
+      <div className="formGroup file containerFiles">
         <input
           type="file"
           name="files"
@@ -127,6 +166,19 @@ const Step4 = ({ handleChange, credentials}) => {
             e.target.parentNode.querySelector('input').click()
           }}
         >Autres fichiers</label>
+
+        {credentials?.userDetail?.files?.length > 0 && (
+          <button 
+            className='btnPrimary'
+            onClick={(e) => {
+              e.preventDefault()
+              handleChange({target: {name: 'files', files: [null]}})
+            }}
+            >
+            Supprimer
+          </button>
+        )}
+
         <p>
           <small>Formats acceptés : pdf, png, jpg, jpeg, mp3, aac, waw, mp4, mkv</small>
         </p>

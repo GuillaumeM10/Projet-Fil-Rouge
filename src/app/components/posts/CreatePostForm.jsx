@@ -5,12 +5,14 @@ import PreviewFiles from '../PreviewFiles/PreviewFiles';
 import FunctionsService from '../../../setup/services/functions.service';
 import axios from 'axios';
 import Select, { components } from 'react-select';
-import { Toaster, toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import SkillService from '../../../setup/services/skill.service';
 import ReCAPTCHA from "react-google-recaptcha";
 import Loading from '../ui/Loading';
 
-const CreatePostForm = ({ setPosts }) => {
+const CreatePostForm = ({ 
+  setPosts
+}) => {
   const [ displayedError, setDisplayedError ] = useState(null);
   const [credentials, setCredentials] = useState({})
   const [countries, setCountries] = useState([]);
@@ -62,6 +64,7 @@ const CreatePostForm = ({ setPosts }) => {
         setCities(result);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error('Error fetching cities:', error);
     }
   };
@@ -128,15 +131,14 @@ const CreatePostForm = ({ setPosts }) => {
   }
 
   // useEffect(() => {
-  //   console.log({skills});
-  // }, [skills])
+  //   console.log(credentials);
+  // }, [credentials])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     if(credentials.files && FunctionsService.filesSizeCheck(credentials.files, setDisplayedError) === false) return
-    
     try {
       const token = await recaptchaRef.current.executeAsync();
       await PostService.create({...credentials, token});
@@ -183,9 +185,68 @@ const CreatePostForm = ({ setPosts }) => {
             FunctionsService.labelDisplay(e)
           }}
         />
-        <small>
+        <small className="maxLength">
           {credentials.content?.length || 0}/500
         </small>
+      </div>
+
+      {/* files */}
+      <div 
+        className="formGroup file"
+      >
+        
+        <input
+          type="file"
+          name="files"
+          multiple
+          placeholder="Image"
+          limit="5"
+          size={10000000}
+          accept="image/png, image/jpeg, video/mp4, video/mov, video/avi, video/mkv, video/wmv, video/flv, video/webm, video/mpeg, audio/mpeg, audio/ogg, audio/wav, audio/wma, audio/aac, audio/flac, audio/mp4, application/pdf"
+          onChange={(e) => {
+            handleChange(e)
+          }}
+        />
+        <label
+          onClick={(e) => {
+            e.target.parentElement.querySelector('input').click()
+          }} 
+          htmlFor="files" 
+        >
+          Fichiers
+        </label>
+
+        {credentials.files && credentials.files.length > 0 && (
+          <PreviewFiles files={credentials.files} isSwiper={true} />
+        )}
+        <small className='maxSize'>
+          Taille maximale : 10 Mo
+        </small>
+        <div className="authorizedFiles">
+          <button
+            type="button"
+            className='btn btnPrimarySmall'
+            onClick={() => setToggleFilesTypes(!toggleFilesTypes)}
+          >
+            Extensions autorisées
+          </button>
+
+          {toggleFilesTypes && (
+            <p 
+              className="extentions"
+              onClick={() => setToggleFilesTypes(!toggleFilesTypes)}
+            >
+              Images : png, jpeg <br />
+              <hr />
+              Vidéos : mp4, mov, avi, mkv, wmv, flv, webm, mpeg <br />
+              <hr />
+              Audios : mpeg, ogg, wav, wma, aac, flac, mp4 <br />
+              <hr />
+              Documents : pdf
+            </p>
+          )}
+        </div>
+        
       </div>
 
       {/* skills */}
@@ -203,7 +264,14 @@ const CreatePostForm = ({ setPosts }) => {
           onInputChange={handleSearchChange}
           styles={FunctionsService.reactSelectCustomStyles()}
           options={
-            searchValue && (!skills.some((skill) => skill.name === searchValue) || skills.length === 0) ? [{ value: searchValue, label: searchValue }] : 
+            (searchValue && skills?.length === 0) ? [{ value: searchValue, label: searchValue }] :
+            (searchValue && skills) ? skills.map((skill, index) => {
+              if(skill.name.includes(searchValue)) {
+                return { value: skill.name, label: skill.name }
+              } else {
+                return { value: searchValue, label: searchValue }
+              }
+            }) :
             skills.map((skill, index) => {
               return { value: skill.name, label: skill.name }
             })
@@ -272,77 +340,26 @@ const CreatePostForm = ({ setPosts }) => {
         </div>
       )}
 
-      {/* files */}
-      <div 
-        className="formGroup file"
-      >
-        
-        <input
-          type="file"
-          name="files"
-          multiple
-          placeholder="Image"
-          limit="5"
-          size={10000000}
-          accept="image/png, image/jpeg, video/mp4, video/mov, video/avi, video/mkv, video/wmv, video/flv, video/webm, video/mpeg, audio/mpeg, audio/ogg, audio/wav, audio/wma, audio/aac, audio/flac, audio/mp4, application/pdf"
-          onChange={(e) => {
-            handleChange(e)
-          }}
-        />
-        <label
-          onClick={(e) => {
-            e.target.parentElement.querySelector('input').click()
-          }} 
-          htmlFor="files" 
-        >
-          Fichiers
-        </label>
-
-        {credentials.files && credentials.files.length > 0 && (
-          <PreviewFiles files={credentials.files} isSwiper={true} />
-        )}
-        <div className="authorizedFiles">
-          <button
-            type="button"
-            className='btn btnPrimarySmall'
-            onClick={() => setToggleFilesTypes(!toggleFilesTypes)}
-          >
-            Extensions autorisées
-          </button>
-
-          {toggleFilesTypes && (
-            <p className="extentions">
-              Images : png, jpeg <br />
-              Vidéos : mp4, mov, avi, mkv, wmv, flv, webm, mpeg <br />
-              Audios : mpeg, ogg, wav, wma, aac, flac, mp4 <br />
-              Documents : pdf
-            </p>
-          )}
-        </div>
-        <p>
-          Taille maximale : 10 Mo
-        </p>
-      </div>
-
       {/* displayOnFeed */}
-      <div
-        className="fHidden"
-        style={{ 
-          display: 'flex', 
-          flexDirection: 'column'
-        }}
-      >
-        <label htmlFor="published">Etre affiché dans le feed (oui par défaut)</label>
-        <input
-          type="checkbox"
-          name="published"
-          placeholder="Je souhaite être visible sur le feed"
-          defaultChecked={true}
-          onChange={(e) => {
-            handleChange(e)
-          }}
-        />
-      </div>
+      <label htmlFor="published" className="checkboxContainer fHidden">
+          <span>
+            Afficher le post dans le feed (oui par défaut)
+          </span>
+
+          <span className="animation">
+            <input
+              type="checkbox"
+              name="published"
+              id='published'
+              placeholder="Je souhaite être visible sur le feed"
+              defaultChecked={true}
+              onChange={(e) => {
+                handleChange(e)
+              }}
+            />
+            <span className="handle"></span>
+          </span>
+      </label>
 
       { displayedError && <div className="error">{ displayedError }</div> }
       
@@ -353,9 +370,7 @@ const CreatePostForm = ({ setPosts }) => {
         hidden={true}
       />
 
-      <button type="submit">Créer</button>
-
-      <Toaster />
+      <button type="submit">Créer le post</button>
     </form>
   );
 };
