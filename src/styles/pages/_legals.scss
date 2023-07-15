@@ -1,0 +1,29 @@
+.legals{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 790px;
+  margin: 0 auto;
+
+  h1{
+      text-align: center;
+      margin: auto;
+      margin-bottom: 40px!important;
+      margin-top: 20px;
+      padding: 20px;
+  }
+
+  @media screen and (max-width: $tablette){
+      h1{
+          margin-top: 50px;
+      }
+  }
+
+  @media screen and (max-width: $mobile){
+      align-items: center;
+
+      h2{
+          text-align: center;
+      }        
+  }
+}

@@ -3,13 +3,14 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 100px;
+  padding-top: 20px;
 
   aside{
     display: flex;
     flex-direction: column;
     max-width: 300px;
     position: sticky;
-    top: 50px;
+    top: 100px;
   }
 
   > .content{
@@ -50,6 +51,10 @@
         height: fit-content;
       }
     }
+
+    @media screen and (max-width: $tablette) {
+      width: calc(100% - 220px);
+    }
   }
 
   .userPosts{
@@ -62,7 +67,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       width: 100%;
-      gap: 10px;
+      gap: 10px 0;
       margin-top: 30px;
     }
 
@@ -150,41 +155,110 @@
   
 
     .userPost{
-      width: calc(100% - 20px);
+      // width: calc(100% - 20px);
+      width: 100%;
       height: auto;
       min-height: 100px;
       position: relative;
-      border: 2px solid $primary;
-      border-radius: 5px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      background-color: $white;
-
-      
 
       .content{
-        width: 100%;
-        padding: 10px;
-        
         &.updating{
-          border: solid 1px $primary;
+          border: solid 2px $primary;
+          border-radius: 5px;
+        }
+      }
+
+      .tags{
+        right: 50px;
+
+        .tag{
+          font-size: 8px;
+
+          &.updating{
+            user-select: all;
+            pointer-events: all;
+            cursor: pointer;
+          }
+
+          &:after{
+            content: "x";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            color: $white;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 8px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.2s ease-out;
+          }
+
+          &.updating:hover:after{
+            opacity: 1;
+          }
         }
       }
     }
 
-    button.updatePost{
-      background-color: transparent;
-      border: none;
-      color: $black;
-      font-size: 1.5rem;
-      cursor: pointer;
-    
-      &:hover{
-        color: $primary;
+    .editBtns{
+      display: flex;
+      align-items: center;
+      flex-grow: 100%;
+      align-items: stretch;
+      border-top: solid 1px $primary;
+
+      button{
+        width: 50%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 15px 0px;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        color: white;
+        margin-left: auto;
+        border: none;
+        height: auto;
+        transition: all 0.2s ease-in-out;
+
+        svg{
+          transition: all 0.2s ease-out;
+        }
+      }
+
+      button.updatePost{
+        background: $green;
+
+        svg{
+          transform: rotate(45deg);
+        }
+        &:hover{
+          background: darken($color: $green, $amount: 15);
+
+          svg{
+            transform: rotate(30deg);
+          }
+        }
+      }
+      button.cancelUpdatePost{
+        background: $primary;
+        
+        &:hover{
+          background: darken($color: $primary, $amount: 15);
+
+          svg{
+            transform: rotate(-30deg);
+          }
+        }
       }
     }
 
@@ -199,27 +273,12 @@
         color: $primary;
       }
     }
-
-    button.cancelUpdatePost{
-      background-color: transparent;
-      border: none;
-      color: $black;
-      font-size: 1.5rem;
-      cursor: pointer;
-
-      &:hover{
-        color: $primary;
-      }
-    }
-
   }
 
   .formGroup:not(.formGroup.file),
   .formGroup{
     max-width: 100%;
   }
-
-  
   
   .loadMore{
     display: flex;
@@ -245,7 +304,7 @@
       flex-direction: column;
       gap: 40px;
     }
-    .tabs.buttons{
+    > .tabs.buttons{
       position: sticky;
       top: 0px;
       background: $background;
@@ -262,7 +321,6 @@
 
     > .content{
       flex-shrink: 1000;
-      flex-basis: content;
     }
 
     .editUser .tabs.buttons{
@@ -293,6 +351,10 @@
         border-left: solid 2px;
         border-color: $green;
         padding: 10px 5px;
+
+        &:hover{
+          background-color: $green;
+        }
 
         &.active{
           background-color: $green;

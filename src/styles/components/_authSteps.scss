@@ -272,6 +272,49 @@
       }
     }
 
+    .link{
+      width: 100%;
+      padding-bottom: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      border: solid 1.5px $primary;
+      transition: all 0.2s ease;
+
+      &:hover{
+        border: solid 1.5px $green;
+
+        svg *{
+          fill: $green;
+          stroke: $green;
+          fill: $green;
+        }
+      }
+
+      .moreInfo,
+      .removeButton{
+        position: relative;
+        top: auto;
+        left: auto;
+      }
+
+      a{
+        flex-basis: 100%;
+        margin-right: auto;
+        align-items: center;
+        border: none;
+
+        &:hover{
+          border: none;
+        }
+      }
+      .description{
+        left: auto!important;
+        right: 0;
+      }
+    }
+
     .removeButton{
       position: absolute;
       top: 5px;

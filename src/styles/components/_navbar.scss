@@ -1,13 +1,18 @@
 nav.mainNav{
+  background-color: $primary;
+  position: fixed;
+  z-index: 10000;
+  box-shadow: inset 0px 0px 0px 1px rgba($color: $black, $alpha: 0.1);
+
+}
+nav.mainNav > div{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 15px;
   padding-bottom: 15px; 
-  box-shadow: inset 0px 0px 0px 1px rgba($color: $black, $alpha: 0.1);
   background-color: $primary;
   gap: 20px;
-  z-index: 10000;
 
   .logo{
     width: 246px;
@@ -130,8 +135,6 @@ nav.mainNav{
     }
   }
   @media screen and (max-width: $tablette) {
-    width: calc(100% - 160px);
-    position: fixed;
     flex-wrap: wrap;
     gap: 0;
 
@@ -167,9 +170,7 @@ nav.mainNav{
       flex-wrap: wrap;
     }
   }
-  @media screen and (max-width: $mobile) {
-    width: calc(100% - 40px);
-  }
+
   @media screen and (max-width: 392px) {
     .list{
       flex-direction: column;

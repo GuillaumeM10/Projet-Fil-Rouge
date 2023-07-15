@@ -1,17 +1,37 @@
 $desktop: 1440px;
 $tablette: 1024px;
 $mobile: 768px;
+$maxWidth: 1200px;
 
-.defaultPaddingX{padding-left:120px; padding-right:120px}
+.defaultPaddingX{
+  padding-left:120px; 
+  padding-right:120px;
+  width: calc(100% - 240px);
+
+  > * {
+    max-width: $maxWidth;
+    margin: auto;
+  }
+}
 .defaultPaddingY{padding-top:80px; padding-bottom:80px}
 
 @media screen and (max-width: $tablette){
-  .defaultPaddingX{padding-left:80px; padding-right:80px}
+  .defaultPaddingX{
+    padding-left:80px; 
+    padding-right:80px;
+    width: calc(100% - 160px);
+  }
+
   .defaultPaddingY{padding-top:54px; padding-bottom:40px}
 }
 
 @media screen and (max-width: $mobile){
-  .defaultPaddingX{padding-left:20px; padding-right:20px}
+  .defaultPaddingX{
+    padding-left:20px; 
+    padding-right:20px;
+    width: calc(100% - 40px);
+  }
+
   .defaultPaddingY{padding-top:54px; padding-bottom:20px}
 }
 

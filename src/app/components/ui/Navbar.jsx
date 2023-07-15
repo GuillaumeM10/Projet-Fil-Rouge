@@ -28,66 +28,71 @@ const Navbar = () => {
 
     return ( 
         <nav className="mainNav defaultPaddingX">
-            <Link 
-                to="/" 
-                className="logo"
-                onClick={() => setBurgerActive(false)}
+            <div 
+                className="navContainer"
             >
-                <img src="/img/logo.svg" alt="" />
-            </Link>
 
-            <button 
-                type='button'
-                className={`burger ${burgerActive ? "active" : ""}`}
-                onClick={() => {
-                    const oldBurgerActive = burgerActive;
-                    setBurgerActive(!oldBurgerActive)
-                }}
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+                <Link 
+                    to="/" 
+                    className="logo"
+                    onClick={() => setBurgerActive(false)}
+                >
+                    <img src="/img/logo.svg" alt="" />
+                </Link>
 
-            <SearchBar burgerActive={burgerActive} />
-            
-            <ul className={`list ${burgerActive ? "active" : ""}`}>
-                {user.email && 
-                    <li className="account">
-                        <Link 
-                            to="/account"
-                            onClick={() => setBurgerActive(false)}
-                        >
-                            Mon compte
-                        </Link>
-                        {newUser.userDetail?.personalPicture ? (
-                            <img className='pp' height="30 "width="30" src={newUser.userDetail?.personalPicture?.Location} alt="profile" />
-                        ): (
-                            <img className='pp' height="30 "width="30" src="/img/default_pp.webp" alt="profile" />
-                        )}
-                    </li>
-                }
-                {!user.email && 
-                    <>
-                        <li>
+                <button 
+                    type='button'
+                    className={`burger ${burgerActive ? "active" : ""}`}
+                    onClick={() => {
+                        const oldBurgerActive = burgerActive;
+                        setBurgerActive(!oldBurgerActive)
+                    }}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <SearchBar burgerActive={burgerActive} />
+                
+                <ul className={`list ${burgerActive ? "active" : ""}`}>
+                    {user.email && 
+                        <li className="account">
                             <Link 
-                                to="/auth/signin"
+                                to="/account"
                                 onClick={() => setBurgerActive(false)}
                             >
-                                Connexion
+                                Mon compte
                             </Link>
+                            {newUser.userDetail?.personalPicture ? (
+                                <img className='pp' height="30 "width="30" src={newUser.userDetail?.personalPicture?.Location} alt="profile" />
+                            ): (
+                                <img className='pp' height="30 "width="30" src="/img/default_pp.webp" alt="profile" />
+                            )}
                         </li>
-                        <li>
-                            <Link 
-                                to="/auth/signup"
-                                onClick={() => setBurgerActive(false)}
-                            >
-                                Inscription
-                            </Link>
-                        </li>
-                    </>
-                }
-            </ul>
+                    }
+                    {!user.email && 
+                        <>
+                            <li>
+                                <Link 
+                                    to="/auth/signin"
+                                    onClick={() => setBurgerActive(false)}
+                                >
+                                    Connexion
+                                </Link>
+                            </li>
+                            <li>
+                                <Link 
+                                    to="/auth/signup"
+                                    onClick={() => setBurgerActive(false)}
+                                >
+                                    Inscription
+                                </Link>
+                            </li>
+                        </>
+                    }
+                </ul>
+            </div>
         </nav>
     );
 }

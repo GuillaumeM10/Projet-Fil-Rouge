@@ -18,7 +18,7 @@ const MainLayout = ({children}) => {
         >
             <Navbar />
 
-            <div>
+            <div className="defaultPaddingX defaultPaddingY">
                 {children}
             </div>
 

@@ -2,7 +2,7 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
 
 .searchBarContainer{
   width: 100%;
-  max-width: 356px;
+  max-width: 420px;
   position: relative;
   max-height: 37px;
   
@@ -87,7 +87,7 @@ $crossDark: "data:image/svg+xml,%3Csvg id='cross-blue' xmlns='http://www.w3.org/
       display: inline-table;
       list-style: none;
       flex-direction: column;
-      overflow-y: scroll;
+      overflow-y: auto;
       max-height: 69vh;
       margin: 0;
       padding: 0;

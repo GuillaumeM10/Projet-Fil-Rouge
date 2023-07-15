@@ -157,7 +157,7 @@ const Skills = ({
                       className="moreInfoButton"
                       onClick={(e) => {
                         e.preventDefault();
-                        const moreInfo = e.target.parentElement.parentElement.querySelector(`.description`);
+                        const moreInfo = e.currentTarget.parentElement.parentElement.querySelector(`.description`);
                         if(moreInfo.classList.contains('active')){
                           moreInfo.classList.remove('active');
                         }else{

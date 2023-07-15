@@ -14,10 +14,10 @@ const update = async (id, userDetail) => {
   if(userDetail.school) formData.append('school', userDetail.school)
 
   formData.append('profilComplet', "true")
-  formData.append('displayedOnFeed', "true")
+  // formData.append('displayedOnFeed', "true")
 
-  // if(userDetail.displayedOnFeed === true) formData.append('displayedOnFeed', "true")
-  // if(userDetail.displayedOnFeed === false) formData.append('displayedOnFeed', "false")
+  if(userDetail.displayedOnFeed === true) formData.append('displayedOnFeed', "true")
+  if(userDetail.displayedOnFeed === false) formData.append('displayedOnFeed', "false")
 
   // if(userDetail.profilComplet === true) formData.append('profilComplet', "true")
   // if(userDetail.profilComplet === false) formData.append('profilComplet', "false")

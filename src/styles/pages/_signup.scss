@@ -48,9 +48,9 @@
     background-color: $background;
     padding: 50px;
     border-radius: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
     @media screen and (max-width: $tablette){
-      margin-top: 53px;
+      margin-top: 46px;
       height: calc(100% - 153px);
     }
   }

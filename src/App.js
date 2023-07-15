@@ -42,7 +42,7 @@ function App() {
     isAPIOnline ? (
         <BrowserRouter>
           <MainLayout>
-          <MainRouter />
+            <MainRouter />
           </MainLayout>
         </BrowserRouter>
       ) : 

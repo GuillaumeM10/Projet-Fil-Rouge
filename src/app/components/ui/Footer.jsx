@@ -4,7 +4,7 @@ import { UserContext } from '../../../setup/contexts/UserContext';
 const Footer = () => {
   const { user } = useContext(UserContext)
   return (
-    <footer>
+    <footer className='defaultPaddingX'>
       <div className="">
         <div className="footerContent">
           <div className="footerContent__left">
@@ -74,10 +74,6 @@ const Footer = () => {
           <p>© 2021 - Tous droits réservés</p>
         </div>
       </div>
-
-      <div className="footerBackground"></div>
-
-      <div className="footerBackgroundMobile"></div>
 
     </footer>
   );

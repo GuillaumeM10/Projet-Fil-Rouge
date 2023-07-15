@@ -26,6 +26,7 @@ const Links = ({
     if(
       !currentLink.name
       || !currentLink.linkCategory
+      || !currentLink.url
       || (
         links.target.value.find((link) => link.name === currentLink.name)
         && links.target.value.find((link) => link.url === currentLink.url)
@@ -116,7 +117,6 @@ const Links = ({
           type="text"
           name="name"
           placeholder="Nom"
-          required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeLinks(e)
@@ -131,7 +131,6 @@ const Links = ({
           type="text"
           name="url"
           placeholder="Lien"
-          required
           onChange={(e) => {
             FunctionsService.labelDisplay(e)
             handleChangeLinks(e)
@@ -179,17 +178,35 @@ const Links = ({
         {links.target.value.map((link, index) => {
             return (
               <div className='link' key={index}>
-                <a href={link.url} className="row button" target='_blank' rel="noreferrer">
-                  {link.linkCategory && linkCategories.length > 2 && (() => {
-                    let cat = linkCategories.find((linkCategory) => (linkCategory.id === +link.linkCategory));
-                    return (
-                      <div dangerouslySetInnerHTML={{__html: cat.icon}}></div>
-                    );
-                  })()}
+                <a href={link.link} className="row button" target='_blank' rel="noreferrer">
+                  <div div dangerouslySetInnerHTML={{__html: link.linkCategory.icon}}></div>
                   {link.name}
                 </a>
                 
-                <p className='description'>{link.description}</p>
+                {link.description && (
+                  <div className="moreInfo">
+                    <button
+                      type="button"
+                      className="moreInfoButton"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const moreInfo = e.currentTarget.parentElement.parentElement.querySelector(`.description`);
+                        if(moreInfo.classList.contains('active')){
+                          moreInfo.classList.remove('active');
+                        }else{
+                          moreInfo.classList.add('active');
+                        }
+                      }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" version="1.1" id="Capa_1" width="800px" height="800px" viewBox="0 0 31.357 31.357" >
+                        <g>
+                          <path d="M15.255,0c5.424,0,10.764,2.498,10.764,8.473c0,5.51-6.314,7.629-7.67,9.62c-1.018,1.481-0.678,3.562-3.475,3.562   c-1.822,0-2.712-1.482-2.712-2.838c0-5.046,7.414-6.188,7.414-10.343c0-2.287-1.522-3.643-4.066-3.643   c-5.424,0-3.306,5.592-7.414,5.592c-1.483,0-2.756-0.89-2.756-2.584C5.339,3.683,10.084,0,15.255,0z M15.044,24.406   c1.904,0,3.475,1.566,3.475,3.476c0,1.91-1.568,3.476-3.475,3.476c-1.907,0-3.476-1.564-3.476-3.476   C11.568,25.973,13.137,24.406,15.044,24.406z"/>
+                        </g>
+                      </svg>
+                    </button>
+                    <p className='description'>{link.description}</p>
+                  </div>
+                )}
                 
                 
                 <button 

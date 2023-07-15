@@ -72,7 +72,7 @@ const AccountPage = () => {
 
 
   return ( 
-      <div className="accountPage defaultPaddingX defaultPaddingY">
+      <div className="accountPage">
           
 
           <aside className="tabs buttons sidebar">

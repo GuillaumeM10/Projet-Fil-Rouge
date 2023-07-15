@@ -89,7 +89,7 @@ const HomePage = () => {
   }, [modale]);
 
   return (
-    <div className="homePage defaultPaddingX defaultPaddingY">
+    <div className="homePage">
       <h1 style={{ display: "none" }}>Home page</h1>
 
       {user?.id && (

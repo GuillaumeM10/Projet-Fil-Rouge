@@ -93,7 +93,6 @@ const UserForm = ({
             const token = await recaptchaRef.current.executeAsync();
             await AuthService.signup({...newCredentials, token}).then(async (response) => {
               //login
-              console.log('login in');
               const { accessToken } = await AuthService.signin({'email': credentials.email, 'password': credentials.password});
               TokenService.setTokenInLocalStorage(accessToken);
               const user = TokenService.getUserInToken(accessToken);
