@@ -241,3 +241,78 @@ h1{
     }
 }
 
+.forget-password,
+.reset-password{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+
+    .bg{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+
+        .player{
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(4);
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    > div{
+        // height: 100vh;
+        z-index: 2;
+        position: relative;
+
+        .formContainer{
+            background-color: rgba($color: $white, $alpha: .9);
+            padding: 20px;
+            border: solid 2px $primary;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
+            width: fit-content;
+            margin-top: 150px;
+
+            form{
+                margin-top: 20px;
+            }
+            .formGroup{
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
+
+            input{
+                border: solid 1px $primary!important;
+                background: white!important;
+                color: $primary!important;
+                width: calc(100% - 40px)!important;
+
+                &::placeholder{
+                    color: $primary!important;
+                }
+            }
+
+            button[type="submit"]{
+                width: 100%;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    .defaultPaddingX.defaultPaddingY{
+        height: 70vh;
+    }
+    footer{
+        z-index: 2;
+    }
+}
+

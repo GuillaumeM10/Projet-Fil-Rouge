@@ -34,10 +34,6 @@ function App() {
     // eslint-disable-next-line
   }, [])
 
-  // useEffect(() => {
-  //   console.log(isAPIOnline);
-  // }, [isAPIOnline])
-
   return (
     isAPIOnline ? (
         <BrowserRouter>
@@ -61,7 +57,8 @@ function App() {
         className='btnPrimary'
       >
         Recharger la page
-      </button></div>)
+      </button>
+    </div>)
   );
 }
 

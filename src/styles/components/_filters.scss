@@ -18,6 +18,24 @@
     height: fit-content;
   }
 
+  @media screen and (max-width: 1232px) {
+    flex-wrap: wrap;
+
+    button[type="submit"]{
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1100px) {
+    gap: 10px;
+
+    > .formGroup:not(.formGroup.file){
+      width: calc(100% - 10px);
+      margin: auto;
+    }
+  }
+
+
   @media screen and (max-width: $tablette){
     gap: 2px;
   }

@@ -8,8 +8,9 @@ const MainLayout = ({children}) => {
     const location = useLocation();
 
     useEffect(() => {
-        const path = location.pathname.split("/");
-        setPage(path[path.length - 1]);
+        let path = location.pathname.split("/");
+        path = path.join(" ");
+        setPage(path);
     }, [location]);
 
     return ( 

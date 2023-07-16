@@ -4,6 +4,7 @@ import PostList from "../components/posts/PostList";
 import PostService from "../../setup/services/post.service";
 import { UserContext } from "../../setup/contexts/UserContext";
 import CreatePostForm from "../components/posts/CreatePostForm";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [endPost, setEndPost] = useState(false);
@@ -92,6 +93,8 @@ const HomePage = () => {
     <div className="homePage">
       <h1 style={{ display: "none" }}>Home page</h1>
 
+      <div className="content">
+
       {user?.id && (
         <>
           <button
@@ -133,6 +136,48 @@ const HomePage = () => {
         endPost={endPost}
         isLoading={isLoading}
       />
+      </div>
+
+      <aside>
+        <h2 className="asideTitle">
+          <span className="text">Nos articles</span>
+          <span className="hover-bar hover-1"></span>
+          <span className="hover-bar hover-2"></span>
+          <span className="hover-bar hover-3"></span>
+          <span className="hover-bar hover-4"></span>
+        </h2>
+
+        <div className="articles">
+          <div className="article">
+            <h3>Article 1</h3>
+            <p>
+              Rédiger un post efficace pour trouver le stage idéal. Mettez en avant vos compétences et suscitez l'intérêt des recruteurs.
+            </p>
+            <Link
+              to="/les-etapes-essentielles-pour-rediger-un-post-efficace-et-trouver-un-stage"
+              className="readMore"
+            >
+              Lire la suite
+            </Link>
+          </div>
+
+          <div className="article">
+            <h3>Article 2</h3>
+            <p>
+              Réussir votre entretien pro. Faites des recherches, mettez en valeur vos compétences, montrez votre motivation. Soyez pro et remerciez après l'entretien.
+            </p>
+            <Link
+              to="/les-cles-pour-reussir-un-entretien-avec-succes"
+              className="readMore"
+            >
+              Lire la suite
+            </Link>
+          </div>
+        </div>
+
+
+      </aside>
+
     </div>
   );
 }

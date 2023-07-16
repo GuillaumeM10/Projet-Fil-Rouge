@@ -10,6 +10,8 @@ import ProfilePage from '../pages/profile/ProfilePage';
 import AccountPage from '../pages/user/AccountPage';
 import ProtectedRoute from './ProtectedRoute';
 import Legals from '../pages/Legals';
+import ArticleOne from '../pages/ArticleOne';
+import ArticleTwo from '../pages/ArticleTwo';
 
 const MainRouter = () => {
   const location = useLocation();
@@ -30,6 +32,12 @@ const MainRouter = () => {
 
       {/* Legals */}
       <Route path="/mentions-legales" element={<Legals />} />
+
+      {/* Article One */}
+      <Route path="/les-etapes-essentielles-pour-rediger-un-post-efficace-et-trouver-un-stage" element={<ArticleOne />} />
+
+      {/* Article Two */}
+      <Route path="/les-cles-pour-reussir-un-entretien-avec-succes" element={<ArticleTwo />} />
 
       <Route path="/account" element={
         <ProtectedRoute to="/auth/signin" bool={false} >
