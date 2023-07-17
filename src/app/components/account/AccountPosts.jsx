@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PostService from '../../../setup/services/post.service';
 import PreviewFiles from '../PreviewFiles/PreviewFiles';
+import { Link } from "react-router-dom";
 import { toast } from 'react-hot-toast';
 
 const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
@@ -126,7 +127,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                   {/* AUTHOR */}
                   <div className="author">
                     {post.author.userDetail?.displayedOnFeed && post.author.userDetail?.profilComplet ? (
-                      <a href={`/profile/${post.author.id}`}>
+                      <Link to={`/profile/${post.author.id}`}>
                         <img src={post.author?.userDetail?.personalPicture?.Location ? post.author.userDetail.personalPicture.Location : '/img/profil.svg'} alt={post.author?.firstName} className='pp' />
                         <div className="names">
                           <h4 className='name'>{post.author.firstName} {post.author.lastName}</h4>
@@ -134,7 +135,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                               {new Date(post.createdAt).toLocaleDateString()}
                           </h4>
                         </div>
-                      </a>
+                      </Link>
                     ): (
                       <>
                         <img src={post.author?.userDetail?.personalPicture?.Location ? post.author.userDetail.personalPicture.Location : '/img/profil.svg'} alt={post.author?.firstName} className='pp' />
@@ -246,7 +247,7 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
 
                         {!isUpdating && menu.state && menu.id === post.id && (
                           <>
-                            <a href={'/posts/' + post.id}>Voir le post</a>
+                            <Link to={'/posts/' + post.id}>Voir le post</Link>
                             <button
                               type='button'
                               onClick={ (e) => { 
@@ -297,16 +298,16 @@ const AccountPosts = ({ setPosts, userPosts, setPage, page, noMorePosts }) => {
                       </svg>
                     </button>
 
-                      <a 
+                      <Link
                         className='seeMore' 
-                        href={'/posts/' + post.id}
+                        to={'/posts/' + post.id}
                       >
                         Voir le post
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
                           <path d="m18.707 12.707-3 3a1 1 0 0 1-1.414-1.414L15.586 13H6a1 1 0 0 1 0-2h9.586l-1.293-1.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414z" style={{fill:"#fff"}} data-name="Right"/>
                         </svg>
-                      </a>
+                      </Li>
                   </div>
                 </div>
               ))}

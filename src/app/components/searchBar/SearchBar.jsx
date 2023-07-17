@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import UserService from '../../../setup/services/user.service';
 import PostService from '../../../setup/services/post.service';
 import Loading from '../ui/Loading';
+import { Link } from "react-router-dom";
 
 const SearchBar = ({ burgerActive }) => {
   const [search, setSearch] = useState("");
@@ -124,25 +125,25 @@ const SearchBar = ({ burgerActive }) => {
               <li key={item.id}>
                 {type === "posts" && item.published === true ? (
 
-                  <a href={`/posts/${item.id}`}>
+                  <Link to={`/posts/${item.id}`}>
                     {item.content && (() => {
                       const regex = /(<([^>]+)>)/ig;
                       let result = item.content.replace(regex, ' ');
                       if(result.length > 25) result = result.slice(0, 25) + "...";
                       return <>{result}</>;
                     })()}
-                  </a>
+                  </Link>
 
                 ) : item.userDetail?.profilComplet === true && item.userDetail?.displayedOnFeed === true && (
 
-                  <a href={`/profile/${item.id}`}>
+                  <Link to={`/profile/${item.id}`}>
                     {item.userDetail?.profilePicture?.Location ? (
                       <img src={item.userDetail.profilePicture.Location} alt="" />
                     ): (
                       <img src="/img/profil.svg" alt="" />
                     )}
                     {item.firstName} {item.lastName}
-                  </a>
+                  </Link>
 
                 )}
               </li>

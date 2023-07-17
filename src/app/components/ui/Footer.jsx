@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../setup/contexts/UserContext';
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { user } = useContext(UserContext)
@@ -9,9 +10,9 @@ const Footer = () => {
         <div className="footerContent">
           <div className="footerContent__left">
             <div className="footerContent__left__logo">
-              <a href="/">
+              <Link to="/">
                 <img src="/img/logo.svg" alt="" />
-              </a>
+              </Link>
             </div>
             <div className="footerContent__left__text">
               <p>
@@ -25,21 +26,21 @@ const Footer = () => {
               <h3>Liens utiles</h3>
               <ul>
                 <li>
-                  <a href="/">Accueil</a>
+                  <Link to="/">Accueil</Link>
                 </li>
                 {user.id && (
                   <li>
-                    <a href="/account">Mon compte</a>
+                    <Link to="/account">Mon compte</Link>
                   </li>
                 )}
                 {/* <li>
-                  <a href="/a-propos">A propos</a>
+                  <Link to="/a-propos">A propos</Link>
                 </li> */}
                 {/* <li>
-                  <a href="/contact">Contact</a>
+                  <Link to="/contact">Contact</Link>
                 </li> */}
                 <li>
-                  <a href="/mentions-legales">Mentions légales</a>
+                  <Link to="/mentions-legales">Mentions légales</Link>
                 </li>
               </ul>
             </div>
