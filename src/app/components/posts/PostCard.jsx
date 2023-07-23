@@ -40,8 +40,10 @@ const PostCard = ({
               <>
                 <img src={post.author?.userDetail?.personalPicture?.Location ? post.author.userDetail.personalPicture.Location : '/img/profil.svg'} alt={post.author?.firstName} className='pp' />
                 <div className="names">
-                  <h4>{post.author.firstName}</h4>
-                  <h4>{post.author.lastName}</h4>
+                  <h4 className='name'>{post.author.firstName} {post.author.lastName}</h4>
+                  <h4 className='date'>
+                      {new Date(post.createdAt).toLocaleDateString()}
+                  </h4>
                 </div>
               </>
             )}
