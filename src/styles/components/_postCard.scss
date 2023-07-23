@@ -44,6 +44,14 @@
         border: solid 1px $primary;
       }
     }
+
+    @media screen and (max-width: $mobile) {
+      justify-content: flex-start;
+      max-width: calc(100% - 30px);
+      position: initial;
+      padding: 0px 20px 12px 20px;
+      order: 1;
+    }
   }
 
   .author,
@@ -190,6 +198,10 @@
           transform: rotate(-30deg);
         }
       }
+    }
+
+    @media screen and (max-width: $mobile) {
+      order: 1;
     }
   }
 

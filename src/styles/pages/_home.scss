@@ -107,7 +107,7 @@
     }
   }
 
-  .content{
+  > .content{
     width: calc(100% - 300px);
   }
 
@@ -260,7 +260,7 @@
       margin-left: 10px;
     }
   
-    .content{
+    > .content{
       width: calc(100% - 240px);
     }
   }
@@ -269,7 +269,7 @@
     flex-direction: column-reverse;
     padding-top: 40px;
 
-    .content{
+    > .content{
       width: 100%;
     }
 
