@@ -107,6 +107,10 @@
     padding: 20px 0 10px 0;
     margin-top: 10px;
     background: #ffe1e1;
+
+    @media screen and (max-width: $mobile) {
+      order: 1;
+    }
   }
   .swiper-slide{
         
